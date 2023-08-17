@@ -1,0 +1,59 @@
+@import '../../common/sass/functions';
+
+.navigation {
+  height: 80px;
+  width: 100%;
+  @include theme() {
+    background: theme-get('nav-gradient');
+    border-bottom: 1px solid theme-get('nav-border');
+    box-shadow: theme-get('shadow');
+    color: theme-get('nav-text-color');
+    fill: theme-get('nav-icons-color');
+  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6.25%;
+}
+
+.header-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+
+  h1 {
+    font-size: 32px;
+    user-select: none; // chrome and Opera
+    -moz-user-select: none; // Firefox
+    -webkit-text-select: none; // IOS Safari
+    -webkit-user-select: none; // Safari
+  }
+
+  * {
+    cursor: pointer;
+  }
+}
+
+.header-icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  svg:nth-of-type(1) {
+    width: 38.7px;
+    height: 46.28px;
+  }
+
+  svg:nth-of-type(2) {
+    width: auto;
+    height: 55px;
+    margin-bottom: 7px;
+    fill: unset;
+  }
+
+  svg:nth-of-type(3) {
+    width: auto;
+    height: 62px;
+    margin-bottom: 2px;
+  }
+}

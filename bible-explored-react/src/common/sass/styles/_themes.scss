@@ -4,11 +4,17 @@ $themes: (
   light: (
     'bg-color': $primary-light,
     'nav-gradient': $gradient,
-    'nav-text-color': $primary-dark
+    'nav-text-color': $primary-dark,
+    'nav-icons-color': $primary-dark,
+    'nav-border': $primary-midtone,
+    'shadow': $shadow
   ),
   dark: (
     'bg-color': $primary-dark,
     'nav-gradient': $gradient,
-    'nav-text-color': $primary-light
+    'nav-text-color': $primary-dark,
+    'nav-icons-color': $primary-dark,
+    'nav-border': $primary-midtone,
+    'shadow': $shadow
   )
 )
