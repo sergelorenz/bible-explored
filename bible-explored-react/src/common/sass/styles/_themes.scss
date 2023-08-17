@@ -1,0 +1,14 @@
+@import './colors';
+
+$themes: (
+  light: (
+    'bg-color': $primary-light,
+    'nav-gradient': $gradient,
+    'nav-text-color': $primary-dark
+  ),
+  dark: (
+    'bg-color': $primary-dark,
+    'nav-gradient': $gradient,
+    'nav-text-color': $primary-light
+  )
+)

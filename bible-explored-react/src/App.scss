@@ -1,0 +1,26 @@
+@import './common/sass/functions';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+
+  #root {
+    height: 100%;
+  }
+}
+
+.App {
+  height: 100%;
+}
+
+.parent {
+  height: 100%;
+  width: 100%;
+  @include theme() {
+    background-color: theme-get('bg-color');
+  }
+}
