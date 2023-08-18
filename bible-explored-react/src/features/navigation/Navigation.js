@@ -4,6 +4,8 @@ import { ReactComponent as BibleIcon } from '../../res/icons/bible-icon.svg';
 import { ReactComponent as IdeaIcon } from '../../res/icons/idea-icon.svg';
 import { ReactComponent as SideBySideIcon } from '../../res/icons/compare-svgrepo-com.svg';
 
+import Toggler from '../../common/sass/components/toggler/Toggler';
+
 import './Navigation.scss';
 
 function Navigation() {
@@ -17,7 +19,10 @@ function Navigation() {
           <SideBySideIcon />
         </div>
       </div>
-      <div className='theme-toggler'>Theme toggler</div>
+      <Toggler 
+        className='theme-toggler' 
+        label={<p>Switch to <span>Dark Mode.</span></p>}
+      />
     </div>
   )
 }
