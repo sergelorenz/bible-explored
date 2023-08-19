@@ -14,6 +14,31 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 6.25%;
+
+  .theme-toggler {
+    & > p {
+      font-size: 20px;
+      font-weight: 700;
+
+      & > span {
+        text-decoration: underline;
+      }
+    }
+
+    .toggler-track {
+      @include theme() {
+        background-color: theme-get('toggler-track');
+        border: 2px solid theme-get('toggler-border');
+      }
+    }
+
+    .toggler-thumb {
+      @include theme() {
+        background-color: theme-get('toggler-thumb');
+        border: 2px solid theme-get('toggler-border');
+      }
+    }
+  }
 }
 
 .header-links {

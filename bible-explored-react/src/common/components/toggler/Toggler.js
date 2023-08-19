@@ -9,7 +9,7 @@ function Toggler({label, className, onToggleValue, defaultValue=true}) {
 
   const handleTogglerClick = _ => {
     setValue(!value);
-    if (onToggleValue) onToggleValue(value);
+    if (onToggleValue) onToggleValue();
   }
 
   return (

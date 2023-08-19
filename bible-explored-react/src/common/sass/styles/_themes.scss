@@ -7,7 +7,10 @@ $themes: (
     'nav-text-color': $primary-dark,
     'nav-icons-color': $primary-dark,
     'nav-border': $primary-midtone,
-    'shadow': $shadow
+    'shadow': $shadow,
+    'toggler-thumb': $accent,
+    'toggler-track': $primary-light,
+    'toggler-border': $primary-dark
   ),
   dark: (
     'bg-color': $primary-dark,
@@ -15,6 +18,9 @@ $themes: (
     'nav-text-color': $primary-dark,
     'nav-icons-color': $primary-dark,
     'nav-border': $primary-midtone,
-    'shadow': $shadow
+    'shadow': $shadow,
+    'toggler-thumb': $accent,
+    'toggler-track': $primary-dark,
+    'toggler-border': $primary-dark
   )
 )
