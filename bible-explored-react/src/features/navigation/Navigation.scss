@@ -1,7 +1,8 @@
 @import '../../common/sass/functions';
+@import '../../common/sass/constants';
 
 .navigation {
-  height: 80px;
+  height: $nav-height;
   width: 100%;
   @include theme() {
     background: theme-get('nav-gradient');
@@ -14,6 +15,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 6.25%;
+  position: sticky;
+  top: 0px;
 
   .theme-toggler {
     & > p {

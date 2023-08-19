@@ -15,7 +15,7 @@ function Navigation() {
   const theme = useSelector(state => state.parent.theme);
   const dispatch = useDispatch();
 
-  const _toggleTheme = () => {
+  const toggleThemeAction = () => {
     dispatch(toggleTheme());
   }
 
@@ -33,7 +33,7 @@ function Navigation() {
         className='theme-toggler' 
         label={<p>Switch to <span>{`${theme === 'light' ? 'Dark' : 'Light'} Mode`}</span></p>}
         defaultValue={theme === 'light'}
-        onToggleValue={_toggleTheme}
+        onToggleValue={toggleThemeAction}
       />
     </div>
   )

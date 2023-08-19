@@ -1,5 +1,6 @@
 @import '../common/sass/functions';
 @import '../common/sass/styles/fonts';
+@import '../common/sass/constants';
 
 * {
   box-sizing: border-box;
@@ -8,7 +9,7 @@
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
 
   #root {
     height: 100%;
@@ -25,4 +26,8 @@ body {
   @include theme() {
     background-color: theme-get('bg-color');
   }
+}
+
+.content {
+  min-height: calc(100vh - $nav-height - $footer-height);
 }
