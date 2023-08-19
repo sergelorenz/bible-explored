@@ -1,0 +1,5 @@
+@import './mixins';
+
+@function theme-get($key) {
+  @return map-get($theme-map, $key);
+}

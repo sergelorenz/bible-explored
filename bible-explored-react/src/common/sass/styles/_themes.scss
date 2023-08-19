@@ -1,0 +1,26 @@
+@import './colors';
+
+$themes: (
+  light: (
+    'bg-color': $primary-light,
+    'nav-gradient': $gradient,
+    'nav-text-color': $primary-dark,
+    'nav-icons-color': $primary-dark,
+    'nav-border': $primary-midtone,
+    'shadow': $shadow,
+    'toggler-thumb': $accent,
+    'toggler-track': $primary-light,
+    'toggler-border': $primary-dark
+  ),
+  dark: (
+    'bg-color': $primary-dark,
+    'nav-gradient': $gradient,
+    'nav-text-color': $primary-dark,
+    'nav-icons-color': $primary-dark,
+    'nav-border': $primary-midtone,
+    'shadow': $shadow,
+    'toggler-thumb': $accent,
+    'toggler-track': $primary-dark,
+    'toggler-border': $primary-dark
+  )
+)

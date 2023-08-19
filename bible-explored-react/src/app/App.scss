@@ -1,0 +1,28 @@
+@import '../common/sass/functions';
+@import '../common/sass/styles/fonts';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  transition: background-color 0.3s;
+}
+
+body {
+  height: 100vh;
+
+  #root {
+    height: 100%;
+  }
+}
+
+.App {
+  height: 100%;
+}
+
+.parent {
+  height: 100%;
+  width: 100%;
+  @include theme() {
+    background-color: theme-get('bg-color');
+  }
+}

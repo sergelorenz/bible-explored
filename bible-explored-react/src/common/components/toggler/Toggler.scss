@@ -1,0 +1,47 @@
+.generic-toggler-parent {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+
+  p {
+    user-select: none; // chrome and Opera
+    -moz-user-select: none; // Firefox
+    -webkit-text-select: none; // IOS Safari
+    -webkit-user-select: none; // Safari
+  }
+}
+
+.toggler-track {
+  height: 34px;
+  width: 68px;
+  border-radius: 34px;
+  position: relative;
+  border: 1px solid black;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.toggler-thumb {
+  height: 46px;
+  width: 46px;
+  border-radius: 50%;
+  position: absolute;
+  border: 1px solid black;
+  top: -7px;
+  left: -25%;
+  background-color: white;
+  transition: left 0.3s ease-out, background-color 0.3s;
+  caret-color: transparent;
+}
+
+.toggler-true {
+  .toggler-thumb {
+    left: -25%;
+  }
+}
+
+.toggler-false {
+  .toggler-thumb {
+    left: 50%;
+  }
+}
