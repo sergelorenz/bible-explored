@@ -12,6 +12,14 @@ import './App.scss';
 import Navigation from '../features/navigation/Navigation';
 import Home from '../features/home/Home';
 import Footer from '../features/footer/Footer';
+import BooksAndChapters from '../features/booksAndChapters/BooksAndChapters';
+
+import {
+  MENU_HOME,
+  MENU_BOOKS_AND_CHAPTERS,
+  //MENU_VERSE_OF_THE_DAY,
+  //MENU_SIDE_BY_SIDE
+} from '../common/constants';
 
 function App() {
   const theme = useSelector(state => state.parent.theme);
@@ -22,8 +30,9 @@ function App() {
         <div className='parent'>
           <Navigation />
           <Routes>
-            <Route path='/home' element={<Home />}/>
-            <Route path='*' element={<Navigate to='/home' />} />
+            <Route path={`/${MENU_HOME}`} element={<Home />}/>
+            <Route path={`/${MENU_BOOKS_AND_CHAPTERS}`} element={<BooksAndChapters />} />
+            <Route path='*' element={<Navigate to={`/${MENU_HOME}`} />} />
           </Routes>
           <Footer />
         </div>

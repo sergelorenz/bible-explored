@@ -55,6 +55,9 @@
     -moz-user-select: none; // Firefox
     -webkit-text-select: none; // IOS Safari
     -webkit-user-select: none; // Safari
+    @include theme() {
+      color: theme-get('nav-text-color');
+    }
   }
 
   * {

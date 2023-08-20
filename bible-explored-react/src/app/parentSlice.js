@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 export const parentSlice = createSlice({
   name: 'parent',
   initialState: {
-    theme: 'light'
+    theme: 'light',
+    selectedMenu: 'home'
   },
   reducers: {
     toggleTheme: state => {

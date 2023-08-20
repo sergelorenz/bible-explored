@@ -1,5 +1,13 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import {
+  MENU_HOME,
+  // MENU_BOOKS_AND_CHAPTERS,
+  //MENU_VERSE_OF_THE_DAY,
+  //MENU_SIDE_BY_SIDE
+} from '../../common/constants';
 
 import { toggleTheme } from '../../app/parentSlice';
 
@@ -22,7 +30,9 @@ function Navigation() {
   return (
     <div className='navigation'>
       <div className='header-links'>
-        <h1>BIBLE EXPLORED</h1>
+        <Link to={`/${MENU_HOME}`}>
+          <h1>BIBLE EXPLORED</h1>
+        </Link>
         <div className='header-icons'>
           <BibleIcon />
           <IdeaIcon />
