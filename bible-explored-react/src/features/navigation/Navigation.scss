@@ -1,7 +1,8 @@
 @import '../../common/sass/functions';
+@import '../../common/sass/constants';
 
 .navigation {
-  height: 80px;
+  height: $nav-height;
   width: 100%;
   @include theme() {
     background: theme-get('nav-gradient');
@@ -14,6 +15,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 6.25%;
+  position: sticky;
+  top: 0px;
 
   .theme-toggler {
     & > p {
@@ -52,6 +55,9 @@
     -moz-user-select: none; // Firefox
     -webkit-text-select: none; // IOS Safari
     -webkit-user-select: none; // Safari
+    @include theme() {
+      color: theme-get('nav-text-color');
+    }
   }
 
   * {
@@ -64,21 +70,28 @@
   gap: 10px;
   align-items: center;
 
-  svg:nth-of-type(1) {
+  a:nth-of-type(1) > svg {
     width: 38.7px;
     height: 46.28px;
   }
 
-  svg:nth-of-type(2) {
+  a:nth-of-type(2) > svg {
     width: auto;
     height: 55px;
-    margin-bottom: 10px;
-    fill: unset;
+    margin-bottom: 6px;
   }
 
-  svg:nth-of-type(3) {
+  a:nth-of-type(3) > svg {
     width: auto;
     height: 52px;
-    margin-bottom: 2px;
+  }
+
+  svg {
+    &.selected {
+      @include theme() {
+        fill: theme-get('menu-selected');
+        stroke: theme-get('menu-selected-stroke');
+      }
+    }
   }
 }

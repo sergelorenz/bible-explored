@@ -10,7 +10,19 @@ $themes: (
     'shadow': $shadow,
     'toggler-thumb': $accent,
     'toggler-track': $primary-light,
-    'toggler-border': $primary-dark
+    'toggler-border': $primary-dark,
+    'footer-text': $secondary-midtone,
+    'footer-icons': $secondary-midtone,
+    'footer-logo-background': $primary-light,
+    'footer-text-link': $accent,
+    'footer-logo-padding': unset,
+    'home-menu-border': $primary-dark,
+    'home-menu-background': $secondary-light,
+    'home-menu-items': $primary-dark,
+    'home-menu-hover-background': $accent,
+    'home-menu-hover-items': $primary-dark,
+    'menu-selected': $accent,
+    'menu-selected-stroke': $primary-dark
   ),
   dark: (
     'bg-color': $primary-dark,
@@ -21,6 +33,18 @@ $themes: (
     'shadow': $shadow,
     'toggler-thumb': $accent,
     'toggler-track': $primary-dark,
-    'toggler-border': $primary-dark
+    'toggler-border': $primary-dark,
+    'footer-text': $secondary-midtone,
+    'footer-icons': $secondary-midtone,
+    'footer-logo-background': $secondary-light,
+    'footer-text-link': $accent,
+    'footer-logo-padding': 5px 22px,
+    'home-menu-border': $primary-light,
+    'home-menu-background': $secondary-dark,
+    'home-menu-items': $primary-light,
+    'home-menu-hover-background': $secondary-light,
+    'home-menu-hover-items': $primary-dark,
+    'menu-selected': $accent,
+    'menu-selected-stroke': $primary-dark
   )
 )

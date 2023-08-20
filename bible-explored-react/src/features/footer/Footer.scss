@@ -1,0 +1,62 @@
+@import '../../common/sass/constants';
+@import '../../common/sass/functions';
+
+.footer {
+  min-height: $footer-height;
+  width: 100%;
+}
+
+.footer-content {
+  width: 75%;
+  margin: auto;
+
+  hr {
+    width: 100%;
+  }
+
+  a {
+    @include theme() {
+      color: theme-get('footer-text-link');
+      font-weight: 700;
+    }
+  }
+}
+
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 15px 60px;
+  font-size: 1rem;
+  @include theme() {
+    color: theme-get('footer-text');
+  }
+
+  p {
+    width: 500px;
+  }
+}
+
+.footer-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  svg {
+    height: 40px;
+    @include theme() {
+      fill: theme-get('footer-icons');
+    }
+  }
+}
+
+#api-bible-logo {
+  height: 46px;
+  width: 205px;
+  transition: padding 0.3s;
+  @include theme() {
+    background-color: theme-get('footer-logo-background');
+    padding: theme-get('footer-logo-padding');
+  }
+}

@@ -1,5 +1,13 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import {
+  MENU_HOME,
+  MENU_BOOKS_AND_CHAPTERS,
+  MENU_VERSE_OF_THE_DAY,
+  MENU_SIDE_BY_SIDE
+} from '../../common/constants';
 
 import { toggleTheme } from '../../app/parentSlice';
 
@@ -13,27 +21,36 @@ import './Navigation.scss';
 
 function Navigation() {
   const theme = useSelector(state => state.parent.theme);
+  const selectedMenu = useSelector(state => state.parent.selectedMenu);
   const dispatch = useDispatch();
 
-  const _toggleTheme = () => {
+  const toggleThemeAction = () => {
     dispatch(toggleTheme());
   }
 
   return (
     <div className='navigation'>
       <div className='header-links'>
-        <h1>BIBLE EXPLORED</h1>
+        <Link to={`/${MENU_HOME}`}>
+          <h1>BIBLE EXPLORED</h1>
+        </Link>
         <div className='header-icons'>
-          <BibleIcon />
-          <IdeaIcon />
-          <SideBySideIcon />
+          <Link to={`/${MENU_BOOKS_AND_CHAPTERS}`}>
+            <BibleIcon className={MENU_BOOKS_AND_CHAPTERS === selectedMenu ? 'selected' : ''}/>
+          </Link>
+          <Link to={`/${MENU_VERSE_OF_THE_DAY}`}>
+            <IdeaIcon className={MENU_VERSE_OF_THE_DAY === selectedMenu ? 'selected' : ''}/>
+          </Link>
+          <Link to={`/${MENU_SIDE_BY_SIDE}`}>
+            <SideBySideIcon className={MENU_SIDE_BY_SIDE === selectedMenu ? 'selected' : ''}/>
+          </Link>
         </div>
       </div>
       <Toggler 
         className='theme-toggler' 
         label={<p>Switch to <span>{`${theme === 'light' ? 'Dark' : 'Light'} Mode`}</span></p>}
         defaultValue={theme === 'light'}
-        onToggleValue={_toggleTheme}
+        onToggleValue={toggleThemeAction}
       />
     </div>
   )
