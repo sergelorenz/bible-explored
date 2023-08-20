@@ -28,11 +28,6 @@ function Navigation() {
     dispatch(toggleTheme());
   }
 
-  const isMenuSelected = menuOption => {
-    console.log('IsMenuSelected' , menuOption, selectedMenu)
-    return menuOption === selectedMenu;
-  }
-
   return (
     <div className='navigation'>
       <div className='header-links'>
@@ -41,13 +36,13 @@ function Navigation() {
         </Link>
         <div className='header-icons'>
           <Link to={`/${MENU_BOOKS_AND_CHAPTERS}`}>
-            <BibleIcon className={isMenuSelected(MENU_BOOKS_AND_CHAPTERS) ? 'selected' : ''}/>
+            <BibleIcon className={MENU_BOOKS_AND_CHAPTERS === selectedMenu ? 'selected' : ''}/>
           </Link>
           <Link to={`/${MENU_VERSE_OF_THE_DAY}`}>
-            <IdeaIcon className={isMenuSelected(MENU_VERSE_OF_THE_DAY) ? 'selected' : ''}/>
+            <IdeaIcon className={MENU_VERSE_OF_THE_DAY === selectedMenu ? 'selected' : ''}/>
           </Link>
           <Link to={`/${MENU_SIDE_BY_SIDE}`}>
-            <SideBySideIcon className={isMenuSelected(MENU_SIDE_BY_SIDE) ? 'selected' : ''}/>
+            <SideBySideIcon className={MENU_SIDE_BY_SIDE === selectedMenu ? 'selected' : ''}/>
           </Link>
         </div>
       </div>
