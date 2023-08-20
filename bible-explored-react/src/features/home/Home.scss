@@ -1,0 +1,57 @@
+@import '../../common/sass/functions';
+
+.home {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.menu {
+  width: 433px;
+  height: 530px;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 80px;
+  border-radius: 80px;
+  user-select: none; // chrome and Opera
+  -moz-user-select: none; // Firefox
+  -webkit-text-select: none; // IOS Safari
+  -webkit-user-select: none; // Safari
+  cursor: pointer;
+  @include theme() {
+    border: 3px solid theme-get('home-menu-border');
+    background-color: theme-get('home-menu-background');
+    color: theme-get('home-menu-items');
+    fill: theme-get('home-menu-items');
+  }
+
+  &:hover {
+    @include theme() {
+      background-color: theme-get('home-menu-hover-background');
+      color: theme-get('home-menu-hover-items');
+      fill: theme-get('home-menu-hover-items');
+    }
+  }
+
+  &:active {
+    transform: scale(0.99);
+  }
+
+  h2 {
+    padding: 0 90px;
+    text-align: center;
+    min-height: 58px;
+  }
+
+  p {
+    padding: 0 60px;
+    text-align: left;
+    font-size: 20px;
+    line-height: 27px;
+  }
+}
