@@ -10,7 +10,12 @@ $themes: (
     'shadow': $shadow,
     'toggler-thumb': $accent,
     'toggler-track': $primary-light,
-    'toggler-border': $primary-dark
+    'toggler-border': $primary-dark,
+    'footer-text': $secondary-midtone,
+    'footer-icons': $secondary-midtone,
+    'footer-logo-background': $primary-light,
+    'footer-text-link': $accent,
+    'footer-logo-padding': unset,
   ),
   dark: (
     'bg-color': $primary-dark,
@@ -21,6 +26,11 @@ $themes: (
     'shadow': $shadow,
     'toggler-thumb': $accent,
     'toggler-track': $primary-dark,
-    'toggler-border': $primary-dark
+    'toggler-border': $primary-dark,
+    'footer-text': $secondary-midtone,
+    'footer-icons': $secondary-midtone,
+    'footer-logo-background': $secondary-light,
+    'footer-text-link': $accent,
+    'footer-logo-padding': 5px 22px
   )
 )
