@@ -2,12 +2,12 @@ import React from 'react'
 
 import Content from '../../common/components/content/Content'
 
-function BooksAndChapters() {
+function SideBySide() {
   return (
     <Content>
-      <div className='content books-and-chapters'>BooksAndChapters</div>
+      <div className='content side-by-side'>SideBySide</div>
     </Content>
   )
 }
 
-export default BooksAndChapters
+export default SideBySide

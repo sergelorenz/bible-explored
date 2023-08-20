@@ -70,21 +70,28 @@
   gap: 10px;
   align-items: center;
 
-  svg:nth-of-type(1) {
+  a:nth-of-type(1) > svg {
     width: 38.7px;
     height: 46.28px;
   }
 
-  svg:nth-of-type(2) {
+  a:nth-of-type(2) > svg {
     width: auto;
     height: 55px;
-    margin-bottom: 10px;
-    fill: unset;
+    margin-bottom: 6px;
   }
 
-  svg:nth-of-type(3) {
+  a:nth-of-type(3) > svg {
     width: auto;
     height: 52px;
-    margin-bottom: 2px;
+  }
+
+  svg {
+    &.selected {
+      @include theme() {
+        fill: theme-get('menu-selected');
+        stroke: theme-get('menu-selected-stroke');
+      }
+    }
   }
 }

@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 import {
   MENU_HOME,
-  // MENU_BOOKS_AND_CHAPTERS,
-  //MENU_VERSE_OF_THE_DAY,
-  //MENU_SIDE_BY_SIDE
+  MENU_BOOKS_AND_CHAPTERS,
+  MENU_VERSE_OF_THE_DAY,
+  MENU_SIDE_BY_SIDE
 } from '../../common/constants';
 
 import { toggleTheme } from '../../app/parentSlice';
@@ -21,10 +21,16 @@ import './Navigation.scss';
 
 function Navigation() {
   const theme = useSelector(state => state.parent.theme);
+  const selectedMenu = useSelector(state => state.parent.selectedMenu);
   const dispatch = useDispatch();
 
   const toggleThemeAction = () => {
     dispatch(toggleTheme());
+  }
+
+  const isMenuSelected = menuOption => {
+    console.log('IsMenuSelected' , menuOption, selectedMenu)
+    return menuOption === selectedMenu;
   }
 
   return (
@@ -34,9 +40,15 @@ function Navigation() {
           <h1>BIBLE EXPLORED</h1>
         </Link>
         <div className='header-icons'>
-          <BibleIcon />
-          <IdeaIcon />
-          <SideBySideIcon />
+          <Link to={`/${MENU_BOOKS_AND_CHAPTERS}`}>
+            <BibleIcon className={isMenuSelected(MENU_BOOKS_AND_CHAPTERS) ? 'selected' : ''}/>
+          </Link>
+          <Link to={`/${MENU_VERSE_OF_THE_DAY}`}>
+            <IdeaIcon className={isMenuSelected(MENU_VERSE_OF_THE_DAY) ? 'selected' : ''}/>
+          </Link>
+          <Link to={`/${MENU_SIDE_BY_SIDE}`}>
+            <SideBySideIcon className={isMenuSelected(MENU_SIDE_BY_SIDE) ? 'selected' : ''}/>
+          </Link>
         </div>
       </div>
       <Toggler 

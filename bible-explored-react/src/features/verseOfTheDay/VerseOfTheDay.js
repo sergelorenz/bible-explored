@@ -2,12 +2,12 @@ import React from 'react'
 
 import Content from '../../common/components/content/Content'
 
-function BooksAndChapters() {
+function VerseOfTheDay() {
   return (
     <Content>
-      <div className='content books-and-chapters'>BooksAndChapters</div>
+      <div className='content verse-of-the-day'>VerseOfTheDay</div>
     </Content>
   )
 }
 
-export default BooksAndChapters
+export default VerseOfTheDay

@@ -20,7 +20,9 @@ $themes: (
     'home-menu-background': $secondary-light,
     'home-menu-items': $primary-dark,
     'home-menu-hover-background': $accent,
-    'home-menu-hover-items': $primary-dark
+    'home-menu-hover-items': $primary-dark,
+    'menu-selected': $accent,
+    'menu-selected-stroke': $primary-dark
   ),
   dark: (
     'bg-color': $primary-dark,
@@ -41,6 +43,8 @@ $themes: (
     'home-menu-background': $secondary-dark,
     'home-menu-items': $primary-light,
     'home-menu-hover-background': $secondary-light,
-    'home-menu-hover-items': $primary-dark
+    'home-menu-hover-items': $primary-dark,
+    'menu-selected': $accent,
+    'menu-selected-stroke': $primary-dark
   )
 )

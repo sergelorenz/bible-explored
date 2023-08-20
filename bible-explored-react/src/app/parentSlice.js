@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { MENU_HOME } from '../common/constants';
+
 export const parentSlice = createSlice({
   name: 'parent',
   initialState: {
     theme: 'light',
-    selectedMenu: 'home'
+    selectedMenu: MENU_HOME
   },
   reducers: {
     toggleTheme: state => {
@@ -15,10 +17,15 @@ export const parentSlice = createSlice({
       } else {
         console.error(`This theme is currently not implemented.`);
       }
+    },
+    updateMenu: state => {
+      const hrefArray = window.location.href.split('/');
+      const menu = hrefArray[hrefArray.length - 1];
+      state.selectedMenu = menu;
     }
   }
 })
 
-export const { toggleTheme } = parentSlice.actions;
+export const { toggleTheme, updateMenu } = parentSlice.actions;
 
 export default parentSlice.reducer;
