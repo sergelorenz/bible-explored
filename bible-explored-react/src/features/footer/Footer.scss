@@ -27,8 +27,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 15px;
-  padding: 15px 60px;
-  font-size: 1rem;
+  padding: 12px 60px;
+  font-size: 16px;
   @include theme() {
     color: theme-get('footer-text');
   }
@@ -41,10 +41,10 @@
 .footer-icons {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 
   svg {
-    height: 40px;
+    height: 34px;
     @include theme() {
       fill: theme-get('footer-icons');
     }
@@ -52,8 +52,8 @@
 }
 
 #api-bible-logo {
-  height: 46px;
-  width: 205px;
+  height: 42px;
+  width: 190px;
   transition: padding 0.3s;
   @include theme() {
     background-color: theme-get('footer-logo-background');
