@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
@@ -9,8 +9,10 @@ import './DropDown.scss';
 function DropDown({className, children, placeHolder='Select an Option'}) {
   return (
     <div className={classNames('generic-dropdown-parent', className)}>
-      <span>{placeHolder}</span>
-      <DropDownIcon />
+      <div className='dropdown-header'>
+        <span>{placeHolder}</span>
+        <DropDownIcon />
+      </div>
       <div className='options'>
         {children}
       </div>
