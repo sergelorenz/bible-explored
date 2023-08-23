@@ -44,6 +44,7 @@
   gap: 10px;
 
   svg {
+    width: auto;
     height: 34px;
     @include theme() {
       fill: theme-get('footer-icons');
