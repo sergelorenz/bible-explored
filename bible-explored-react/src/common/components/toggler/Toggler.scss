@@ -1,13 +1,12 @@
+@import '../../sass/mixins';
+
 .generic-toggler-parent {
   display: flex;
   gap: 40px;
   align-items: center;
 
   p {
-    user-select: none; // chrome and Opera
-    -moz-user-select: none; // Firefox
-    -webkit-text-select: none; // IOS Safari
-    -webkit-user-select: none; // Safari
+    @include no-user-select;
   }
 }
 

@@ -9,3 +9,10 @@
   }
   $theme-map: null !global;
 }
+
+@mixin no-user-select {
+  user-select: none; // chrome and Opera
+  -moz-user-select: none; // Firefox
+  -webkit-text-select: none; // IOS Safari
+  -webkit-user-select: none; // Safari
+}

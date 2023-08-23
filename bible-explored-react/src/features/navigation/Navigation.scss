@@ -1,5 +1,6 @@
 @import '../../common/sass/functions';
 @import '../../common/sass/constants';
+@import '../../common/sass/mixins';
 
 .navigation {
   height: $nav-height;
@@ -51,10 +52,7 @@
 
   h1 {
     font-size: 26px;
-    user-select: none; // chrome and Opera
-    -moz-user-select: none; // Firefox
-    -webkit-text-select: none; // IOS Safari
-    -webkit-user-select: none; // Safari
+    @include no-user-select;
     @include theme() {
       color: theme-get('nav-text-color');
     }
