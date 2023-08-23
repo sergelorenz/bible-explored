@@ -5,7 +5,7 @@ export const bibleExploredApi = createApi({
   baseQuery: fetchBaseQuery({ 
     baseUrl: 'https://api.scripture.api.bible/v1',
     prepareHeaders: (headers) => {
-      headers.set('Api-Key', process.env.REACT_APP_API_TOKEN)
+      headers.set('Api-Key', import.meta.env.VITE_API_TOKEN)
     }
   }),
   endpoints: (builder) => ({
