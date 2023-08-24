@@ -6,7 +6,7 @@ import { ReactComponent as DropDownIcon } from '../../../res/icons/dropdown-arro
 
 import './DropDown.scss';
 
-function DropDown({className, children, placeHolder='Select an Option'}) {
+function DropDown({className, children, placeHolder='Select an Option', value}) {
   const [isOpen, toggleOpen] = useState(false);
 
   const handleDropDownClick = () => {
@@ -16,7 +16,7 @@ function DropDown({className, children, placeHolder='Select an Option'}) {
   return (
     <div className={classNames('generic-dropdown-parent', className)}>
       <div className='dropdown-header' onClick={handleDropDownClick}>
-        <span>{placeHolder}</span>
+        <span>{value ? value : placeHolder}</span>
         <DropDownIcon />
       </div>
       <div className={classNames('options', isOpen && 'open')}>
