@@ -1,18 +1,28 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 
 import { BibleLanguageGroup } from '../../../types/types';
+import { PASSAGE_LENGTH } from '../../common/constants';
 
 import Content from '../../common/components/content/Content'
-import DropDown from '../../common/components/dropdown/DropDown'
+import DropDown, { DropDownHandle } from '../../common/components/dropdown/DropDown'
 import Spinner from '../../common/components/spinner/Spinner';
 
 import { useGetBiblesQuery } from '../../services/bibleExplored';
-
 
 import './BooksAndChapters.scss';
 
 function BooksAndChapters() {
   const { data, error, isLoading } = useGetBiblesQuery();
+  const [ bibleUsed, setBibleUsed] = useState('');
+  const [ bookUsed, setBookUsed] = useState('GEN');
+  const [ chapterUsed, setChapterUsed ] = useState(1);
+  const [ passageUsed, setPassageUsed ] = useState(`GEN.1.1-GEN.1.${PASSAGE_LENGTH}`)
+  const booksRef= useRef<DropDownHandle | null>(null);
+
+  const handleSelectBible = (bibleName: string) => {
+    setBibleUsed(bibleName);
+    booksRef.current?.toggleDropDown();
+  }
 
   const renderBibleGroups = (bibleGroups: BibleLanguageGroup[]) => {
     return (
@@ -21,7 +31,13 @@ function BooksAndChapters() {
           <p>{bibleGroup.languageName}</p>
           <ul>
             {bibleGroup.bibles.map(bible => (
-              <li title={bible.bibleName} key={bible.bibleId}>{bible.bibleName}</li>
+              <li 
+                title={bible.bibleName} 
+                key={bible.bibleId}
+                onClick={() => handleSelectBible(bible.bibleName)}
+              >
+                {bible.bibleName}
+              </li>
             ))}
           </ul>
         </div>
@@ -33,11 +49,15 @@ function BooksAndChapters() {
     <Content>
       <div className='content books-and-chapters'>
         <div className='bible-select-area'>
-          <DropDown className='bible-select' placeHolder='Select a Bible Version' value='Select a Bible Version'>
+          <DropDown 
+            className='bible-select' 
+            value={bibleUsed ? bibleUsed : 'Select a Bible Version'}
+            ref={booksRef}
+          >
             {isLoading && <Spinner />}
             {data && renderBibleGroups(data)}
           </DropDown>
-          <input type='button' value='GO'/>
+          <input type='button' value='GO' />
         </div>
       </div>
     </Content>

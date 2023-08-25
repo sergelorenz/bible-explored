@@ -1,5 +1,4 @@
-import React, { useState, ReactNode } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, ReactNode, forwardRef, useImperativeHandle } from 'react'
 import classNames from 'classnames'
 
 import { ReactComponent as DropDownIcon } from '../../../res/icons/dropdown-arrow.svg';
@@ -9,12 +8,28 @@ import './DropDown.scss';
 type Props = {
   className?: string,
   children: ReactNode,
-  placeHolder?: string,
   value: string
 }
 
-function DropDown({className, children, placeHolder='Select an Option', value}: Props) {
+export type DropDownHandle = {
+  toggleDropDown: () => void;
+}
+
+const DropDown = forwardRef<DropDownHandle, Props>(function DropDown(
+  {
+    className, 
+    children,
+    value
+  }: Props, 
+  ref
+) {
   const [isOpen, toggleOpen] = useState(false);
+
+  useImperativeHandle(ref, () => ({
+    toggleDropDown() {
+      toggleOpen(!isOpen);
+    }
+  }))
 
   const handleDropDownClick = () => {
     toggleOpen(!isOpen);
@@ -23,7 +38,7 @@ function DropDown({className, children, placeHolder='Select an Option', value}: 
   return (
     <div className={classNames('generic-dropdown-parent', className)}>
       <div className='dropdown-header' onClick={handleDropDownClick}>
-        <span>{value ? value : placeHolder}</span>
+        <span>{value}</span>
         <DropDownIcon />
       </div>
       <div className={classNames('options', isOpen && 'open')}>
@@ -31,11 +46,6 @@ function DropDown({className, children, placeHolder='Select an Option', value}: 
       </div>
     </div>
   )
-}
-
-DropDown.propTypes = {
-  className: PropTypes.string,
-  placeHolder: PropTypes.string
-}
+})
 
 export default DropDown

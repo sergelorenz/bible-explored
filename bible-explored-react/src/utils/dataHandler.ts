@@ -1,6 +1,6 @@
 import { MAIN_LANGUAGES } from "../common/constants";
 
-import { Bible } from '../../types/api';
+import { Bible, Chapter } from '../../types/api';
 import { BibleLanguageGroup, BibleLanguageGroupBible } from '../../types/types';
 
 export const groupBiblesByLanguage = (data: Bible[]) => {
@@ -27,4 +27,14 @@ export const groupBiblesByLanguage = (data: Bible[]) => {
     }
   })
   return bibleLanguageGroup;
+}
+
+export const getTotalChapters = (data: Chapter[]) => {
+  let counter = 0;
+  data.forEach(chapter => {
+    if (!isNaN(Number(chapter.number))) {
+      counter += 1;
+    }
+  })
+  return counter;
 }

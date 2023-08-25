@@ -5,3 +5,5 @@ export const MENU_VERSE_OF_THE_DAY = 'verse-of-the-day';
 export const MENU_SIDE_BY_SIDE = 'side-by-side';
 
 export const MAIN_LANGUAGES = ['eng'];
+
+export const PASSAGE_LENGTH = 5;
