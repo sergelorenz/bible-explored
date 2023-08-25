@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { BibleLanguageGroup } from '../../../types/types';
+
 import Content from '../../common/components/content/Content'
 import DropDown from '../../common/components/dropdown/DropDown'
 import Spinner from '../../common/components/spinner/Spinner';
@@ -12,7 +14,7 @@ import './BooksAndChapters.scss';
 function BooksAndChapters() {
   const { data, error, isLoading } = useGetBiblesQuery();
 
-  const renderBibleGroups = bibleGroups => {
+  const renderBibleGroups = (bibleGroups: BibleLanguageGroup[]) => {
     return (
       bibleGroups.map(bibleGroup => (
         <div className='bible-group' key={bibleGroup.languageId}>
@@ -31,7 +33,7 @@ function BooksAndChapters() {
     <Content>
       <div className='content books-and-chapters'>
         <div className='bible-select-area'>
-          <DropDown className='bible-select' placeHolder='Select a Bible Version'>
+          <DropDown className='bible-select' placeHolder='Select a Bible Version' value='Select a Bible Version'>
             {isLoading && <Spinner />}
             {data && renderBibleGroups(data)}
           </DropDown>

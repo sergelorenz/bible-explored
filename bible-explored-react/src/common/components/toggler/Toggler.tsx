@@ -4,10 +4,17 @@ import PropTypes from 'prop-types'
 
 import './Toggler.scss';
 
-function Toggler({label, className, onToggleValue, defaultValue=true}) {
+type Props = {
+  label?: JSX.Element,
+  className?: string,
+  onToggleValue?: Function,
+  defaultValue?: boolean
+}
+
+function Toggler({label, className, onToggleValue, defaultValue=true}: Props) {
   const [value, setValue] = useState(defaultValue)
 
-  const handleTogglerClick = _ => {
+  const handleTogglerClick = (e: React.MouseEvent<HTMLElement>) => {
     setValue(!value);
     if (onToggleValue) onToggleValue();
   }

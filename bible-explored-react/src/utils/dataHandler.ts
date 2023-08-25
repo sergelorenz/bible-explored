@@ -1,50 +1,20 @@
-import { MAIN_LANGUAGES } from "../common/constants"
+import { MAIN_LANGUAGES } from "../common/constants";
 
-/*
-=====================
-Input data structure:
-[
-  {
-    id: ...,
-    name: ...,
-    language: {
-      id: ...,
-      name: ...
-    }
-  },
-  ...
-]
-====================
-====================
-Target data structure:
-[
-  {
-    languageId: ...,
-    languageName: ..., 
-    bibles: [
-      {
-        bibleId: ...,
-        bibleName: ...
-      },
-      ...
-    ]
-  },
-  ...
-]
-====================
-*/
-export const groupBiblesByLanguage = data => {
-  var bibleLanguageGroup = []
+import { Bible } from '../../types/api';
+import { BibleLanguageGroup, BibleLanguageGroupBible } from '../../types/types';
+
+export const groupBiblesByLanguage = (data: Bible[]) => {
+  var bibleLanguageGroup: BibleLanguageGroup[] = []
   data.forEach(bible => {
     var languageIndex  = bibleLanguageGroup.findIndex(item => item.languageId === bible.language.id);
-    const bibleObject = {
+    const bibleObject: BibleLanguageGroupBible = {
       bibleId: bible.id,
       bibleName: bible.name
     }
     if (languageIndex !== -1) {
       bibleLanguageGroup[languageIndex].bibles.push(bibleObject)
     } else {
-      const newLanguageGroup = {
+      const newLanguageGroup: BibleLanguageGroup = {
         languageId: bible.language.id,
         languageName: bible.language.name,
         bibles: [bibleObject]

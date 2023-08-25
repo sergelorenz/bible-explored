@@ -5,7 +5,12 @@ import spinnerGif from '../../../res/images/loading.gif'
 
 import './Spinner.scss';
 
-function Spinner({width}) {
+type Props = {
+  width?: number
+}
+
+
+function Spinner({width}: Props) {
   return (
     <div className='spinner-wrapper'>
       <img 

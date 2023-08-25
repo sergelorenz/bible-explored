@@ -9,6 +9,7 @@ import {
   MENU_SIDE_BY_SIDE
 } from '../../common/constants';
 
+import { RootState } from '../../app/store';
 import { toggleTheme } from '../../app/parentSlice';
 
 import { ReactComponent as BibleIcon } from '../../res/icons/bible-icon.svg';
@@ -20,8 +21,8 @@ import Toggler from '../../common/components/toggler/Toggler';
 import './Navigation.scss';
 
 function Navigation() {
-  const theme = useSelector(state => state.parent.theme);
-  const selectedMenu = useSelector(state => state.parent.selectedMenu);
+  const theme = useSelector((state: RootState) => state.parent.theme);
+  const selectedMenu = useSelector((state: RootState) => state.parent.selectedMenu);
   const dispatch = useDispatch();
 
   const toggleThemeAction = () => {

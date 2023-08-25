@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 
 import { bibleExploredApi } from '../services/bibleExplored'
-import parentReducer from '../app/parentSlice'
+import parentReducer from './parentSlice'
 
 export const store = configureStore({
   reducer: {
@@ -11,5 +11,6 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(bibleExploredApi.middleware)
 })
+export type RootState = ReturnType<typeof store.getState>
 
 setupListeners(store.dispatch);

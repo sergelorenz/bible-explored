@@ -2,6 +2,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { groupBiblesByLanguage } from '../utils/dataHandler';
 
+import {GetBiblesResponse} from '../../types/api';
+import { BibleLanguageGroup } from '../../types/types';
+
 export const bibleExploredApi = createApi({
   reducerPath: 'bibleExploredApi',
   baseQuery: fetchBaseQuery({ 
@@ -11,9 +14,9 @@ export const bibleExploredApi = createApi({
     }
   }),
   endpoints: (builder) => ({
-    getBibles: builder.query({
+    getBibles: builder.query<BibleLanguageGroup[], void>({
       query: () => '/bibles',
-      transformResponse: (response) => {
+      transformResponse: (response: GetBiblesResponse) => {
         return groupBiblesByLanguage(response.data);
       }
     })
