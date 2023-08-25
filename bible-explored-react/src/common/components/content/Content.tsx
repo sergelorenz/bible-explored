@@ -1,9 +1,13 @@
-import { useEffect } from 'react'
+import { useEffect, ReactNode } from 'react'
 import { useDispatch } from 'react-redux';
 
 import { updateMenu } from '../../../app/parentSlice';
 
-function Content({ children }) {
+type Props = {
+  children: JSX.Element
+}
+
+function Content({ children } : Props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(updateMenu());

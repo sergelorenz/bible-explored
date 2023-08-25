@@ -37,3 +37,19 @@ body {
 a {
   text-decoration: none;
 }
+
+ul, li {
+  list-style: none;
+  padding: 0;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  @include theme() {
+    background-color: theme-get('scrollbar-thumb');
+  }
+}

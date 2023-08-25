@@ -2,6 +2,7 @@
 
 $themes: (
   light: (
+    'scrollbar-thumb': $secondary-midtone,
     'bg-color': $primary-light,
     'nav-gradient': $gradient,
     'nav-text-color': $primary-dark,
@@ -22,9 +23,15 @@ $themes: (
     'home-menu-hover-background': $accent,
     'home-menu-hover-items': $primary-dark,
     'menu-selected': $accent,
-    'menu-selected-stroke': $primary-dark
+    'menu-selected-stroke': $primary-dark,
+    'dropdown-background': $secondary-light,
+    'dropdown-border': $primary-midtone,
+    'dropdown-text': $primary-midtone,
+    'dropdown-select-hover': $accent,
+    'dropdown-select-hover-text': $secondary-light
   ),
   dark: (
+    'scrollbar-thumb': $secondary-midtone,
     'bg-color': $primary-dark,
     'nav-gradient': $gradient,
     'nav-text-color': $primary-dark,
@@ -45,6 +52,11 @@ $themes: (
     'home-menu-hover-background': $secondary-light,
     'home-menu-hover-items': $primary-dark,
     'menu-selected': $accent,
-    'menu-selected-stroke': $primary-dark
+    'menu-selected-stroke': $primary-dark,
+    'dropdown-background': $secondary-light,
+    'dropdown-border': $primary-midtone,
+    'dropdown-text': $primary-midtone,
+    'dropdown-select-hover': $accent,
+    'dropdown-select-hover-text': $secondary-light
   )
 )

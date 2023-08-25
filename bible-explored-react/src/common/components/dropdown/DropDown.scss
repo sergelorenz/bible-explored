@@ -18,11 +18,18 @@
     border: 1px solid black;
     border-radius: 6px;
     transition: height 0.3s, opacity 0.3s ease-out;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 4px;
+    text-overflow: ellipsis;
 
     &.open {
       opacity: 1;
       height: 200px;
+    }
+
+    * {
+      @include no-user-select;
     }
   }
 }

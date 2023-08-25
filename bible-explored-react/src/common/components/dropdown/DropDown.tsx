@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactNode } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
@@ -6,7 +6,14 @@ import { ReactComponent as DropDownIcon } from '../../../res/icons/dropdown-arro
 
 import './DropDown.scss';
 
-function DropDown({className, children, placeHolder='Select an Option'}) {
+type Props = {
+  className?: string,
+  children: ReactNode,
+  placeHolder?: string,
+  value: string
+}
+
+function DropDown({className, children, placeHolder='Select an Option', value}: Props) {
   const [isOpen, toggleOpen] = useState(false);
 
   const handleDropDownClick = () => {
@@ -16,7 +23,7 @@ function DropDown({className, children, placeHolder='Select an Option'}) {
   return (
     <div className={classNames('generic-dropdown-parent', className)}>
       <div className='dropdown-header' onClick={handleDropDownClick}>
-        <span>{placeHolder}</span>
+        <span>{value ? value : placeHolder}</span>
         <DropDownIcon />
       </div>
       <div className={classNames('options', isOpen && 'open')}>

@@ -9,6 +9,8 @@ import {
 
 import './App.scss';
 
+import { RootState } from './store';
+
 import Navigation from '../features/navigation/Navigation';
 import Home from '../features/home/Home';
 import Footer from '../features/footer/Footer';
@@ -24,7 +26,7 @@ import {
 } from '../common/constants';
 
 function App() {
-  const theme = useSelector(state => state.parent.theme);
+  const theme = useSelector((state: RootState) => state.parent.theme);
 
   return (
     <Router>
