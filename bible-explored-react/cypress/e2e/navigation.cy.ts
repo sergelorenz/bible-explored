@@ -1,0 +1,17 @@
+describe('Navigation', () => {
+  it('Navigation Passes', () => {
+    cy.visit('http://localhost:5173')
+    cy.hash().should('eq', '#/home')
+    cy.get('.header-icons a[href="#/books-and-chapters"]').click()
+    cy.hash().should('eq', '#/books-and-chapters')
+    cy.get('.header-icons a[href="#/verse-of-the-day"]').click()
+    cy.hash().should('eq', '#/verse-of-the-day')
+    cy.get('.header-icons a[href="#/side-by-side"]').click()
+    cy.hash().should('eq', '#/side-by-side')
+    cy.get('.header-links a[href="#/home"]').click()
+    cy.get('.theme-toggler .toggler-thumb').should('have.css', 'left', '-12px')
+    cy.get('.theme-toggler .toggler-track').click()
+    cy.get('.theme-toggler .toggler-thumb').should('have.css', 'left', '24px')
+    cy.get('.theme-toggler .toggler-track').click()
+  })
+})

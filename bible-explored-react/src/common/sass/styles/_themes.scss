@@ -28,7 +28,8 @@ $themes: (
     'dropdown-border': $primary-midtone,
     'dropdown-text': $primary-midtone,
     'dropdown-select-hover': $accent,
-    'dropdown-select-hover-text': $secondary-light
+    'dropdown-select-hover-text': $secondary-light,
+    'button-background': $accent,
   ),
   dark: (
     'scrollbar-thumb': $secondary-midtone,
@@ -57,6 +58,7 @@ $themes: (
     'dropdown-border': $primary-midtone,
     'dropdown-text': $primary-midtone,
     'dropdown-select-hover': $accent,
-    'dropdown-select-hover-text': $secondary-light
+    'dropdown-select-hover-text': $secondary-light,
+    'button-background': $accent,
   )
 )

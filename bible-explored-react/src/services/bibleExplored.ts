@@ -1,8 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { groupBiblesByLanguage } from '../utils/dataHandler';
+import { groupBiblesByLanguage, getTotalChapters } from '../utils/dataHandler';
 
-import {GetBiblesResponse} from '../../types/api';
+import { FUMS } from '../common/constants';
+import { 
+  GetBiblesResponse,
+  GetBooksResponse,
+  Book,
+  GetChaptersRequest,
+  GetChaptersResponse,
+  GetChapterRequest,
+  GetChapterResponse,
+  ChapterContent
+} from '../../types/api';
 import { BibleLanguageGroup } from '../../types/types';
 
 export const bibleExploredApi = createApi({
@@ -19,8 +29,28 @@ export const bibleExploredApi = createApi({
       transformResponse: (response: GetBiblesResponse) => {
         return groupBiblesByLanguage(response.data);
       }
+    }),
+    getBooks: builder.query<Book[], string>({
+      query: (bibleId) => `/bibles/${bibleId}/books`,
+      transformResponse: (response: GetBooksResponse) => response.data
+    }),
+    getChapters: builder.query<number, GetChaptersRequest>({
+      query: ({bibleId, bookId}) => `/bibles/${bibleId}/books/${bookId}/chapters`,
+      transformResponse: (response: GetChaptersResponse) => {
+        let length = response.data.length;
+        const lastChapter = response.data[length - 1];
+        let lastChapterNumber = Number(lastChapter.number);
+        if (!isNaN(lastChapterNumber)) {
+          return lastChapterNumber;
+        } else {
+          return getTotalChapters(response.data);
+        }
+      }
+    }),
+    getVerses: builder.query<GetChapterResponse, GetChapterRequest>({
+      query: ({bibleId, chapter}) => `/bibles/${bibleId}/chapters/${chapter}?${FUMS}`,
     })
   })
 })
 
-export const { useGetBiblesQuery } = bibleExploredApi;
+export const { useGetBiblesQuery, useGetVersesQuery } = bibleExploredApi;
