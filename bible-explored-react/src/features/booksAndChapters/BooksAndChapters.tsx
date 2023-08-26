@@ -1,31 +1,35 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 
+import { useGetBiblesQuery } from '../../services/bibleExplored';
+import { setBible, pressGo } from './booksAndChapterSlice';
+
+import { RootState } from '../../app/store';
 import { BibleLanguageGroup } from '../../../types/types';
-import { PASSAGE_LENGTH } from '../../common/constants';
 
 import Content from '../../common/components/content/Content'
 import DropDown, { DropDownHandle } from '../../common/components/dropdown/DropDown'
 import Spinner from '../../common/components/spinner/Spinner';
-
-import { useFums } from '../../common/hooks/useFums';
-import { useGetBiblesQuery, useGetVersesQuery } from '../../services/bibleExplored';
+import BooksAndChapterNavigator from './booksAndChapterNavigator/BooksAndChapterNavigator';
+import BibleViewer from './bibleViewer/BibleViewer';
 
 import './BooksAndChapters.scss';
 
 function BooksAndChapters() {
-  const { data, error, isLoading } = useGetBiblesQuery();
-  const { data: dataVerses } = useFums(useGetVersesQuery, {bibleId: 'de4e12af7f28f599-02', chapter: 'GEN.1'})
-  const [ bibleUsed, setBibleUsed] = useState('');
-  const [ bookUsed, setBookUsed] = useState('GEN');
-  const [ chapterUsed, setChapterUsed ] = useState(1);
-  const [ passageUsed, setPassageUsed ] = useState(`GEN.1.1-GEN.1.${PASSAGE_LENGTH}`)
-  const booksRef= useRef<DropDownHandle | null>(null);
+  const dispatch = useDispatch();
+  const bibleName = useSelector((state: RootState) => state.booksAndChapter.bibleName);
+  const { data, isLoading } = useGetBiblesQuery();
+  const bibleVersionsRef = useRef<DropDownHandle | null>(null);
 
-  console.log('data from useFums', dataVerses);
+  const handleSelectBible = (bibleId: string, bibleName: string) => {
+    dispatch(setBible({bibleId: bibleId, bibleName: bibleName}))
+    bibleVersionsRef.current?.toggleDropDown();
+  }
 
-  const handleSelectBible = (bibleName: string) => {
-    setBibleUsed(bibleName);
-    booksRef.current?.toggleDropDown();
+  const handlePressGo = (e: React.MouseEvent<HTMLElement>) => {
+    if (bibleName) {
+      dispatch(pressGo());
+    }
   }
 
   const renderBibleGroups = (bibleGroups: BibleLanguageGroup[]) => {
@@ -38,7 +42,7 @@ function BooksAndChapters() {
               <li 
                 title={bible.bibleName} 
                 key={bible.bibleId}
-                onClick={() => handleSelectBible(bible.bibleName)}
+                onClick={() => handleSelectBible(bible.bibleId, bible.bibleName)}
               >
                 {bible.bibleName}
               </li>
@@ -55,14 +59,20 @@ function BooksAndChapters() {
         <div className='bible-select-area'>
           <DropDown 
             className='bible-select' 
-            value={bibleUsed ? bibleUsed : 'Select a Bible Version'}
-            ref={booksRef}
+            value={bibleName ? bibleName : 'Select a Bible Version'}
+            ref={bibleVersionsRef}
           >
             {isLoading && <Spinner />}
             {data && renderBibleGroups(data)}
           </DropDown>
-          <input type='button' value='GO' />
+          <input type='button' value='GO' onClick={handlePressGo}/>
         </div>
+        { bibleName && (
+          <div className='bible-content-area'>
+            <BooksAndChapterNavigator />
+            <BibleViewer />
+          </div>
+        )}
       </div>
     </Content>
   )

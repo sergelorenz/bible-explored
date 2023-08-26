@@ -1,5 +1,11 @@
 @import '../../common/sass/functions';
 
+.books-and-chapters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .bible-select-area {
   display: flex;
   gap: 42px;
@@ -50,5 +56,19 @@
         }
       }
     }
+  }
+}
+
+.bible-content-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+
+  & > div {
+    min-width: 790px;
+    height: 700px;
+    border: 1px solid black;
   }
 }

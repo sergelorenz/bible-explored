@@ -53,4 +53,9 @@ export const bibleExploredApi = createApi({
   })
 })
 
-export const { useGetBiblesQuery, useGetVersesQuery } = bibleExploredApi;
+export const { 
+  useGetBiblesQuery, 
+  useLazyGetBooksQuery, 
+  useLazyGetChaptersQuery,
+  useLazyGetVersesQuery 
+} = bibleExploredApi;
