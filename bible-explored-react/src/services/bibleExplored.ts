@@ -2,13 +2,16 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { groupBiblesByLanguage, getTotalChapters } from '../utils/dataHandler';
 
+import { FUMS } from '../common/constants';
 import { 
   GetBiblesResponse,
   GetBooksResponse,
   Book,
   GetChaptersRequest,
   GetChaptersResponse,
-  Chapter
+  GetChapterRequest,
+  GetChapterResponse,
+  ChapterContent
 } from '../../types/api';
 import { BibleLanguageGroup } from '../../types/types';
 
@@ -43,8 +46,11 @@ export const bibleExploredApi = createApi({
           return getTotalChapters(response.data);
         }
       }
+    }),
+    getVerses: builder.query<GetChapterResponse, GetChapterRequest>({
+      query: ({bibleId, chapter}) => `/bibles/${bibleId}/chapters/${chapter}?${FUMS}`,
     })
   })
 })
 
-export const { useGetBiblesQuery } = bibleExploredApi;
+export const { useGetBiblesQuery, useGetVersesQuery } = bibleExploredApi;

@@ -1,3 +1,8 @@
+// ========= API TYPES COMMON ===================
+type ContentMeta = {
+  fumsToken: string
+}
+
 // ========= API TYPES FOR GET BIBLES ===========
 type BibleLanguage = {
   id: string,
@@ -39,4 +44,20 @@ export type Chapter = {
 
 export type GetChaptersResponse = {
   data: Chapter[]
+}
+
+// ============= API TYPES FOR GET CHAPTER ==========
+export type GetChapterRequest = {
+  bibleId: string,
+  chapter: string,
+}
+
+export type ChapterContent = {
+  copyright: string,
+  content: string
+}
+
+export type GetChapterResponse = {
+  data: ChapterContent,
+  meta: ContentMeta
 }

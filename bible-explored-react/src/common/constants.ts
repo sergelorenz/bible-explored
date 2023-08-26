@@ -7,3 +7,5 @@ export const MENU_SIDE_BY_SIDE = 'side-by-side';
 export const MAIN_LANGUAGES = ['eng'];
 
 export const PASSAGE_LENGTH = 5;
+
+export const FUMS = 'fums-version=3'

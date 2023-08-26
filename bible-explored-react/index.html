@@ -15,5 +15,14 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
+    <!-- The two script tags below are a requirement for the usage of API.Bible. See their documentation for more details -->
+    <script type="text/javascript" src="https://pkg.api.bible/fumsV3.min.js"></script>
+    <script>
+      /* This code ensures that FUMS will be reported correctly even if fumsV3.min.js has not finished loading before an attempt is made. */
+      window.fumsData = window.fumsData || [];
+      window.fums = window.fums || function () {
+        window.fumsData.push(arguments);
+      };
+    </script>
   </body>
 </html>
