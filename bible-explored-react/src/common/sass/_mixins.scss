@@ -16,3 +16,11 @@
   -webkit-text-select: none; // IOS Safari
   -webkit-user-select: none; // Safari
 }
+
+@mixin dropdown-design {
+  @include theme() {
+    background-color: theme-get('dropdown-background');
+    border: 1px solid theme-get('dropdown-border');
+    color: theme-get('dropdown-text');
+  }
+}

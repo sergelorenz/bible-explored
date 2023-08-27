@@ -1,5 +1,12 @@
 @import '../../common/sass/functions';
 
+.books-and-chapters {
+  display: flex;
+  gap: 50px;
+  flex-direction: column;
+  align-items: center;
+}
+
 .bible-select-area {
   display: flex;
   gap: 42px;
@@ -11,19 +18,7 @@
   font-size: 18px;
   height: 32px;
   width: 350px;
-
-  @include theme() {
-    background-color: theme-get('dropdown-background');
-    border: 1px solid theme-get('dropdown-border');
-    color: theme-get('dropdown-text');
-  }
-
-  .options {
-    background-color: inherit;
-    border: inherit;
-    color: inherit;
-  }
-
+  z-index: 9;
   .bible-group {
     font-size: 16px;
 
@@ -40,15 +35,20 @@
     }
 
     li {
-      padding-left: 30px;
-      transition: none;
-
-      &:hover {
-        @include theme() {
-          background-color: theme-get('dropdown-select-hover');
-          color: theme-get('dropdown-select-hover-text');
-        }
-      }
+      padding-left: 32px;
     }
+  }
+}
+
+.bible-content-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+
+  & > div {
+    width: 640px;
+    height: 700px;
   }
 }
