@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { setBook } from '../booksAndChapterSlice';
 
 import { RootState } from '../../../app/store';
 import { Book } from '../../../../types/api';
 
 import { useLazyGetBooksQuery } from '../../../services/bibleExplored';
-
-import { useLazyFums } from '../../../common/hooks/useLazyFums';
 
 import DropDown, { DropDownHandle } from '../../../common/components/dropdown/DropDown';
 import Spinner from '../../../common/components/spinner/Spinner';
@@ -14,25 +14,43 @@ import Spinner from '../../../common/components/spinner/Spinner';
 import './BooksAndChapterNavigator.scss';
 
 function BooksAndChapterNavigator() {
+  const dispatch = useDispatch()
   const bibleId = useSelector((state: RootState) => state.booksAndChapter.bibleId);
   const isGoPressed = useSelector((state: RootState) => state.booksAndChapter.isGoPressed);
-  const book = useSelector((state: RootState) => state.booksAndChapter.book);
+  const bookName = useSelector((state: RootState) => state.booksAndChapter.bookName);
   const chapter = useSelector((state: RootState) => state.booksAndChapter.chapter);
-  const [ getBooks, { data: dataBook, isLoading: isLoadingBook }] = useLazyFums(useLazyGetBooksQuery);
+  const [ getBooks, { data: dataBook, isFetching: isFetchingBook }] = useLazyGetBooksQuery(); 
   useEffect(() => {
     if (bibleId && isGoPressed) {
-      getBooks(bibleId)
+      getBooks(bibleId, isGoPressed)
     }
   }, [bibleId, isGoPressed])
   const booksRef = useRef<DropDownHandle | null>(null);
+  useEffect(() => {
+    if (dataBook) {
+      const { id, name, nameLong } = dataBook[0];
+      dispatch(setBook({id: id, name: name, nameLong: nameLong}))
+    }
+  }, [dataBook])
+
+  const handleSelectBook = (book: Book) => {
+    dispatch(setBook(book));
+    booksRef.current?.toggleDropDown();
+  }
 
   const renderBooks = (books: Book[]) => {
     return (
-      books.map(book => (
-        <div className='book-name' key={book.id}>
-          {book.name}
-        </div>
-      ))
+      <ul>
+        {books.map(book => (
+          <li 
+            className='book-name' 
+            key={book.id} 
+            onClick={() => handleSelectBook(book)}
+          >
+            {book.name}
+          </li>
+        ))}
+      </ul>
     )
   }
 
@@ -41,11 +59,13 @@ function BooksAndChapterNavigator() {
       <h1>Search Books and Chapters</h1>
       <DropDown
         className='book-select'
-        value={book ? book : 'Select a Book'}
+        value={bookName ? bookName : 'Select a Book'}
         ref={booksRef}
+        isDisabled={!isGoPressed}
       >
-        {isLoadingBook && <Spinner />}
-        {dataBook && renderBooks(dataBook)}
+        {isFetchingBook ? <Spinner /> : (
+          dataBook && renderBooks(dataBook)
+        )}
       </DropDown>
     </div>
   )

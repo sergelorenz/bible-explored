@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit'
-
-type Bible = {
-  bibleId: string,
-  bibleName: string
-}
+import { Bible, Book } from "../../../types/api";
 
 export const booksAndChapterSlice = createSlice({
   name: 'booksAndChapter',
@@ -12,28 +8,31 @@ export const booksAndChapterSlice = createSlice({
     bibleId: '',
     isGoPressed: false,
     bibleName: '',
-    book: '',
+    bookId: '',
+    bookName: '',
+    bookNameLong: '',
     chapter: 1,
   },
   reducers: {
     setBible: (state, action : PayloadAction<Bible>) => {
-      const { bibleId, bibleName } = action.payload;
-      state.bibleId = bibleId;
-      state.bibleName = bibleName;
+      const { id, name } = action.payload;
+      state.bibleId = id;
+      state.bibleName = name;
+      state.isGoPressed = true
     },
-    setBook: (state, action : PayloadAction<string>) => {
-      state.book = action.payload
+    setBook: (state, action : PayloadAction<Book>) => {
+      const { id, name, nameLong } = action.payload;
+      state.bookId = id;
+      state.bookName = name;
+      state.bookNameLong = nameLong
       state.chapter = 1;
     },
     setChapter: (state, action: PayloadAction<number>) => {
       state.chapter = action.payload;
     },
-    pressGo: state => {
-      state.isGoPressed = true;
-    }
   }
 })
 
-export const {setBible, setBook, setChapter, pressGo} = booksAndChapterSlice.actions;
+export const {setBible, setBook, setChapter} = booksAndChapterSlice.actions;
 
 export default booksAndChapterSlice.reducer;

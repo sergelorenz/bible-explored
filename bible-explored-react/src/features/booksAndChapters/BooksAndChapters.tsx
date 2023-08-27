@@ -1,10 +1,11 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useGetBiblesQuery } from '../../services/bibleExplored';
-import { setBible, pressGo } from './booksAndChapterSlice';
+import { setBible } from './booksAndChapterSlice';
 
 import { RootState } from '../../app/store';
+import { Bible } from '../../../types/api';
 import { BibleLanguageGroup } from '../../../types/types';
 
 import Content from '../../common/components/content/Content'
@@ -17,18 +18,20 @@ import './BooksAndChapters.scss';
 
 function BooksAndChapters() {
   const dispatch = useDispatch();
+  const [ tempBible, setTempBible ] = useState<Bible | null>(null)
   const bibleName = useSelector((state: RootState) => state.booksAndChapter.bibleName);
+  const isGoPressed = useSelector((state: RootState) => state.booksAndChapter.isGoPressed);
   const { data, isLoading } = useGetBiblesQuery();
   const bibleVersionsRef = useRef<DropDownHandle | null>(null);
 
-  const handleSelectBible = (bibleId: string, bibleName: string) => {
-    dispatch(setBible({bibleId: bibleId, bibleName: bibleName}))
+  const handleSelectBible = (bible: Bible) => {
+    setTempBible(bible);
     bibleVersionsRef.current?.toggleDropDown();
   }
 
   const handlePressGo = (e: React.MouseEvent<HTMLElement>) => {
-    if (bibleName) {
-      dispatch(pressGo());
+    if (tempBible) {
+      dispatch(setBible(tempBible))
     }
   }
 
@@ -42,7 +45,14 @@ function BooksAndChapters() {
               <li 
                 title={bible.bibleName} 
                 key={bible.bibleId}
-                onClick={() => handleSelectBible(bible.bibleId, bible.bibleName)}
+                onClick={() => handleSelectBible({
+                  id: bible.bibleId,
+                  name: bible.bibleName, 
+                  language: {
+                    id: bibleGroup.languageId, 
+                    name: bibleGroup.languageName
+                  }
+                })}
               >
                 {bible.bibleName}
               </li>
@@ -59,7 +69,7 @@ function BooksAndChapters() {
         <div className='bible-select-area'>
           <DropDown 
             className='bible-select' 
-            value={bibleName ? bibleName : 'Select a Bible Version'}
+            value={tempBible ? tempBible.name : 'Select a Bible Version'}
             ref={bibleVersionsRef}
           >
             {isLoading && <Spinner />}
@@ -67,7 +77,7 @@ function BooksAndChapters() {
           </DropDown>
           <input type='button' value='GO' onClick={handlePressGo}/>
         </div>
-        { bibleName && (
+        { bibleName && isGoPressed && (
           <div className='bible-content-area'>
             <BooksAndChapterNavigator />
             <BibleViewer />

@@ -2,6 +2,7 @@
 
 .books-and-chapters {
   display: flex;
+  gap: 50px;
   flex-direction: column;
   align-items: center;
 }
@@ -17,19 +18,6 @@
   font-size: 18px;
   height: 32px;
   width: 350px;
-
-  @include theme() {
-    background-color: theme-get('dropdown-background');
-    border: 1px solid theme-get('dropdown-border');
-    color: theme-get('dropdown-text');
-  }
-
-  .options {
-    background-color: inherit;
-    border: inherit;
-    color: inherit;
-  }
-
   .bible-group {
     font-size: 16px;
 
@@ -43,18 +31,6 @@
 
     p {
       font-weight: 700;
-    }
-
-    li {
-      padding-left: 30px;
-      transition: none;
-
-      &:hover {
-        @include theme() {
-          background-color: theme-get('dropdown-select-hover');
-          color: theme-get('dropdown-select-hover-text');
-        }
-      }
     }
   }
 }

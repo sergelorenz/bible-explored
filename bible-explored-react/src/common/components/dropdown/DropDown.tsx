@@ -1,4 +1,4 @@
-import React, { useState, ReactNode, forwardRef, useImperativeHandle } from 'react'
+import React, { useState, ReactNode, forwardRef, useImperativeHandle, useRef } from 'react'
 import classNames from 'classnames'
 
 import { ReactComponent as DropDownIcon } from '../../../res/icons/dropdown-arrow.svg';
@@ -8,7 +8,8 @@ import './DropDown.scss';
 type Props = {
   className?: string,
   children: ReactNode,
-  value: string
+  value: string,
+  isDisabled?: boolean
 }
 
 export type DropDownHandle = {
@@ -19,11 +20,13 @@ const DropDown = forwardRef<DropDownHandle, Props>(function DropDown(
   {
     className, 
     children,
-    value
+    value,
+    isDisabled=false
   }: Props, 
   ref
 ) {
   const [isOpen, toggleOpen] = useState(false);
+  const dropDownRef = useRef<HTMLDivElement | null>(null);
 
   useImperativeHandle(ref, () => ({
     toggleDropDown() {
@@ -32,7 +35,12 @@ const DropDown = forwardRef<DropDownHandle, Props>(function DropDown(
   }))
 
   const handleDropDownClick = () => {
-    toggleOpen(!isOpen);
+    if (!isDisabled) {
+      toggleOpen(!isOpen);
+      if (dropDownRef.current && !isOpen) {
+        dropDownRef.current.scrollTop = 0;
+      }
+    }
   }
 
   return (
@@ -41,7 +49,7 @@ const DropDown = forwardRef<DropDownHandle, Props>(function DropDown(
         <span>{value}</span>
         <DropDownIcon />
       </div>
-      <div className={classNames('options', isOpen && 'open')}>
+      <div className={classNames('options', isOpen && 'open')} ref={dropDownRef}>
         {children}
       </div>
     </div>
