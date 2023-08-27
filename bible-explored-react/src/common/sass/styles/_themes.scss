@@ -31,6 +31,9 @@ $themes: (
     'dropdown-select-hover-text': $secondary-light,
     'button-background': $accent,
     'generic-text': $primary-midtone,
+    'error-color': $primary-error,
+    'error-border': $primary-midtone,
+    'error-background': $accent
   ),
   dark: (
     'scrollbar-thumb': $secondary-midtone,
@@ -62,5 +65,8 @@ $themes: (
     'dropdown-select-hover-text': $secondary-light,
     'button-background': $accent,
     'generic-text': $primary-light,
+    'error-color': $secondary-error,
+    'error-border': $primary-midtone,
+    'error-background': $accent
   )
 )

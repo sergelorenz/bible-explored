@@ -9,3 +9,5 @@ export const MAIN_LANGUAGES = ['eng'];
 export const PASSAGE_LENGTH = 5;
 
 export const FUMS = 'fums-version=3'
+
+export const ERROR_SHOW_DURATION_MILLISECONDS = 5000;

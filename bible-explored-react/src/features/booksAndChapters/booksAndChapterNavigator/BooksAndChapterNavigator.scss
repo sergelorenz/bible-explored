@@ -18,4 +18,5 @@
 
 .book-select {
   @include dropdown-design;
+  z-index: 5;
 }

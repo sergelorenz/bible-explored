@@ -20,6 +20,10 @@
   z-index: 100;
   top: 0px;
 
+  * {
+    color: unset;
+  }
+
   .theme-toggler {
     & > p {
       font-size: 16px;

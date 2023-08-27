@@ -1,0 +1,9 @@
+.number-grid {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-size: 20px;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  justify-content: center;
+}

@@ -11,6 +11,7 @@ import './App.scss';
 
 import { RootState } from './store';
 
+import ErrorListener from '../common/components/errorListener/ErrorListener';
 import Navigation from '../features/navigation/Navigation';
 import Home from '../features/home/Home';
 import Footer from '../features/footer/Footer';
@@ -42,6 +43,7 @@ function App() {
           </Routes>
           <Footer />
         </div>
+        <ErrorListener />
       </div>
     </Router>
   );

@@ -6,10 +6,11 @@ import { setBook } from '../booksAndChapterSlice';
 import { RootState } from '../../../app/store';
 import { Book } from '../../../../types/api';
 
-import { useLazyGetBooksQuery } from '../../../services/bibleExplored';
+import { useLazyGetBooksQuery, useLazyGetChaptersQuery } from '../../../services/bibleExplored';
 
 import DropDown, { DropDownHandle } from '../../../common/components/dropdown/DropDown';
 import Spinner from '../../../common/components/spinner/Spinner';
+import NumberGrid from '../../../common/components/numberGrid/NumberGrid';
 
 import './BooksAndChapterNavigator.scss';
 
@@ -17,9 +18,11 @@ function BooksAndChapterNavigator() {
   const dispatch = useDispatch()
   const bibleId = useSelector((state: RootState) => state.booksAndChapter.bibleId);
   const isGoPressed = useSelector((state: RootState) => state.booksAndChapter.isGoPressed);
+  const bookId = useSelector((state: RootState) => state.booksAndChapter.bookId);
   const bookName = useSelector((state: RootState) => state.booksAndChapter.bookName);
   const chapter = useSelector((state: RootState) => state.booksAndChapter.chapter);
   const [ getBooks, { data: dataBook, isFetching: isFetchingBook }] = useLazyGetBooksQuery(); 
+  const [ getChapterLength, {data: dataChapterLength, isFetching: isFetchingChapterLength }] = useLazyGetChaptersQuery();
   useEffect(() => {
     if (bibleId && isGoPressed) {
       getBooks(bibleId, isGoPressed)
@@ -32,6 +35,11 @@ function BooksAndChapterNavigator() {
       dispatch(setBook({id: id, name: name, nameLong: nameLong}))
     }
   }, [dataBook])
+  useEffect(() => {
+    if (bibleId && bookId) {
+      getChapterLength({bibleId: bibleId, bookId: bookId})
+    }
+  }, [bibleId, bookId])
 
   const handleSelectBook = (book: Book) => {
     dispatch(setBook(book));
@@ -67,6 +75,9 @@ function BooksAndChapterNavigator() {
           dataBook && renderBooks(dataBook)
         )}
       </DropDown>
+      { isFetchingChapterLength ? <Spinner /> : (
+        dataChapterLength && <NumberGrid maxValue={dataChapterLength} />
+      )}
     </div>
   )
 }
