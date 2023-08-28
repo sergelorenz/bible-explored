@@ -49,7 +49,8 @@ export type GetChaptersResponse = {
 // ============= API TYPES FOR GET CHAPTER ==========
 export type GetChapterRequest = {
   bibleId: string,
-  chapter: string,
+  bookId: string,
+  chapter: number,
 }
 
 export type ChapterContent = {

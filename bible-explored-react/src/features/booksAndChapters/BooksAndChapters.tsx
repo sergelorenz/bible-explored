@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useFums } from '../../common/hooks';
-import { useGetBiblesQuery, useLazyGetVersesQuery } from '../../services/bibleExplored';
+import { useGetBiblesQuery } from '../../services/bibleExplored';
 import { setBible } from './booksAndChapterSlice';
 
 import { RootState } from '../../app/store';
@@ -22,8 +22,8 @@ function BooksAndChapters() {
   const [ tempBible, setTempBible ] = useState<Bible | null>(null)
   const bibleName = useSelector((state: RootState) => state.booksAndChapter.bibleName);
   const isGoPressed = useSelector((state: RootState) => state.booksAndChapter.isGoPressed);
+  const isViewerInitialized = useSelector((state: RootState) => state.booksAndChapter.isViewerInitialized);
   const { data: dataBibles, isLoading: isLoadingBibles } = useFums(useGetBiblesQuery);
-  const [ _, { data: dataVerses }] = useLazyGetVersesQuery(); 
   const bibleVersionsRef = useRef<DropDownHandle | null>(null);
 
   const handleSelectBible = (bible: Bible) => {
@@ -82,8 +82,7 @@ function BooksAndChapters() {
         { bibleName && isGoPressed && (
           <div className='bible-content-area'>
             <BooksAndChapterNavigator />
-            <BibleViewer />
-            {dataVerses?.data.content && <BibleViewer />}
+            {isViewerInitialized && <BibleViewer />}
           </div>
         )}
       </div>

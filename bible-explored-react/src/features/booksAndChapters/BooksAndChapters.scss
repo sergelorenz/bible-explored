@@ -48,7 +48,9 @@
   gap: 30px;
 
   & > div {
-    width: 640px;
+    width: 0px;
     height: 700px;
+    overflow: hidden;
+    transition: width 0.2s ease-in-out;
   }
 }

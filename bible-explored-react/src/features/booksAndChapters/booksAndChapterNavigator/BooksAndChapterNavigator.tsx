@@ -2,13 +2,14 @@ import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 import { addError } from '../../../app/parentSlice';
-import { setBook, setChapter } from '../booksAndChapterSlice';
+import { setBook, setChapter, initializeViewer } from '../booksAndChapterSlice';
 
 import { RootState } from '../../../app/store';
 import { Book } from '../../../../types/api';
 
 import { useLazyGetBooksQuery, useLazyGetChaptersQuery } from '../../../services/bibleExplored';
 
+import FlexItemAnimate from '../../../common/components/flexItemAnimate/FlexItemAnimate';
 import DropDown, { DropDownHandle } from '../../../common/components/dropdown/DropDown';
 import Spinner from '../../../common/components/spinner/Spinner';
 import NumberGrid from '../../../common/components/numberGrid/NumberGrid';
@@ -43,6 +44,11 @@ function BooksAndChapterNavigator() {
     }
   }, [bibleId, bookId])
   useEffect(() => {
+    if (isFetchingChapterLength) {
+      dispatch(setChapter(0));
+    }
+  }, [isFetchingChapterLength])
+  useEffect(() => {
     if (isErrorChapterLength) {
       dispatch(addError(`Apologies, chapter data from ${bookName} in ${bibleName} could not be fetched right now. Please try a different Book or Bible Version`))
     }
@@ -59,8 +65,8 @@ function BooksAndChapterNavigator() {
     if (dataKey) {
       const chapterNum = parseInt(dataKey)
       if (!isNaN(chapterNum)) {
-        console.log('dispatching action');
         dispatch(setChapter(chapterNum));
+        dispatch(initializeViewer());
       }
     }
   }
@@ -82,28 +88,30 @@ function BooksAndChapterNavigator() {
   }
 
   return (
-    <div className='books-and-chapter-navigator'>
-      <h1>Search Books and Chapters</h1>
-      <DropDown
-        className='book-select'
-        value={bookName ? bookName : 'Select a Book'}
-        ref={booksRef}
-        isDisabled={!isGoPressed}
-      >
-        {isFetchingBook ? <Spinner /> : (
-          dataBook && renderBooks(dataBook)
+    <FlexItemAnimate styleProp={{width: '640px'}}>
+      <div className='books-and-chapter-navigator'>
+        <h1>Search Books and Chapters</h1>
+        <DropDown
+          className='book-select'
+          value={bookName ? bookName : 'Select a Book'}
+          ref={booksRef}
+          isDisabled={!isGoPressed}
+        >
+          {isFetchingBook ? <Spinner /> : (
+            dataBook && renderBooks(dataBook)
+          )}
+        </DropDown>
+        { isFetchingChapterLength ? <Spinner className={'number-grid-spinner'} width={'100px'}/> : (
+          (dataChapterLength && !isErrorChapterLength) && (
+            <NumberGrid 
+              maxValue={dataChapterLength} 
+              onSelectCell={handleSelectChapter}
+              selectedCell={chapter}
+            />
+          ) 
         )}
-      </DropDown>
-      { isFetchingChapterLength ? <Spinner className={'number-grid-spinner'} width={'100px'}/> : (
-        (dataChapterLength && !isErrorChapterLength) && (
-          <NumberGrid 
-            maxValue={dataChapterLength} 
-            onSelectCell={handleSelectChapter}
-            selectedCell={chapter}
-          />
-        ) 
-      )}
-    </div>
+      </div>
+    </FlexItemAnimate>
   )
 }
 
