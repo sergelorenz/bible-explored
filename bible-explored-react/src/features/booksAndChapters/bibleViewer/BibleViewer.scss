@@ -1,0 +1,107 @@
+@import '../../../common/sass/functions';
+
+.bible-viewer {
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 30px 60px;
+  @include theme() {
+    border: 1px solid theme-get('bible-viewer-border');
+    background-color: theme-get('bible-viewer-background');
+  }
+
+  * {
+    @include theme() {
+      color: theme-get('bible-viewer-text');
+    }
+  }
+
+  h3 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  hr {
+    width: 70%;
+    height: 5px;
+    border-width: 2px;
+    border-style: solid;
+    @include theme() {
+      box-shadow: theme-get('shadow');
+      border-color: theme-get('bible-viewer-horizontal-rule')
+    }
+  }
+
+  .scripture-styles {
+    overflow-y: auto;
+    margin: 35px 0px;
+    @include theme() {
+      color: theme-get('bible-viewer-text')
+    }
+
+    .ca {
+      @include theme() {
+        color: theme-get('scripture-style-ca')
+      }
+    }
+
+    .v, .vp, sup[class^="v"] {
+      @include theme() {
+        color: theme-get('scripture-style-v')
+      }
+    }
+
+    .notelink .notelink:hover, .notelink:active, .notelink:visited {
+      @include theme() {
+        color: theme-get('scripture-style-notelink');
+      }
+    }
+
+    .fv {
+      @include theme() {
+        color: theme-get('scripture-style-fv');
+      }
+    }
+
+    .wj {
+      @include theme() {
+        color: theme-get('scripture-style-wj');
+      }
+    }
+
+  }
+
+  // .verses {
+  //   overflow-y: auto;
+  //   margin: 35px 0px;
+
+  //   p {
+  //     margin-bottom: 10px;
+  //     font-size: 16px;
+  //     padding-right: 16px;
+
+  //     .v {
+  //       vertical-align: super;
+  //       font-size: 12px;
+  //       font-weight: 700;
+  //       @include theme() {
+  //         color: theme-get('bible-viewer-verse-number')
+  //       }
+  //     }
+  //   }
+  // }
+
+  .copyright {
+    width: 100%;
+    overflow-y: auto;
+    text-align: left;
+    height: 150px;
+    font-style: italic;
+    font-size: 12px;
+    @include theme() {
+      color: theme-get('bible-viewer-copyright');
+    }
+  }
+}

@@ -45,12 +45,13 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 60px;
 
   & > div {
     width: 0px;
     height: 700px;
+    opacity: 0;
     overflow: hidden;
-    transition: width 0.2s ease-in-out;
+    transition: width 0.2s ease-in-out, opacity 0.2s ease-in-out;
   }
 }
