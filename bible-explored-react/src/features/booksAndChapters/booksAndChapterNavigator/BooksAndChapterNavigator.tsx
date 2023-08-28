@@ -1,13 +1,15 @@
 import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setBook } from '../booksAndChapterSlice';
+import { addError } from '../../../app/parentSlice';
+import { setBook, setChapter, initializeViewer } from '../booksAndChapterSlice';
 
 import { RootState } from '../../../app/store';
 import { Book } from '../../../../types/api';
 
 import { useLazyGetBooksQuery, useLazyGetChaptersQuery } from '../../../services/bibleExplored';
 
+import FlexItemAnimate from '../../../common/components/flexItemAnimate/FlexItemAnimate';
 import DropDown, { DropDownHandle } from '../../../common/components/dropdown/DropDown';
 import Spinner from '../../../common/components/spinner/Spinner';
 import NumberGrid from '../../../common/components/numberGrid/NumberGrid';
@@ -17,12 +19,13 @@ import './BooksAndChapterNavigator.scss';
 function BooksAndChapterNavigator() {
   const dispatch = useDispatch()
   const bibleId = useSelector((state: RootState) => state.booksAndChapter.bibleId);
+  const bibleName = useSelector((state: RootState) => state.booksAndChapter.bibleName);
   const isGoPressed = useSelector((state: RootState) => state.booksAndChapter.isGoPressed);
   const bookId = useSelector((state: RootState) => state.booksAndChapter.bookId);
   const bookName = useSelector((state: RootState) => state.booksAndChapter.bookName);
   const chapter = useSelector((state: RootState) => state.booksAndChapter.chapter);
   const [ getBooks, { data: dataBook, isFetching: isFetchingBook }] = useLazyGetBooksQuery(); 
-  const [ getChapterLength, {data: dataChapterLength, isFetching: isFetchingChapterLength }] = useLazyGetChaptersQuery();
+  const [ getChapterLength, {data: dataChapterLength, isFetching: isFetchingChapterLength, isError: isErrorChapterLength }] = useLazyGetChaptersQuery();
   useEffect(() => {
     if (bibleId && isGoPressed) {
       getBooks(bibleId, isGoPressed)
@@ -40,10 +43,32 @@ function BooksAndChapterNavigator() {
       getChapterLength({bibleId: bibleId, bookId: bookId})
     }
   }, [bibleId, bookId])
+  useEffect(() => {
+    if (isFetchingChapterLength) {
+      dispatch(setChapter(0));
+    }
+  }, [isFetchingChapterLength])
+  useEffect(() => {
+    if (isErrorChapterLength) {
+      dispatch(addError(`Apologies, chapter data from ${bookName} in ${bibleName} could not be fetched right now. Please try a different Book or Bible Version`))
+    }
+  }, [isErrorChapterLength])
 
   const handleSelectBook = (book: Book) => {
     dispatch(setBook(book));
     booksRef.current?.toggleDropDown();
+  }
+
+  const handleSelectChapter = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as HTMLElement;
+    const dataKey : string | null = target.getAttribute('data-key');
+    if (dataKey) {
+      const chapterNum = parseInt(dataKey)
+      if (!isNaN(chapterNum)) {
+        dispatch(setChapter(chapterNum));
+        dispatch(initializeViewer());
+      }
+    }
   }
 
   const renderBooks = (books: Book[]) => {
@@ -63,22 +88,30 @@ function BooksAndChapterNavigator() {
   }
 
   return (
-    <div className='books-and-chapter-navigator'>
-      <h1>Search Books and Chapters</h1>
-      <DropDown
-        className='book-select'
-        value={bookName ? bookName : 'Select a Book'}
-        ref={booksRef}
-        isDisabled={!isGoPressed}
-      >
-        {isFetchingBook ? <Spinner /> : (
-          dataBook && renderBooks(dataBook)
+    <FlexItemAnimate styleProp={{width: '640px'}}>
+      <div className='books-and-chapter-navigator'>
+        <h1>Search Books and Chapters</h1>
+        <DropDown
+          className='book-select'
+          value={bookName ? bookName : 'Select a Book'}
+          ref={booksRef}
+          isDisabled={!isGoPressed}
+        >
+          {isFetchingBook ? <Spinner /> : (
+            dataBook && renderBooks(dataBook)
+          )}
+        </DropDown>
+        { isFetchingChapterLength ? <Spinner className={'number-grid-spinner'} width={'100px'}/> : (
+          (dataChapterLength && !isErrorChapterLength) && (
+            <NumberGrid 
+              maxValue={dataChapterLength} 
+              onSelectCell={handleSelectChapter}
+              selectedCell={chapter}
+            />
+          ) 
         )}
-      </DropDown>
-      { isFetchingChapterLength ? <Spinner /> : (
-        dataChapterLength && <NumberGrid maxValue={dataChapterLength} />
-      )}
-    </div>
+      </div>
+    </FlexItemAnimate>
   )
 }
 

@@ -48,7 +48,7 @@ export const bibleExploredApi = createApi({
       }
     }),
     getVerses: builder.query<GetChapterResponse, GetChapterRequest>({
-      query: ({bibleId, chapter}) => `/bibles/${bibleId}/chapters/${chapter}?${FUMS}`,
+      query: ({bibleId, bookId, chapter}) => `/bibles/${bibleId}/chapters/${bookId}.${chapter}?${FUMS}`,
     })
   })
 })

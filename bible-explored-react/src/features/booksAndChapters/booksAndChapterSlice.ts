@@ -11,7 +11,8 @@ export const booksAndChapterSlice = createSlice({
     bookId: '',
     bookName: '',
     bookNameLong: '',
-    chapter: 1,
+    chapter: 0,
+    isViewerInitialized: false
   },
   reducers: {
     setBible: (state, action : PayloadAction<Bible>) => {
@@ -30,9 +31,12 @@ export const booksAndChapterSlice = createSlice({
     setChapter: (state, action: PayloadAction<number>) => {
       state.chapter = action.payload;
     },
+    initializeViewer: state => {
+      state.isViewerInitialized = true;
+    }
   }
 })
 
-export const {setBible, setBook, setChapter} = booksAndChapterSlice.actions;
+export const {setBible, setBook, setChapter, initializeViewer} = booksAndChapterSlice.actions;
 
 export default booksAndChapterSlice.reducer;

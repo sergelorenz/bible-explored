@@ -59,6 +59,7 @@ input[type="button"] {
   @include theme() {
     background-color: theme-get('button-background');
     box-shadow: theme-get('shadow');
+    color: theme-get('button-text');
   }
   @include no-user-select;
 

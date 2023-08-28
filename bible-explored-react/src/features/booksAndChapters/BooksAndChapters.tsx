@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
+import { useFums } from '../../common/hooks';
 import { useGetBiblesQuery } from '../../services/bibleExplored';
 import { setBible } from './booksAndChapterSlice';
 
@@ -21,7 +22,8 @@ function BooksAndChapters() {
   const [ tempBible, setTempBible ] = useState<Bible | null>(null)
   const bibleName = useSelector((state: RootState) => state.booksAndChapter.bibleName);
   const isGoPressed = useSelector((state: RootState) => state.booksAndChapter.isGoPressed);
-  const { data, isLoading } = useGetBiblesQuery();
+  const isViewerInitialized = useSelector((state: RootState) => state.booksAndChapter.isViewerInitialized);
+  const { data: dataBibles, isLoading: isLoadingBibles } = useFums(useGetBiblesQuery);
   const bibleVersionsRef = useRef<DropDownHandle | null>(null);
 
   const handleSelectBible = (bible: Bible) => {
@@ -72,15 +74,15 @@ function BooksAndChapters() {
             value={tempBible ? tempBible.name : 'Select a Bible Version'}
             ref={bibleVersionsRef}
           >
-            {isLoading && <Spinner />}
-            {data && renderBibleGroups(data)}
+            {isLoadingBibles && <Spinner />}
+            {dataBibles && renderBibleGroups(dataBibles)}
           </DropDown>
           <input type='button' value='GO' onClick={handlePressGo}/>
         </div>
         { bibleName && isGoPressed && (
           <div className='bible-content-area'>
             <BooksAndChapterNavigator />
-            <BibleViewer />
+            {isViewerInitialized && <BibleViewer />}
           </div>
         )}
       </div>
