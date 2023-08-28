@@ -25,7 +25,7 @@
 
   hr {
     width: 70%;
-    height: 5px;
+    height: 2px;
     border-width: 2px;
     border-style: solid;
     @include theme() {
@@ -72,27 +72,7 @@
     }
 
   }
-
-  // .verses {
-  //   overflow-y: auto;
-  //   margin: 35px 0px;
-
-  //   p {
-  //     margin-bottom: 10px;
-  //     font-size: 16px;
-  //     padding-right: 16px;
-
-  //     .v {
-  //       vertical-align: super;
-  //       font-size: 12px;
-  //       font-weight: 700;
-  //       @include theme() {
-  //         color: theme-get('bible-viewer-verse-number')
-  //       }
-  //     }
-  //   }
-  // }
-
+  
   .copyright {
     width: 100%;
     overflow-y: auto;

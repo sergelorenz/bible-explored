@@ -24,6 +24,7 @@ function BooksAndChapterNavigator() {
   const bookId = useSelector((state: RootState) => state.booksAndChapter.bookId);
   const bookName = useSelector((state: RootState) => state.booksAndChapter.bookName);
   const chapter = useSelector((state: RootState) => state.booksAndChapter.chapter);
+  const isViewerInitialized = useSelector((state: RootState) => state.booksAndChapter.isViewerInitialized);
   const [ getBooks, { data: dataBook, isFetching: isFetchingBook }] = useLazyGetBooksQuery(); 
   const [ getChapterLength, {data: dataChapterLength, isFetching: isFetchingChapterLength, isError: isErrorChapterLength }] = useLazyGetChaptersQuery();
   useEffect(() => {
@@ -53,6 +54,11 @@ function BooksAndChapterNavigator() {
       dispatch(addError(`Apologies, chapter data from ${bookName} in ${bibleName} could not be fetched right now. Please try a different Book or Bible Version`))
     }
   }, [isErrorChapterLength])
+  useEffect(() => {
+    if (dataChapterLength && isViewerInitialized) {
+      dispatch(setChapter(1));
+    }
+  }, [dataChapterLength, isViewerInitialized])
 
   const handleSelectBook = (book: Book) => {
     dispatch(setBook(book));
