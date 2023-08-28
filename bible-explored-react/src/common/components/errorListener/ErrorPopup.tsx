@@ -9,10 +9,10 @@ import { ReactComponent as CloseIcon } from '../../../res/icons/close-icon.svg';
 import { RootState } from '../../../app/store';
 import { ERROR_SHOW_DURATION_MILLISECONDS } from '../../constants';
 
-import './ErrorListener.scss';
+import './ErrorPopup.scss';
 
 
-function ErrorListener() {
+function ErrorPopup() {
   const dispatch = useDispatch();
   const [isErrorShown, toggleErrorShown] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -59,4 +59,4 @@ function ErrorListener() {
   )
 }
 
-export default ErrorListener
+export default ErrorPopup

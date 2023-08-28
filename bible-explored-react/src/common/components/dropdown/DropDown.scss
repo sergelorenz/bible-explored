@@ -16,6 +16,12 @@
     color: theme-get('dropdown-text');
   }
 
+  * {
+    @include theme() {
+      color: theme-get('dropdown-text');
+    }
+  }
+
   .options {
     position: absolute;
     width: 100%;

@@ -8,6 +8,6 @@ export const useLazyFums = (useLazyQuery: Function) => {
       //// @ts-ignore - the fums function is available via the script tag in the index.html
       // fums("trackView", result.data.meta.fumsToken)
     }
-  }, [])
+  }, [results.data])
   return [triggerFn, results];
 }

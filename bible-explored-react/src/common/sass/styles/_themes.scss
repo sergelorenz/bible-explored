@@ -33,7 +33,11 @@ $themes: (
     'generic-text': $primary-midtone,
     'error-color': $primary-error,
     'error-border': $primary-midtone,
-    'error-background': $accent
+    'error-background': $accent,
+    'button-text': $primary-dark,
+    'number-grid-hover-border': $primary-midtone,
+    'number-grid-selected-text': $primary-light,
+    'number-grid-selected-background': $primary-dark,
   ),
   dark: (
     'scrollbar-thumb': $secondary-midtone,
@@ -67,6 +71,10 @@ $themes: (
     'generic-text': $primary-light,
     'error-color': $secondary-error,
     'error-border': $primary-midtone,
-    'error-background': $accent
+    'error-background': $accent,
+    'button-text': $primary-dark,
+    'number-grid-hover-border': $primary-light,
+    'number-grid-selected-text': $primary-dark,
+    'number-grid-selected-background': $primary-light,
   )
 )

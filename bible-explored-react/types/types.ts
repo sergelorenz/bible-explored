@@ -8,3 +8,9 @@ export type BibleLanguageGroup = {
   languageName: string,
   bibles: BibleLanguageGroupBible[]
 }
+
+export type CustomUseQueryProp = {
+  useQuery: Function,
+  args?: any,
+  isLazy?: boolean
+}

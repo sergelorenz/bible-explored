@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
+import { useFums } from '../../common/hooks';
 import { useGetBiblesQuery } from '../../services/bibleExplored';
 import { setBible } from './booksAndChapterSlice';
 
@@ -21,7 +22,7 @@ function BooksAndChapters() {
   const [ tempBible, setTempBible ] = useState<Bible | null>(null)
   const bibleName = useSelector((state: RootState) => state.booksAndChapter.bibleName);
   const isGoPressed = useSelector((state: RootState) => state.booksAndChapter.isGoPressed);
-  const { data, isLoading } = useGetBiblesQuery();
+  const { data, isLoading } = useFums(useGetBiblesQuery);
   const bibleVersionsRef = useRef<DropDownHandle | null>(null);
 
   const handleSelectBible = (bible: Bible) => {
