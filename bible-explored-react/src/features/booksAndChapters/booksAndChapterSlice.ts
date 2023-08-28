@@ -11,7 +11,7 @@ export const booksAndChapterSlice = createSlice({
     bookId: '',
     bookName: '',
     bookNameLong: '',
-    chapter: 1,
+    chapter: 0,
   },
   reducers: {
     setBible: (state, action : PayloadAction<Bible>) => {

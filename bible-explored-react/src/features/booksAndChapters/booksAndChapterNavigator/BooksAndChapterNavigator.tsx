@@ -94,7 +94,7 @@ function BooksAndChapterNavigator() {
           dataBook && renderBooks(dataBook)
         )}
       </DropDown>
-      { isFetchingChapterLength ? <Spinner /> : (
+      { isFetchingChapterLength ? <Spinner className={'number-grid-spinner'} width={'100px'}/> : (
         (dataChapterLength && !isErrorChapterLength) && (
           <NumberGrid 
             maxValue={dataChapterLength} 
