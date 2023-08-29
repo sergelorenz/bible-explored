@@ -45,7 +45,8 @@ function BooksAndChapters() {
           <ul>
             {bibleGroup.bibles.map(bible => (
               <li 
-                title={bible.bibleName} 
+                title={bible.bibleName}
+                data-cy={bible.bibleName} 
                 key={bible.bibleId}
                 onClick={() => handleSelectBible({
                   id: bible.bibleId,
@@ -77,7 +78,7 @@ function BooksAndChapters() {
             {isLoadingBibles && <Spinner />}
             {dataBibles && renderBibleGroups(dataBibles)}
           </DropDown>
-          <input type='button' value='GO' onClick={handlePressGo}/>
+          <input data-cy='bible-select-go' type='button' value='GO' onClick={handlePressGo}/>
         </div>
         { bibleName && isGoPressed && (
           <div className='bible-content-area'>

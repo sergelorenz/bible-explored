@@ -96,7 +96,7 @@ function BooksAndChapterNavigator() {
   return (
     <FlexItemAnimate styleProp={{width: '640px', opacity: 1}}>
       <div className='books-and-chapter-navigator'>
-        <h2>Search Books and Chapters</h2>
+        <h2 data-cy='menu-title'>Search Books and Chapters</h2>
         <DropDown
           className='book-select'
           value={bookName ? bookName : 'Select a Book'}
