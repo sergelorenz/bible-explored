@@ -54,11 +54,6 @@ function BooksAndChapterNavigator() {
       dispatch(addError(`Apologies, chapter data from ${bookName} in ${bibleName} could not be fetched right now. Please try a different Book or Bible Version`))
     }
   }, [isErrorChapterLength])
-  useEffect(() => {
-    if (dataChapterLength && isViewerInitialized) {
-      dispatch(setChapter(1));
-    }
-  }, [dataChapterLength, isViewerInitialized])
 
   const handleSelectBook = (book: Book) => {
     dispatch(setBook(book));
@@ -83,6 +78,7 @@ function BooksAndChapterNavigator() {
         {books.map(book => (
           <li 
             className='book-name' 
+            data-cy={book.name}
             key={book.id} 
             onClick={() => handleSelectBook(book)}
           >

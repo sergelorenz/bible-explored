@@ -30,7 +30,11 @@ function BibleViewer() {
 
   const renderVerses = (chapterContent: ChapterContent) => (
     <Fragment>
-      <div className='scripture-styles' dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(chapterContent.content)}} />
+      <div 
+        className='scripture-styles' 
+        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(chapterContent.content)}}
+        data-cy='verses'
+      />
       <div className='copyright'>
         {chapterContent.copyright}
       </div>
