@@ -19,6 +19,7 @@ export const bibleExploredApi = createApi({
   reducerPath: 'bibleExploredApi',
   baseQuery: fetchBaseQuery({ 
     baseUrl: 'https://api.scripture.api.bible/v1',
+    timeout: 5000,
     prepareHeaders: (headers) => {
       headers.set('Api-Key', import.meta.env.VITE_API_TOKEN)
     }

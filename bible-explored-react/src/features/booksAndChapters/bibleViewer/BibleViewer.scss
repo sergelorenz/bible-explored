@@ -3,6 +3,7 @@
 .bible-viewer {
   border-radius: 30px;
   display: flex;
+  height: 700px;
   flex-direction: column;
   align-items: center;
   gap: 8px;
@@ -25,7 +26,7 @@
 
   hr {
     width: 70%;
-    height: 5px;
+    height: 2px;
     border-width: 2px;
     border-style: solid;
     @include theme() {
@@ -39,6 +40,10 @@
     margin: 35px 0px;
     @include theme() {
       color: theme-get('bible-viewer-text')
+    }
+
+    p {
+      padding-right: 12px;
     }
 
     .ca {
@@ -68,31 +73,13 @@
     .wj {
       @include theme() {
         color: theme-get('scripture-style-wj');
+        font-weight: 700;
+        text-decoration: theme-get('scripture-style-wj-decoration')
       }
     }
 
   }
-
-  // .verses {
-  //   overflow-y: auto;
-  //   margin: 35px 0px;
-
-  //   p {
-  //     margin-bottom: 10px;
-  //     font-size: 16px;
-  //     padding-right: 16px;
-
-  //     .v {
-  //       vertical-align: super;
-  //       font-size: 12px;
-  //       font-weight: 700;
-  //       @include theme() {
-  //         color: theme-get('bible-viewer-verse-number')
-  //       }
-  //     }
-  //   }
-  // }
-
+  
   .copyright {
     width: 100%;
     overflow-y: auto;

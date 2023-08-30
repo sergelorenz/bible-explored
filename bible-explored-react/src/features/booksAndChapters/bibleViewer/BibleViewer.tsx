@@ -20,7 +20,7 @@ function BibleViewer() {
   const bookId = useSelector((state: RootState) => state.booksAndChapter.bookId);
   const bookNameLong = useSelector((state: RootState) => state.booksAndChapter.bookNameLong);
   const chapter = useSelector((state: RootState) => state.booksAndChapter.chapter);
-  const [ getVerses, { data: dataVerses , isLoading: isLoadingVerses, isError: isErrorVerses}] = useLazyFums(useLazyGetVersesQuery); 
+  const [ getVerses, { data: dataVerses , isFetching: isFetchingVerses, isError: isErrorVerses}] = useLazyFums(useLazyGetVersesQuery); 
 
   useEffect(() => {
     if (chapter > 0) {
@@ -30,7 +30,11 @@ function BibleViewer() {
 
   const renderVerses = (chapterContent: ChapterContent) => (
     <Fragment>
-      <div className='scripture-styles' dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(chapterContent.content)}} />
+      <div 
+        className='scripture-styles' 
+        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(chapterContent.content)}}
+        data-cy='verses'
+      />
       <div className='copyright'>
         {chapterContent.copyright}
       </div>
@@ -42,8 +46,8 @@ function BibleViewer() {
       <div className='bible-viewer'>
         <h3>{bookNameLong.toUpperCase()}</h3>
         <hr />
-        <h3>{`Chapter ${chapter}`}</h3>
-        {isLoadingVerses ? <Spinner /> : (
+        <h3>{chapter ? `Chapter ${chapter}` : ''}</h3>
+        {(!chapter || isFetchingVerses) ? <Spinner /> : (
           dataVerses && renderVerses(dataVerses.data)
         )}
       </div>

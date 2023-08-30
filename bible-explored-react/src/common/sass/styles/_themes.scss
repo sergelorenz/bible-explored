@@ -30,6 +30,7 @@ $themes: (
     'dropdown-select-hover': $accent,
     'dropdown-select-hover-text': $secondary-light,
     'button-background': $accent,
+    'main-title': $primary-dark,
     'generic-text': $primary-midtone,
     'error-color': $primary-error,
     'error-border': $primary-midtone,
@@ -48,7 +49,8 @@ $themes: (
     'scripture-style-v': $accent,
     'scripture-style-notelink': $secondary-midtone,
     'scripture-style-fv': $secondary-midtone,
-    'scripture-style-wj': $primary-error
+    'scripture-style-wj': $secondary-error,
+    'scripture-style-wj-decoration': unset
   ),
   dark: (
     'scrollbar-thumb': $secondary-midtone,
@@ -79,6 +81,7 @@ $themes: (
     'dropdown-select-hover': $accent,
     'dropdown-select-hover-text': $secondary-light,
     'button-background': $accent,
+    'main-title': $primary-light,
     'generic-text': $primary-light,
     'error-color': $secondary-error,
     'error-border': $primary-midtone,
@@ -97,6 +100,7 @@ $themes: (
     'scripture-style-v': $accent,
     'scripture-style-notelink': $primary-midtone,
     'scripture-style-fv': $secondary-midtone,
-    'scripture-style-wj': $secondary-error
+    'scripture-style-wj': $secondary-light,
+    'scripture-style-wj-decoration': underline
   )
 )

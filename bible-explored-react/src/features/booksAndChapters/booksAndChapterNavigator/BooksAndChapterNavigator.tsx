@@ -24,6 +24,7 @@ function BooksAndChapterNavigator() {
   const bookId = useSelector((state: RootState) => state.booksAndChapter.bookId);
   const bookName = useSelector((state: RootState) => state.booksAndChapter.bookName);
   const chapter = useSelector((state: RootState) => state.booksAndChapter.chapter);
+  const isViewerInitialized = useSelector((state: RootState) => state.booksAndChapter.isViewerInitialized);
   const [ getBooks, { data: dataBook, isFetching: isFetchingBook }] = useLazyGetBooksQuery(); 
   const [ getChapterLength, {data: dataChapterLength, isFetching: isFetchingChapterLength, isError: isErrorChapterLength }] = useLazyGetChaptersQuery();
   useEffect(() => {
@@ -77,6 +78,7 @@ function BooksAndChapterNavigator() {
         {books.map(book => (
           <li 
             className='book-name' 
+            data-cy={book.name}
             key={book.id} 
             onClick={() => handleSelectBook(book)}
           >
@@ -90,7 +92,7 @@ function BooksAndChapterNavigator() {
   return (
     <FlexItemAnimate styleProp={{width: '640px', opacity: 1}}>
       <div className='books-and-chapter-navigator'>
-        <h2>Search Books and Chapters</h2>
+        <h2 data-cy='menu-title'>Search Books and Chapters</h2>
         <DropDown
           className='book-select'
           value={bookName ? bookName : 'Select a Book'}

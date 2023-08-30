@@ -1,6 +1,6 @@
 describe('Navigation', () => {
   it('Navigation Passes', () => {
-    cy.visit('http://localhost:5173')
+    cy.visit('/')
     cy.hash().should('eq', '#/home')
     cy.get('.header-icons a[href="#/books-and-chapters"]').click()
     cy.hash().should('eq', '#/books-and-chapters')
