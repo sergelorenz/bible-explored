@@ -1,9 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+
+import { addError } from '../../app/parentSlice';
+import { setBible } from './booksAndChapterSlice';
 
 import { useFums } from '../../common/hooks';
 import { useGetBiblesQuery } from '../../services/bibleExplored';
-import { setBible } from './booksAndChapterSlice';
 
 import { RootState } from '../../app/store';
 import { Bible } from '../../../types/api';
@@ -23,8 +25,14 @@ function BooksAndChapters() {
   const bibleName = useSelector((state: RootState) => state.booksAndChapter.bibleName);
   const isGoPressed = useSelector((state: RootState) => state.booksAndChapter.isGoPressed);
   const isViewerInitialized = useSelector((state: RootState) => state.booksAndChapter.isViewerInitialized);
-  const { data: dataBibles, isLoading: isLoadingBibles } = useFums(useGetBiblesQuery);
+  const { data: dataBibles, isLoading: isLoadingBibles, isError: isErrorBibles } = useFums(useGetBiblesQuery);
   const bibleVersionsRef = useRef<DropDownHandle | null>(null);
+
+  useEffect(() => {
+    if (isErrorBibles) {
+      dispatch(addError('Apologies, Bible Versions Data could not be fetched right now. Please try again later.'))
+    }
+  }, [isErrorBibles])
 
   const handleSelectBible = (bible: Bible) => {
     setTempBible(bible);

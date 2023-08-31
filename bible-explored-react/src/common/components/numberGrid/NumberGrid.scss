@@ -6,8 +6,12 @@
   align-items: center;
   font-size: 20px;
   flex-wrap: wrap;
-  overflow-y: auto;
+  overflow-y: hidden;
   justify-content: center;
+
+  &:hover {
+    overflow-y: auto;
+  }
 
   .number-cell {
     cursor: pointer;

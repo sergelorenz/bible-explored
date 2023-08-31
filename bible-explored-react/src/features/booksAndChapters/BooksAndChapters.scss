@@ -50,7 +50,6 @@
   & > div {
     width: 0px;
     opacity: 0;
-    overflow: hidden;
     transition: width 0.2s ease-in-out, opacity 0.2s ease-in-out;
   }
 }

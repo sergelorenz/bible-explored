@@ -4,6 +4,7 @@
   border-radius: 30px;
   display: flex;
   height: 700px;
+  overflow: hidden;
   flex-direction: column;
   align-items: center;
   gap: 8px;
@@ -36,10 +37,14 @@
   }
 
   .scripture-styles {
-    overflow-y: auto;
+    overflow-y: hidden;
     margin: 35px 0px;
     @include theme() {
       color: theme-get('bible-viewer-text')
+    }
+
+    &:hover {
+      overflow-y: auto;
     }
 
     p {
@@ -82,13 +87,17 @@
   
   .copyright {
     width: 100%;
-    overflow-y: auto;
+    overflow-y: hidden;
     text-align: left;
     height: 150px;
     font-style: italic;
     font-size: 12px;
     @include theme() {
       color: theme-get('bible-viewer-copyright');
+    }
+
+    &:hover {
+      overflow-y: auto;
     }
   }
 }
