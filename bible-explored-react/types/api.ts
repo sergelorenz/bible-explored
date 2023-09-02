@@ -62,3 +62,20 @@ export type GetChapterResponse = {
   data: ChapterContent,
   meta: ContentMeta
 }
+
+// ============ API TYPES FOR GET PASSAGE ==========
+export type GetPassageRequest = {
+  bibleId: string,
+  passage: string
+}
+
+export type PassageContent = {
+  copyright: string,
+  content: string,
+  reference: string
+}
+
+export type GetPassageResponse = {
+  data: PassageContent,
+  meta: ContentMeta
+}
