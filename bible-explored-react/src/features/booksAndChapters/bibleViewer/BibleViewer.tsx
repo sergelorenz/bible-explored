@@ -1,6 +1,8 @@
 import React, { useEffect, Fragment } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import DOMPurify from 'dompurify';
+
+import { addError } from '../../../app/parentSlice';
 
 import { ChapterContent } from '../../../../types/api';
 import { RootState } from '../../../app/store';
@@ -16,9 +18,12 @@ import './BibleViewer.scss';
 
 
 function BibleViewer() {
+  const dispatch = useDispatch()
   const bibleId = useSelector((state: RootState) => state.booksAndChapter.bibleId);
+  const bibleName = useSelector((state: RootState) => state.booksAndChapter.bibleName);
   const bookId = useSelector((state: RootState) => state.booksAndChapter.bookId);
   const bookNameLong = useSelector((state: RootState) => state.booksAndChapter.bookNameLong);
+  const bookName = useSelector((state: RootState) => state.booksAndChapter.bookName);
   const chapter = useSelector((state: RootState) => state.booksAndChapter.chapter);
   const [ getVerses, { data: dataVerses , isFetching: isFetchingVerses, isError: isErrorVerses}] = useLazyFums(useLazyGetVersesQuery); 
 
@@ -27,6 +32,11 @@ function BibleViewer() {
       getVerses({bibleId: bibleId, bookId: bookId, chapter: chapter});
     }
   }, [chapter])
+  useEffect(() => {
+    if (isErrorVerses) {
+      dispatch(addError(`Apologies, Verse Data from ${bookName} ${chapter} (${bibleName}) could not be fetched right now. Please try a different Bible Version or Try again Later.`))
+    }
+  }, [isErrorVerses])
 
   const renderVerses = (chapterContent: ChapterContent) => (
     <Fragment>

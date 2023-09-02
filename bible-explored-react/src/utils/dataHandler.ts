@@ -1,3 +1,5 @@
+import moment from "moment";
+
 import { MAIN_LANGUAGES } from "../common/constants";
 
 import { Bible, Chapter } from '../../types/api';
@@ -37,4 +39,16 @@ export const getTotalChapters = (data: Chapter[]) => {
     }
   })
   return counter;
+}
+
+export const chooseVerseByDate = (listVerses: string[]) => {
+  let difference = getDateDifference();
+  return listVerses[difference];
+}
+
+const getDateDifference = () => {
+  let today = moment();
+  let firstDateOfTheYear = moment().startOf('year');
+  let diff = today.diff(firstDateOfTheYear, 'days');
+  return diff;
 }

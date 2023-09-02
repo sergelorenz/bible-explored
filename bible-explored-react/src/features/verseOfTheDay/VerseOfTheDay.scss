@@ -1,0 +1,15 @@
+@mixin verse-flex {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.verse-of-the-day {
+  @include verse-flex;
+}
+
+.verse-of-the-day-container {
+  @include verse-flex;
+  width: 950px;
+}

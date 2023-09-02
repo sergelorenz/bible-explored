@@ -7,39 +7,6 @@
   align-items: center;
 }
 
-.bible-select-area {
-  display: flex;
-  gap: 42px;
-  justify-content: center;
-  align-items: center;
-}
-
-.bible-select {
-  font-size: 18px;
-  height: 32px;
-  width: 350px;
-  z-index: 9;
-  .bible-group {
-    font-size: 16px;
-
-    p, li {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      margin-bottom: 2px;
-      padding: 0 16px;
-    }
-
-    p {
-      font-weight: 700;
-    }
-
-    li {
-      padding-left: 32px;
-    }
-  }
-}
-
 .bible-content-area {
   display: flex;
   align-items: flex-start;
@@ -50,7 +17,6 @@
   & > div {
     width: 0px;
     opacity: 0;
-    overflow: hidden;
     transition: width 0.2s ease-in-out, opacity 0.2s ease-in-out;
   }
 }

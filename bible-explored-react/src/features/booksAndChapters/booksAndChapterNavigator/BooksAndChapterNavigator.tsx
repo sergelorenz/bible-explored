@@ -25,7 +25,7 @@ function BooksAndChapterNavigator() {
   const bookName = useSelector((state: RootState) => state.booksAndChapter.bookName);
   const chapter = useSelector((state: RootState) => state.booksAndChapter.chapter);
   const isViewerInitialized = useSelector((state: RootState) => state.booksAndChapter.isViewerInitialized);
-  const [ getBooks, { data: dataBook, isFetching: isFetchingBook }] = useLazyGetBooksQuery(); 
+  const [ getBooks, { data: dataBook, isFetching: isFetchingBook, isError: isErrorBook }] = useLazyGetBooksQuery(); 
   const [ getChapterLength, {data: dataChapterLength, isFetching: isFetchingChapterLength, isError: isErrorChapterLength }] = useLazyGetChaptersQuery();
   useEffect(() => {
     if (bibleId && isGoPressed) {
@@ -50,15 +50,29 @@ function BooksAndChapterNavigator() {
     }
   }, [isFetchingChapterLength])
   useEffect(() => {
+    if (dataChapterLength) {
+      dispatch(setChapter(1));
+    }
+  }, [dataChapterLength])
+  useEffect(() => {
+    if (chapter > 0 && !isViewerInitialized) {
+      dispatch(initializeViewer());
+    }
+  }, [chapter])
+  useEffect(() => {
     if (isErrorChapterLength) {
       dispatch(addError(`Apologies, chapter data from ${bookName} in ${bibleName} could not be fetched right now. Please try a different Book or Bible Version`))
     }
-  }, [isErrorChapterLength])
+    if (isErrorBook) {
+      dispatch(addError(`Apologie, Books Data from ${bibleName} could not be fetched right now. Please try a different Bible Version`))
+    }
+  }, [isErrorChapterLength, isErrorBook])
 
   const handleSelectBook = (book: Book) => {
     dispatch(setBook(book));
     booksRef.current?.toggleDropDown();
   }
+
 
   const handleSelectChapter = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLElement;
