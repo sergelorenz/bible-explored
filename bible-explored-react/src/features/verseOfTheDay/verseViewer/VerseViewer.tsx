@@ -37,7 +37,7 @@ function VerseViewer() {
           data-cy='verse-of-the-day'
           dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(dataPassage.data.content)}}
         />
-        <p className='source-verse'>{dataPassage.data.reference}</p>
+        <p className='source-verse'>{`− ${dataPassage.data.reference} −`}</p>
       </div>      
     )
   )

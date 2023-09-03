@@ -13,7 +13,6 @@ import { useLazyGetVersesQuery } from '../../../services/bibleExplored';
 import Spinner from '../../../common/components/spinner/Spinner';
 import FlexItemAnimate from '../../../common/components/flexItemAnimate/FlexItemAnimate'
 
-import '../../../common/sass/scripture-styles.scss';
 import './BibleViewer.scss';
 
 

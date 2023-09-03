@@ -1,16 +1,10 @@
 @import '../../../common/sass/functions';
 
 .verse-viewer {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-
   .copyright {
     width: 100%;
     overflow-y: hidden;
-    height: 30px;
+    max-height: 30px;
     font-size: 12px;
     text-align: left;
     font-style: italic;
@@ -24,23 +18,27 @@
     }
   }
 
-  h2 {
-    font-size: 26px;
+  .scripture-styles {
+    margin: 0 25px;
     width: 100%;
-    text-align: left;
-    @include theme() {
-      color: theme-get('main-title');
+    margin: 10px 0;
+    font-size: 20px;
+
+    .b {
+      height: unset;
+    }
+
+    p {
+      text-align: left;
+      width: 100%;
+      line-height: 32px;
     }
   }
-
-  hr {
+  
+  .source-verse {
     width: 100%;
-    height: 2px;
-    border-width: 1px;
-    border-style: solid;
-    @include theme() {
-      box-shadow: theme-get('shadow');
-      border-color: theme-get('bible-viewer-horizontal-rule')
-    }
+    text-align: right;
+    font-weight: 700;
+    font-size: 18px;
   }
 }

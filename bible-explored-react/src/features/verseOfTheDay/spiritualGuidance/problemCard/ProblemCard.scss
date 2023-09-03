@@ -1,0 +1,10 @@
+@import '../../../../common/sass/functions';
+
+.problem-card {
+  padding: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  @include theme() {
+    box-shadow: theme-get('shadow');
+  }
+}

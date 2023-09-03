@@ -39,9 +39,6 @@
   .scripture-styles {
     overflow-y: hidden;
     margin: 35px 0px;
-    @include theme() {
-      color: theme-get('bible-viewer-text')
-    }
 
     &:hover {
       overflow-y: auto;
@@ -50,39 +47,6 @@
     p {
       padding-right: 12px;
     }
-
-    .ca {
-      @include theme() {
-        color: theme-get('scripture-style-ca')
-      }
-    }
-
-    .v, .vp, sup[class^="v"] {
-      @include theme() {
-        color: theme-get('scripture-style-v')
-      }
-    }
-
-    .notelink .notelink:hover, .notelink:active, .notelink:visited {
-      @include theme() {
-        color: theme-get('scripture-style-notelink');
-      }
-    }
-
-    .fv {
-      @include theme() {
-        color: theme-get('scripture-style-fv');
-      }
-    }
-
-    .wj {
-      @include theme() {
-        color: theme-get('scripture-style-wj');
-        font-weight: 700;
-        text-decoration: theme-get('scripture-style-wj-decoration')
-      }
-    }
-
   }
   
   .copyright {
