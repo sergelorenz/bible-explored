@@ -1,10 +1,31 @@
 @import '../../../../common/sass/functions';
 
-.problem-card {
+.problem-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 20px;
+  cursor: pointer;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   @include theme() {
     box-shadow: theme-get('shadow');
+    background-color: theme-get('verse-of-the-day-problem-card-background');
+    border: theme-get('verse-of-the-day-problem-card-border');
+  }
+
+  svg {
+    margin-top: 1px;
+    width: 25px;
+    transition: transform 0.3s ease-out;
+    @include theme() {
+      fill: theme-get('verse-of-the-day-arrow-down');
+    }
+  }
+
+  &.open {
+    svg {
+      transform: rotate(180deg);
+    }
   }
 }

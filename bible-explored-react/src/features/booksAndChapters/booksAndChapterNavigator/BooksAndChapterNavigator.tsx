@@ -9,7 +9,7 @@ import { Book } from '../../../../types/api';
 
 import { useLazyGetBooksQuery, useLazyGetChaptersQuery } from '../../../services/bibleExplored';
 
-import FlexItemAnimate from '../../../common/components/flexItemAnimate/FlexItemAnimate';
+import AppearAnimate from '../../../common/components/appearAnimate/AppearAnimate';
 import DropDown, { DropDownHandle } from '../../../common/components/dropdown/DropDown';
 import Spinner from '../../../common/components/spinner/Spinner';
 import NumberGrid from '../../../common/components/numberGrid/NumberGrid';
@@ -104,7 +104,7 @@ function BooksAndChapterNavigator() {
   }
 
   return (
-    <FlexItemAnimate styleProp={{width: '640px', opacity: 1}}>
+    <AppearAnimate styleAppear={{width: '640px', opacity: 1}}>
       <div className='books-and-chapter-navigator'>
         <h2 data-cy='menu-title'>Search Books and Chapters</h2>
         <DropDown
@@ -127,7 +127,7 @@ function BooksAndChapterNavigator() {
           ) 
         )}
       </div>
-    </FlexItemAnimate>
+    </AppearAnimate>
   )
 }
 

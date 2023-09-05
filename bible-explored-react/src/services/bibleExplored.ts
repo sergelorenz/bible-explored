@@ -63,5 +63,6 @@ export const {
   useLazyGetBooksQuery, 
   useLazyGetChaptersQuery,
   useLazyGetVersesQuery,
+  useGetPassageQuery,
   useLazyGetPassageQuery
 } = bibleExploredApi;
