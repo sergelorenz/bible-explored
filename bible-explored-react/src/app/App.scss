@@ -78,3 +78,41 @@ input[type="button"] {
     background-color: theme-get('scrollbar-thumb');
   }
 }
+
+.scripture-styles {
+  @include theme() {
+    color: theme-get('bible-viewer-text')
+  }
+  
+  .ca {
+    @include theme() {
+      color: theme-get('scripture-style-ca')
+    }
+  }
+
+  .v, .vp, sup[class^="v"] {
+    @include theme() {
+      color: theme-get('scripture-style-v')
+    }
+  }
+
+  .notelink .notelink:hover, .notelink:active, .notelink:visited {
+    @include theme() {
+      color: theme-get('scripture-style-notelink');
+    }
+  }
+
+  .fv {
+    @include theme() {
+      color: theme-get('scripture-style-fv');
+    }
+  }
+
+  .wj {
+    @include theme() {
+      color: theme-get('scripture-style-wj');
+      font-weight: 700;
+      text-decoration: theme-get('scripture-style-wj-decoration')
+    }
+  }
+}

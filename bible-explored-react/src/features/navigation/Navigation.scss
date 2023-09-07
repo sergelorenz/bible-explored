@@ -28,9 +28,15 @@
     & > p {
       font-size: 16px;
       font-weight: 700;
+      @include theme() {
+        color: theme-get('nav-text-color');
+      }
 
       & > span {
         text-decoration: underline;
+        @include theme() {
+          color: theme-get('nav-text-color');
+        }
       }
     }
 

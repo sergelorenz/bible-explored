@@ -14,3 +14,8 @@ export type CustomUseQueryProp = {
   args?: any,
   isLazy?: boolean
 }
+
+export type Problem = {
+  description: string,
+  verses: string[]
+}

@@ -7,8 +7,6 @@ import {
   Navigate
 } from 'react-router-dom';
 
-import './App.scss';
-
 import { RootState } from './store';
 
 import ErrorPopup from '../common/components/errorListener/ErrorPopup';
@@ -25,6 +23,9 @@ import {
   MENU_VERSE_OF_THE_DAY,
   MENU_SIDE_BY_SIDE
 } from '../common/constants';
+
+import '../common/sass/scripture-styles.scss';
+import './App.scss';
 
 function App() {
   const theme = useSelector((state: RootState) => state.parent.theme);

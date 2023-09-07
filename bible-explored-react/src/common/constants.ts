@@ -10,8 +10,8 @@ export const FUMS = 'fums-version=3'
 export const ERROR_SHOW_DURATION_MILLISECONDS = 5000;
 
 // Verse of the Day Constants
-export const DEFAULT_BIBLE_ID = '01b29f4b342acc35-01';
-export const DEFAULT_BIBLE_NAME = 'Literal Standard Version'
+export const DEFAULT_BIBLE_ID = 'de4e12af7f28f599-02';
+export const DEFAULT_BIBLE_NAME = 'King James (Authorised) Version'
 export const VERSE_OF_THE_DAY_LIST = [
   'MAT.6.4',
   'PSA.34.22',

@@ -6,6 +6,7 @@ import { RootState } from '../../app/store';
 import { setBible } from './verseOfTheDaySlice';
 
 import VerseViewer from './verseViewer/VerseViewer';
+import SpiritualGuidance from './spiritualGuidance/SpiritualGuidance';
 
 import Content from '../../common/components/content/Content'
 import BibleGroupSelector from '../../common/components/bibleGroupSelector/BibleGroupSelector';
@@ -28,6 +29,7 @@ function VerseOfTheDay() {
         />
         <div className='verse-of-the-day-container'>
           <VerseViewer />
+          <SpiritualGuidance />
         </div>
       </div>
     </Content>

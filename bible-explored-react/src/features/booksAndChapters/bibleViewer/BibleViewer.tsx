@@ -11,9 +11,8 @@ import { useLazyFums } from '../../../common/hooks';
 import { useLazyGetVersesQuery } from '../../../services/bibleExplored';
 
 import Spinner from '../../../common/components/spinner/Spinner';
-import FlexItemAnimate from '../../../common/components/flexItemAnimate/FlexItemAnimate'
+import AppearAnimate from '../../../common/components/appearAnimate/AppearAnimate'
 
-import '../../../common/sass/scripture-styles.scss';
 import './BibleViewer.scss';
 
 
@@ -52,7 +51,7 @@ function BibleViewer() {
   )
 
   return (
-    <FlexItemAnimate styleProp={{width: '640px', opacity: 1}}>
+    <AppearAnimate styleAppear={{width: '640px', opacity: 1}}>
       <div className='bible-viewer'>
         <h3>{bookNameLong.toUpperCase()}</h3>
         <hr />
@@ -61,7 +60,7 @@ function BibleViewer() {
           dataVerses && renderVerses(dataVerses.data)
         )}
       </div>
-    </FlexItemAnimate>
+    </AppearAnimate>
   )
 }
 
