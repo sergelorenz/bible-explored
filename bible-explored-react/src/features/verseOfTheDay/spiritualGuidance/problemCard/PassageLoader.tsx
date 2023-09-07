@@ -7,22 +7,23 @@ import { useGetPassageQuery } from '../../../../services/bibleExplored';
 
 type Props = {
   verse: string,
-  onVerseLoad: Function
+  onVerseLoad: Function,
+  index: number
 }
 
-function VerseLoader({verse, onVerseLoad}: Props) {
+function PassageLoader({verse, onVerseLoad, index}: Props) {
   const bibleId = useSelector((state: RootState) => state.verseOfTheDay.bibleId)
   const { data: dataPassage, isError: isErrorPassage } = useGetPassageQuery({bibleId: bibleId, passage: verse});
 
   useEffect(() => {
     if (dataPassage) {
-      onVerseLoad(1);
+      onVerseLoad(index, dataPassage.data.content);
     } else if (isErrorPassage) {
-      onVerseLoad(2);
+      onVerseLoad(index, 'Error');
     }
   }, [dataPassage, isErrorPassage])
 
   return null;
 }
 
-export default VerseLoader
+export default PassageLoader

@@ -1,32 +1,54 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import classNames from 'classnames';
+import DOMPurify from 'dompurify';
 
 import { ReactComponent as ArrowDown } from '../../../../res/icons/angle-bottom-icon.svg';
 
+import Spinner from '../../../../common/components/spinner/Spinner';
 import AppearAnimate, { AppearAnimateHandle } from '../../../../common/components/appearAnimate/AppearAnimate';
+
+import PassageLoader from './PassageLoader';
 
 import './ProblemCard.scss';
 
 type Problem = {
   description: string,
-  verses: string[]
+  verses: string[],
 }
 
 type Props = {
-  problemItem: Problem
+  problemItem: Problem,
+  problemCardKey: string
 }
 
-function ProblemCard({problemItem: {description, verses}}: Props) {
+function ProblemCard({problemItem: {description, verses}, problemCardKey}: Props) {
   const [ isOpen, toggleOpen ] = useState(false);
-  const areVersesLoaded = useRef<number[]>(Array.from({length: verses.length}, _ => 0))
+  const [ isCardClicked, toggleCardClicked ] = useState(false);
+  const [ passages, setPassages ] = useState(Array.from({length: verses.length}, _ => ''));
   const problemCardRef = useRef<AppearAnimateHandle | null>(null);
+  useEffect(() => {
+    if (passages.every(item => item !== '')) {
+      toggleOpen(true);
+    }
+  }, [passages])
 
   const handleProblemCardHeaderClicked = (e: React.MouseEvent<HTMLElement>) => {
-    toggleOpen(!isOpen);
+    toggleCardClicked(true);
+    if (isOpen) {
+      toggleOpen(false);
+      problemCardRef.current?.disappear();
+    } else if (passages.every(item => item !== '')) {
+      toggleOpen(true);
+      problemCardRef.current?.appear();
+    }
   }
 
-  const setVerseLoaded = (index: number, type: number) => {
-    areVersesLoaded.current[index] = type;
+  const setVerseLoaded = (index: number, passage: string) => {
+    setPassages(prevPassages => [
+      ...prevPassages.slice(0, index),
+      passage,
+      ...prevPassages.slice(index + 1)
+    ]);
   }
 
   return (
@@ -36,11 +58,33 @@ function ProblemCard({problemItem: {description, verses}}: Props) {
         onClick={handleProblemCardHeaderClicked}
       >
         <p>{description}</p>
+        { isCardClicked && passages.every(item => item === '') && <Spinner className='problem-card-spinner'/>}
         <ArrowDown />
       </div>
-      {areVersesLoaded.current.every(item => item === 1) && (
-        <AppearAnimate styleAppear={{opactiy: '1', fontSize: '18px'}}>
-
+      { isCardClicked && (
+        verses.map((verse, index) => (
+          <PassageLoader verse={verse} onVerseLoad={setVerseLoaded} index={index} key={index}/>
+        ))
+      )}
+      {passages.every(item => item !== '') && (
+        <AppearAnimate 
+          styleAppear={{transform: 'scaleY(1)', opacity: '1', lineHeight: '25px', fontSize: '18px'}}
+          styleDisappear={{transform: 'scaleY(0)', opacity: '0', lineHeight: '0px', fontSize: '0'}}
+          ref={problemCardRef}
+        >
+          <div className='guidance-passages'>
+            {passages.map((passage, index) => (
+              <div className='passage-for-problem' key={index}>
+                { index === 0 && <hr />}
+                <div 
+                  className='scripture-styles' 
+                  data-cy='passage-for-problem' 
+                  dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(passage)}}
+                />
+                <hr />
+              </div>
+            ))}
+          </div>
         </AppearAnimate>
       )}
     </div>

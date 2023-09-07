@@ -38,6 +38,12 @@
       color: theme-get('home-menu-hover-items');
       fill: theme-get('home-menu-hover-items');
     }
+
+    h2, p {
+      @include theme() {
+        color: theme-get('home-menu-hover-items');
+      }
+    }
   }
 
   &:active {
@@ -60,5 +66,11 @@
     text-align: left;
     font-size: 20px;
     line-height: 27px;
+  }
+
+  h2, p {
+    @include theme() {
+      color: theme-get('home-menu-items');
+    }
   }
 }
