@@ -2,7 +2,7 @@ import moment from "moment";
 
 import { MAIN_LANGUAGES } from "../common/constants";
 
-import { Bible, Chapter } from '../../types/api';
+import { Bible, Chapter, PassageContent } from '../../types/api';
 import { BibleLanguageGroup, BibleLanguageGroupBible } from '../../types/types';
 
 export const groupBiblesByLanguage = (data: Bible[]) => {
@@ -51,4 +51,10 @@ const getDateDifference = () => {
   let firstDateOfTheYear = moment().startOf('year');
   let diff = today.diff(firstDateOfTheYear, 'days');
   return diff;
+}
+
+export const addReference = (passage: PassageContent) => {
+  const { content, reference } = passage;
+  const htmlReference = `<p class="reference">- ${reference} -</p>`;
+  return content + htmlReference;
 }

@@ -79,7 +79,7 @@
     font-size: unset;
     line-height: unset;
 
-    *:not(.v) {
+    *:not(.v, .reference) {
       color: unset !important;
       font-weight: unset !important;
       text-decoration: none !important;
@@ -87,6 +87,14 @@
 
     .b {
       display: none;
+    }
+
+    .reference {
+      margin-top: 0.35em;
+      font-family: 'Roboto', sans-serif;
+      text-align: right;
+      font-size: 0.9em;
+      font-weight: 700;
     }
   }
 }
