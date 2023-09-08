@@ -3,6 +3,10 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from '../../../../app/store';
 
+import { addReference } from '../../../../utils/dataHandler';
+
+import { useFums } from '../../../../common/hooks';
+
 import { useGetPassageQuery } from '../../../../services/bibleExplored';
 
 type Props = {
@@ -13,11 +17,11 @@ type Props = {
 
 function PassageLoader({verse, onVerseLoad, index}: Props) {
   const bibleId = useSelector((state: RootState) => state.verseOfTheDay.bibleId)
-  const { data: dataPassage, isError: isErrorPassage } = useGetPassageQuery({bibleId: bibleId, passage: verse});
+  const { data: dataPassage, isError: isErrorPassage } = useFums(useGetPassageQuery, {bibleId: bibleId, passage: verse});
 
   useEffect(() => {
     if (dataPassage) {
-      onVerseLoad(index, dataPassage.data.content);
+      onVerseLoad(index, addReference(dataPassage.data));
     } else if (isErrorPassage) {
       onVerseLoad(index, 'Error');
     }

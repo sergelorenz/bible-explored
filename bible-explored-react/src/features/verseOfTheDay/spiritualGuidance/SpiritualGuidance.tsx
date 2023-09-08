@@ -13,7 +13,7 @@ function SpiritualGuidance() {
   const renderProblemItems = (problemItems: Problem[]) => (
     <div className='problem-items'>
       {problemItems.map((problemItem, i) => (
-        <ProblemCard problemItem={problemItem} key={problemItem.description} problemCardKey={problemItem.description}/>
+        <ProblemCard problemItem={problemItem} key={problemItem.description} />
       ))}
     </div>
   )
