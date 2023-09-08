@@ -32,7 +32,7 @@ function BibleViewer() {
     }
   }, [chapter])
   useEffect(() => {
-    if (isErrorVerses) {
+    if (isErrorVerses && chapter > 0) {
       dispatch(addError(`Apologies, Verse Data from ${bookName} ${chapter} (${bibleName}) could not be fetched right now. Please try a different Bible Version or Try again Later.`))
     }
   }, [isErrorVerses])
