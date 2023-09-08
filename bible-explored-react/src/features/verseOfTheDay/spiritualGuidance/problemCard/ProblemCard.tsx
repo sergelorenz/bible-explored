@@ -36,7 +36,6 @@ function ProblemCard({problemItem: {description, verses}}: Props) {
       toggleCardLoaded(_ => true);
     }
     if (passages.every(item => item === 'Error')) {
-      console.log('Detected Error!');
       dispatch(addError(`Could not fetch passages for the card ${description.toUpperCase()}. Please try a different Bible Version.`))
     }
   }, [passages])
@@ -61,7 +60,7 @@ function ProblemCard({problemItem: {description, verses}}: Props) {
   }
 
   return (
-    <div className='problem-card-parent'>
+    <div className='problem-card-parent' data-cy={description}>
       <div 
         className={classNames('problem-card-header', isOpen && 'open')}
         onClick={handleProblemCardHeaderClicked}

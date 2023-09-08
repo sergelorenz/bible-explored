@@ -3,7 +3,7 @@ describe('Books and Chapters', () => {
     cy.visit('#/books-and-chapters')
   })
 
-  it('Should should redirect to Books and chapters', () => {
+  it('Should redirect to Books and chapters', () => {
     cy.visit('#/home')
     cy.get('.home a[href="#/books-and-chapters"] .menu').click()
     cy.hash().should('eq', '#/books-and-chapters')
