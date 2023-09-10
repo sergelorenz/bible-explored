@@ -1,14 +1,16 @@
 import React, { MouseEventHandler, ReactNode } from 'react'
 
+import './IconButton.scss';
+
 type Props = {
   children: ReactNode,
   width?: string,
   onButtonClick?: MouseEventHandler<HTMLDivElement>
 }
 
-function IconButton({children, width='40px', onButtonClick}: Props) {
+function IconButton({children, width='45px', onButtonClick}: Props) {
   return (
-    <div className='icon-button' style={{width: width}} onClick={onButtonClick}>
+    <div className='icon-button' style={{width: width, height: width}} onClick={onButtonClick}>
       {children}
     </div>
   )

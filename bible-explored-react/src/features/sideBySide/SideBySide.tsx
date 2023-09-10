@@ -3,6 +3,8 @@ import React from 'react'
 import Content from '../../common/components/content/Content'
 import VerseSelector from '../../common/components/verseSelector/VerseSelector'
 
+import './SideBySide.scss';
+
 function SideBySide() {
   return (
     <Content>
