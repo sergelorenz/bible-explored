@@ -55,6 +55,8 @@ $themes: (
     'verse-of-the-day-problem-card-border': unset,
     'verse-of-the-day-arrow-down': $primary-midtone,
     'spiritual-guidance-hr': $secondary-midtone,
+    'icon-button-background': $primary-light,
+    'icon-button-fill': $primary-midtone
   ),
   dark: (
     'scrollbar-thumb': $secondary-midtone,
@@ -110,5 +112,7 @@ $themes: (
     'verse-of-the-day-problem-card-border': 1px solid $primary-light,
     'verse-of-the-day-arrow-down': $secondary-midtone,
     'spiritual-guidance-hr': $primary-midtone,
+    'icon-button-background': $primary-light,
+    'icon-button-fill': $primary-midtone
   )
 )

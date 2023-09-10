@@ -1,0 +1,21 @@
+@import '../../sass/functions';
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  @include theme() {
+    background: theme-get('icon-button-background');
+    box-shadow: theme-get('shadow');
+  }
+
+  svg {
+    width: 50%;
+    height: 50%;
+
+    @include theme() {
+      fill: theme-get('icon-button-fill');
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.verse-select-area {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+
+  .chapter-select, .verse-select {
+    width: 100px;
+  }
+
+  svg {
+    .add-verse-icon, .remove-verse-icon {
+      height: 80%;
+      width: 80%;
+    }
+  }
+}
