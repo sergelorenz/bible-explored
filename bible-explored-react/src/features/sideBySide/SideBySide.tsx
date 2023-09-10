@@ -12,7 +12,7 @@ function SideBySide() {
     <Content>
       <div className='content side-by-side'>
         <VerseSelector 
-          defaultScripture={{book: 'JHN', chapter: 1, verse: 1}}
+          defaultScripture={{book: 'JHN', chapter: 1, verse: 1, bookName: 'John'}}
           onPressGoAction={setScripture}
         />
       </div>

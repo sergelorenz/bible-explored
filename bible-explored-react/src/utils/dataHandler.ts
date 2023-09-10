@@ -58,3 +58,7 @@ export const addReference = (passage: PassageContent) => {
   const htmlReference = `<p class="reference">- ${reference} -</p>`;
   return content + htmlReference;
 }
+
+export const padNumber = (num: number) => {
+  return num.toString().padStart(2, '0');
+}

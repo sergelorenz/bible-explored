@@ -23,5 +23,6 @@ export type Problem = {
 export type ScriptureVerse = {
   book: string,
   chapter: number,
-  verse: number
+  verse: number,
+  bookName: string
 }

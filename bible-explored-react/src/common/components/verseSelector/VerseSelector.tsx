@@ -10,6 +10,8 @@ import Spinner from '../spinner/Spinner';
 import { ScriptureVerse } from '../../../../types/types';
 import { Book } from '../../../../types/api';
 
+import { padNumber } from '../../../utils/dataHandler';
+
 import { useGetBooksQuery, useLazyGetChaptersQuery, useLazyGetVerseLengthQuery } from '../../../services/bibleExplored';
 
 import { ReactComponent as RemoveIcon } from '../../../res/icons/remove-icon.svg';
@@ -26,6 +28,7 @@ type Props = {
 function VerseSelector({defaultScripture, onPressGoAction}: Props) {
   const dispatch = useDispatch()
   const [ selectedBook, setSelectedBook ] = useState(defaultScripture.book);
+  const [ selectedBookName, setSelectedBookName ] = useState(defaultScripture.bookName);
   const [ selectedChapter, setSelectedChapter ] = useState(defaultScripture.chapter);
   const [ selectedVerse, setSelectedVerse ] = useState(defaultScripture.verse);
   const booksRef = useRef<DropDownHandle | null>(null);
@@ -36,10 +39,15 @@ function VerseSelector({defaultScripture, onPressGoAction}: Props) {
   const [ getVerseLength, {data: dataVersesLength, isFetching: isFetchingVersesLength, isError: isErrorVersesLength }] = useLazyGetVerseLengthQuery();
   useEffect(() => {
     getChapterLength({bibleId: BIBLE_ID_BASIS, bookId: selectedBook})
+    setSelectedChapter(1);
     getVerseLength({bibleId: BIBLE_ID_BASIS, bookId: selectedBook, chapter: selectedChapter})
-  }, [])
+  }, [selectedBook])
+  useEffect(() => {
+    getVerseLength({bibleId: BIBLE_ID_BASIS, bookId: selectedBook, chapter: selectedChapter})
+    setSelectedVerse(1);
+  }, [selectedChapter])
 
-  const selectOption = (setter: Function, value: string | number, dropDownRef: any) => {
+  const selectOption = (setter: Function, value: string | number, dropDownRef?: any) => {
     setter(value);
     if (dropDownRef) {
       dropDownRef.current?.toggleDropDown();
@@ -55,7 +63,10 @@ function VerseSelector({defaultScripture, onPressGoAction}: Props) {
             className='book-name' 
             data-cy={book.name}
             key={book.id} 
-            onClick={() => selectOption(setSelectedBook, book.id, booksRef)}
+            onClick={() => {
+              selectOption(setSelectedBook, book.id, booksRef);
+              selectOption(setSelectedBookName, book.name)
+            }}
           >
             {book.name}
           </li>
@@ -74,7 +85,7 @@ function VerseSelector({defaultScripture, onPressGoAction}: Props) {
             key={item + 1}
             onClick={() => selectOption(setSelectedChapter, item + 1, chapterRef)}
           >
-            {(item + 1).toString().padStart(2, '0')}
+            {padNumber(item + 1)}
           </li>
         ))}
       </ul>
@@ -91,7 +102,7 @@ function VerseSelector({defaultScripture, onPressGoAction}: Props) {
             key={item + 1}
             onClick={() => selectOption(setSelectedVerse, item + 1, verseRef)}
           >
-            {(item + 1).toString().padStart(2, '0')}
+            {padNumber(item + 1)}
           </li>
         ))}
       </ul>
@@ -108,7 +119,7 @@ function VerseSelector({defaultScripture, onPressGoAction}: Props) {
       </IconButton>
       <DropDown
         className='book-select'
-        value='Select a Book'
+        value={selectedBookName}
         ref={booksRef}
       >
         {isLoadingBooks && <Spinner />}
@@ -116,7 +127,7 @@ function VerseSelector({defaultScripture, onPressGoAction}: Props) {
       </DropDown>
       <DropDown
         className='chapter-select'
-        value='1'
+        value={padNumber(selectedChapter)}
         ref={chapterRef}
       >
         { isFetchingChapterLength && <Spinner />}
@@ -125,7 +136,7 @@ function VerseSelector({defaultScripture, onPressGoAction}: Props) {
       <p>:</p>
       <DropDown
         className='verse-select'
-        value='1'
+        value={padNumber(selectedVerse)}
         ref={verseRef}
       >
         { isFetchingVersesLength && <Spinner />}
