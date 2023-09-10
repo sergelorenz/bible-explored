@@ -46,6 +46,16 @@ export type GetChaptersResponse = {
   data: Chapter[]
 }
 
+// ============= API TYPES FOR GET VERSE LENGHT ==========
+export type Verse = {
+  verseId: string,
+  reference: string
+}
+
+export type GetVersesResponse = {
+  data: Verse[]
+}
+
 // ============= API TYPES FOR GET CHAPTER ==========
 export type GetChapterRequest = {
   bibleId: string,
