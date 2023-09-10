@@ -19,3 +19,9 @@ export type Problem = {
   description: string,
   verses: string[]
 }
+
+export type ScriptureVerse = {
+  book: string,
+  chapter: number,
+  verse: number
+}

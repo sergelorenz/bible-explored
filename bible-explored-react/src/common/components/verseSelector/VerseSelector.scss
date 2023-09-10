@@ -8,9 +8,17 @@
   }
 
   svg {
-    .add-verse-icon, .remove-verse-icon {
+    &.add-verse-icon, &.remove-verse-icon {
       height: 80%;
       width: 80%;
     }
+
+    &.previous-verse-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  & > p {
+    margin: 0 -12px;
   }
 }

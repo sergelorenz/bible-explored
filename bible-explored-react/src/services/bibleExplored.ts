@@ -12,7 +12,8 @@ import {
   GetChapterRequest,
   GetChapterResponse,
   GetPassageRequest,
-  GetPassageResponse
+  GetPassageResponse,
+  GetVersesResponse
 } from '../../types/api';
 import { BibleLanguageGroup } from '../../types/types';
 
@@ -49,6 +50,12 @@ export const bibleExploredApi = createApi({
         }
       }
     }),
+    getVerseLength: builder.query<number, GetChapterRequest>({
+      query: ({bibleId, bookId, chapter}) => `/bibles/${bibleId}/chapters/${bookId}.${chapter}/verses`,
+      transformResponse: (response: GetVersesResponse) => {
+        return response.data.length
+      }
+    }),
     getVerses: builder.query<GetChapterResponse, GetChapterRequest>({
       query: ({bibleId, bookId, chapter}) => `/bibles/${bibleId}/chapters/${bookId}.${chapter}?${FUMS}`,
     }),
@@ -60,9 +67,11 @@ export const bibleExploredApi = createApi({
 
 export const { 
   useGetBiblesQuery, 
+  useGetBooksQuery,
   useLazyGetBooksQuery, 
   useLazyGetChaptersQuery,
   useLazyGetVersesQuery,
+  useLazyGetVerseLengthQuery,
   useGetPassageQuery,
   useLazyGetPassageQuery
 } = bibleExploredApi;
