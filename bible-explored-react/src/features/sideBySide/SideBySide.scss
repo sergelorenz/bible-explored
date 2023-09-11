@@ -1,5 +1,54 @@
+@import '../../common/sass/functions';
+@import '../../common/sass/mixins';
+
 .side-by-side {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.version-viewer-container {
+  margin: 90px 0;
+}
+
+.add-version {
+  @include no-user-select;
+  width: 140px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  cursor: pointer;
+  @include theme() {
+    border: 2px solid theme-get('side-by-side-add-version-button');
+  }
+
+  svg {
+    height: 70px;
+    width: 70px;
+    text {
+      @include theme() {
+        fill: theme-get('side-by-side-add-version-button');
+      }
+    }
+  }
+
+  &:hover {
+    @include theme() {
+      background-color: theme-get('side-by-side-add-version-button-hover-background')
+    }
+
+    svg {
+      text {
+        @include theme() {
+          fill: theme-get('side-by-side-add-version-button-hover-icon')
+        }
+      }
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
 }

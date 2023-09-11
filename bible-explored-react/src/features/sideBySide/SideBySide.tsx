@@ -6,6 +6,8 @@ import { RootState } from '../../app/store';
 import Content from '../../common/components/content/Content'
 import VerseSelector from '../../common/components/verseSelector/VerseSelector'
 
+import { ReactComponent as AddIcon } from '../../res/icons/add-icon.svg';
+
 import { setScripture, setVerseCount, goAnotherVerse } from './sideBySideSlice';
 
 import './SideBySide.scss';
@@ -26,6 +28,11 @@ function SideBySide() {
           onPressAnotherVerseAction={goAnotherVerse}
           verseCount={verseCount}
         />
+        <div className='version-viewer-container'>
+          <div className='add-version'>
+            <AddIcon />
+          </div>
+        </div>
       </div>
     </Content>
   )
