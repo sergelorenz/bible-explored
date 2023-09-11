@@ -1,10 +1,13 @@
 @import '../../sass/functions';
+@import '../../sass/mixins';
 
 .icon-button {
+  @include no-user-select;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 12px;
+  cursor: pointer;
   @include theme() {
     background: theme-get('icon-button-background');
     box-shadow: theme-get('shadow');
@@ -17,5 +20,9 @@
     @include theme() {
       fill: theme-get('icon-button-fill');
     }
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 }

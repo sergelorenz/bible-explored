@@ -5,12 +5,13 @@ import './IconButton.scss';
 type Props = {
   children: ReactNode,
   width?: string,
-  onButtonClick?: MouseEventHandler<HTMLDivElement>
+  onButtonClick?: MouseEventHandler<HTMLDivElement>,
+  tooltip?: string
 }
 
-function IconButton({children, width='45px', onButtonClick}: Props) {
+function IconButton({children, width='45px', onButtonClick, tooltip=''}: Props) {
   return (
-    <div className='icon-button' style={{width: width, height: width}} onClick={onButtonClick}>
+    <div className='icon-button' style={{width: width, height: width}} onClick={onButtonClick} title={tooltip}>
       {children}
     </div>
   )
