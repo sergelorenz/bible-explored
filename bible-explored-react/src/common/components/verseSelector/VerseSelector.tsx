@@ -196,7 +196,8 @@ function VerseSelector({
         onClick={() => dispatch(onPressGoAction({
           book: selectedBook,
           chapter: selectedChapter,
-          verse: selectedVerse
+          verse: selectedVerse,
+          bookName: selectedBookName
         }))}
       />
       <IconButton onButtonClick={handleNextVerse} tooltip='Next Verse'>

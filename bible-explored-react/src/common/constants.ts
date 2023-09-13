@@ -572,5 +572,6 @@ export const SPIRITUAL_GUIDANCE_VERSES = [
 
 // Side By Side Constants
 export const BIBLE_ID_BASIS = '179568874c45066f-01' // Bible ID of Duoay-Rheims - Chosen because it has the most number of books
-export const VERSE_VIEWER_INITIAL_VERSION = 'de4e12af7f28f599-02';  // King James (Authorised Version)
+export const VERSE_VIEWER_INITIAL_VERSION = 'de4e12af7f28f599-02';  // King James (Authorised) Version
+export const VERSE_VIEWER_INITIAL_VERSION_NAME = 'King James (Authorised) Version';
 export const VERSE_VIEWER_LIMIT = 3;

@@ -62,3 +62,11 @@ export const addReference = (passage: PassageContent) => {
 export const padNumber = (num: number) => {
   return num.toString().padStart(2, '0');
 }
+
+export const formPassage = (bookId: string, chapter: number, verse: number, verseCount:number=1) => {
+  let passage = `${bookId}.${chapter}.${verse}`
+  if (verseCount > 1) {
+    passage = `${passage}-${bookId}.${chapter}.${verse + verseCount - 1}`
+  }
+  return passage;
+}

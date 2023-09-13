@@ -14,6 +14,7 @@ export const sideBySideSlice = createSlice({
   name: 'sideBySide',
   initialState: {
     bookId: 'JHN',
+    bookName: 'John',
     chapter: 1,
     verse: 1,
     verseCount: 1,
@@ -21,10 +22,11 @@ export const sideBySideSlice = createSlice({
   },
   reducers: {
     setScripture: (state, action : PayloadAction<ScriptureVerse>) => {
-      const { book, chapter, verse } = action.payload;
+      const { book, chapter, verse, bookName } = action.payload;
       state.bookId = book;
       state.chapter = chapter;
       state.verse = verse;
+      state.bookName = bookName;
     },
     setVerseCount: (state, action : PayloadAction<number>) => {
       const count = action.payload;
@@ -52,6 +54,6 @@ export const sideBySideSlice = createSlice({
   }
 })
 
-export const { setScripture, setVerseCount, goAnotherVerse } = sideBySideSlice.actions;
+export const { setScripture, setVerseCount, goAnotherVerse, addVersion, removeVersion, updateVersion } = sideBySideSlice.actions;
 
 export default sideBySideSlice.reducer;

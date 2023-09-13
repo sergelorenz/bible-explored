@@ -16,16 +16,17 @@ import './BibleGroupSelector.scss';
 type Props = {
   hasButton?: boolean,
   dropDownClassName?: string,
-  dispatchSelectBible: Function,
+  dispatchSelectBible?: Function,
+  onSelectBible?: Function,
   defaultValue?: Bible | null
 }
 
-type Bible = {
+export type Bible = {
   id: string,
   name: string
 }
 
-function BibleGroupSelector({hasButton=true, dropDownClassName, dispatchSelectBible, defaultValue=null}: Props) {
+function BibleGroupSelector({hasButton=true, dropDownClassName, dispatchSelectBible, onSelectBible, defaultValue=null}: Props) {
   const dispatch = useDispatch()
   const [ bible, setBible ] = useState<Bible | null>(defaultValue);
   const bibleVersionsRef = useRef<DropDownHandle | null>(null);
@@ -41,13 +42,21 @@ function BibleGroupSelector({hasButton=true, dropDownClassName, dispatchSelectBi
     setBible(bible);
     bibleVersionsRef.current?.toggleDropDown();
     if (!hasButton) {
-      dispatch(dispatchSelectBible(bible));
+      if (dispatchSelectBible) {
+        dispatch(dispatchSelectBible(bible));
+      } else if (onSelectBible) {
+        onSelectBible(bible);
+      }
     }
   }
 
   const handlePressGo = (e: React.MouseEvent<HTMLElement>) => {
     if (bible) {
-      dispatch(dispatchSelectBible(bible))
+      if (dispatchSelectBible) {
+        dispatch(dispatchSelectBible(bible))
+      } else if (onSelectBible) {
+        onSelectBible(bible);
+      }
     }
   }
 
