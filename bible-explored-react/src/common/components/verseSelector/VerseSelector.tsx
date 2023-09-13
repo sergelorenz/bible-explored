@@ -12,6 +12,8 @@ import { Book } from '../../../../types/api';
 
 import { padNumber } from '../../../utils/dataHandler';
 
+import { addError } from '../../../app/parentSlice';
+
 import { useGetBooksQuery, useLazyGetChaptersQuery, useLazyGetVerseLengthQuery } from '../../../services/bibleExplored';
 
 import { ReactComponent as RemoveIcon } from '../../../res/icons/remove-icon.svg';
@@ -22,15 +24,27 @@ import './VerseSelector.scss';
 
 type Props = {
   defaultScripture: ScriptureVerse,
-  onPressGoAction: Function
+  onPressGoAction: Function,
+  onPressAdjustVerseCountAction: Function,
+  onPressAnotherVerseAction: Function,
+  verseCount: number,
+  verseCountLimit?: number
 }
 
-function VerseSelector({defaultScripture, onPressGoAction}: Props) {
+function VerseSelector({
+  defaultScripture, 
+  onPressGoAction,
+  onPressAdjustVerseCountAction,
+  onPressAnotherVerseAction,
+  verseCount,
+  verseCountLimit=3
+}: Props) {
   const dispatch = useDispatch()
   const [ selectedBook, setSelectedBook ] = useState(defaultScripture.book);
   const [ selectedBookName, setSelectedBookName ] = useState(defaultScripture.bookName);
   const [ selectedChapter, setSelectedChapter ] = useState(defaultScripture.chapter);
   const [ selectedVerse, setSelectedVerse ] = useState(defaultScripture.verse);
+  const [ verseLimit, setVerseLimit ] = useState(999);
   const booksRef = useRef<DropDownHandle | null>(null);
   const chapterRef = useRef<DropDownHandle | null>(null);
   const verseRef = useRef<DropDownHandle | null>(null);
@@ -46,6 +60,14 @@ function VerseSelector({defaultScripture, onPressGoAction}: Props) {
     getVerseLength({bibleId: BIBLE_ID_BASIS, bookId: selectedBook, chapter: selectedChapter})
     setSelectedVerse(1);
   }, [selectedChapter])
+  useEffect(() => {
+    if (dataVersesLength) {
+      setVerseLimit(dataVersesLength)
+    }
+  }, [dataVersesLength])
+  useEffect(() => {
+    console.log(`Verse Limit ${verseLimit}`)
+  }, [verseLimit])
 
   const selectOption = (setter: Function, value: string | number, dropDownRef?: any) => {
     setter(value);
@@ -54,6 +76,31 @@ function VerseSelector({defaultScripture, onPressGoAction}: Props) {
     }
   }
 
+  const handlePreviousVerse = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (selectedVerse > 1) {
+      dispatch(onPressAnotherVerseAction(-1));
+      setSelectedVerse(prev => prev - 1);
+    }
+  }
+
+  const handleNextVerse = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (selectedVerse <= verseLimit - 1) {
+      dispatch(onPressAnotherVerseAction(1))
+      setSelectedVerse(prev => prev + 1)
+    }
+  }
+
+  const handleIncreaseVerseCount = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (verseCount < verseCountLimit) {
+      dispatch(onPressAdjustVerseCountAction(verseCount + 1));
+    }
+  }
+
+  const handleDecreaseVerseCount = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (verseCount > 1) {
+      dispatch(onPressAdjustVerseCountAction(verseCount - 1));
+    }
+  }
 
   const renderBooks = (books: Book[]) => {
     return (
@@ -111,10 +158,10 @@ function VerseSelector({defaultScripture, onPressGoAction}: Props) {
 
   return (
     <div className='verse-select-area'>
-      <IconButton>
+      <IconButton onButtonClick={handleDecreaseVerseCount} tooltip='Decrease Verse Count'>
         <RemoveIcon className='remove-verse-icon'/>
       </IconButton>
-      <IconButton>
+      <IconButton onButtonClick={handlePreviousVerse} tooltip='Previous Verse'>
         <DoubleArrowIcon className='previous-verse-icon'/>
       </IconButton>
       <DropDown
@@ -149,13 +196,14 @@ function VerseSelector({defaultScripture, onPressGoAction}: Props) {
         onClick={() => dispatch(onPressGoAction({
           book: selectedBook,
           chapter: selectedChapter,
-          verse: selectedVerse
+          verse: selectedVerse,
+          bookName: selectedBookName
         }))}
       />
-      <IconButton>
+      <IconButton onButtonClick={handleNextVerse} tooltip='Next Verse'>
         <DoubleArrowIcon />
       </IconButton>
-      <IconButton>
+      <IconButton onButtonClick={handleIncreaseVerseCount} tooltip='Increase Verse Count'>
         <AddIcon className='add-verse-icon'/>
       </IconButton>
     </div>
