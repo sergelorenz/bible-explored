@@ -18,12 +18,15 @@ import AppearAnimate, { AppearAnimateHandle } from '../../../common/components/a
 import BibleGroupSelector, { Bible } from '../../../common/components/bibleGroupSelector/BibleGroupSelector';
 import IconButton from '../../../common/components/iconButton/IconButton';
 
+import './VersionViewer.scss';
+
 type Props = {
-  versionViewerKey: number,
-  version: string
+  versionViewerIndex: number,
+  version: string,
+  isDisabledClose: boolean
 }
 
-function VersionViewer({versionViewerKey, version}: Props) {
+function VersionViewer({versionViewerIndex, version, isDisabledClose}: Props) {
   const dispatch = useDispatch();
   const [ versionName, setVersionName ] = useState(VERSE_VIEWER_INITIAL_VERSION_NAME)
   const bookId = useSelector((state: RootState) => state.sideBySide.bookId);
@@ -39,15 +42,17 @@ function VersionViewer({versionViewerKey, version}: Props) {
   }, [version, bookId, chapter, verse, verseCount])
 
   const handleSelectBible = (newVersion: Bible) => {
-    dispatch(updateVersion({index: versionViewerKey, newVersion: newVersion.id}));
+    dispatch(updateVersion({index: versionViewerIndex, newVersion: newVersion.id}));
     setVersionName(newVersion.name);
   }
 
   const handleCloseVersionViewer = (e: React.MouseEvent<HTMLDivElement>) => {
-    versionViewerRef.current?.disappear();
-    setTimeout(() => {
-      dispatch(removeVersion(versionViewerKey));
-    }, 300)
+    if (!isDisabledClose) {
+      versionViewerRef.current?.disappear();
+      setTimeout(() => {
+        dispatch(removeVersion(versionViewerIndex));
+      }, 300)
+    }
   }
 
   return (
@@ -55,6 +60,7 @@ function VersionViewer({versionViewerKey, version}: Props) {
       styleAppear={{opacity: 1, width: '400px'}}
       styleDisappear={{opacity: 0, width: '0px'}}
       ref={versionViewerRef}
+      enableRemove={false}
     >
       <div className='version-viewer'>
         <div className='version-viewer-header'>
@@ -83,4 +89,4 @@ function VersionViewer({versionViewerKey, version}: Props) {
   )
 }
 
-export default VersionViewer
+export const VersionViewerMemoized = React.memo(VersionViewer);
