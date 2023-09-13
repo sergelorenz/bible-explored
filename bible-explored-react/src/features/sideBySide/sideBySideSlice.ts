@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import shortUUID from 'short-uuid';
 
 import { ScriptureVerse } from '../../../types/types';
 
@@ -18,7 +19,8 @@ export const sideBySideSlice = createSlice({
     chapter: 1,
     verse: 1,
     verseCount: 1,
-    verseViewerList: [VERSE_VIEWER_INITIAL_VERSION]
+    verseViewerList: [VERSE_VIEWER_INITIAL_VERSION],
+    verseViewerKeys: [shortUUID.generate()]
   },
   reducers: {
     setScripture: (state, action : PayloadAction<ScriptureVerse>) => {
@@ -39,12 +41,14 @@ export const sideBySideSlice = createSlice({
     addVersion: state => {
       if (state.verseViewerList.length <= VERSE_VIEWER_LIMIT - 1) {
         state.verseViewerList.push(VERSE_VIEWER_INITIAL_VERSION);
+        state.verseViewerKeys.push(shortUUID.generate());
       }
     },
     removeVersion: (state, action: PayloadAction<number>) => {
       if (state.verseViewerList.length >= 2) {
         const index = action.payload;
         state.verseViewerList.splice(index, 1);
+        state.verseViewerKeys.splice(index, 1);
       }
     },
     updateVersion: (state, action: PayloadAction<UpdatePayload>) => {

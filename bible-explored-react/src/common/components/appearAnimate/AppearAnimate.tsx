@@ -4,6 +4,7 @@ type Props = {
   children: any,
   styleAppear: any,
   styleDisappear?: any,
+  enableRemove?: boolean
 }
 
 export type AppearAnimateHandle = {
@@ -15,7 +16,8 @@ const AppearAnimate = forwardRef<AppearAnimateHandle, Props>(function AppearAnim
   {
     children,
     styleAppear,
-    styleDisappear
+    styleDisappear,
+    enableRemove=true
   }: Props,
   ref
 ){
@@ -37,9 +39,11 @@ const AppearAnimate = forwardRef<AppearAnimateHandle, Props>(function AppearAnim
     },
     disappear() {
       setStyle(styleDisappear);
-      setTimeout(() => {
-        toggleActive(false);
-      }, 300)
+      if (enableRemove) {
+        setTimeout(() => {
+          toggleActive(false);
+        }, 300)
+      }
     }
   }))
 
