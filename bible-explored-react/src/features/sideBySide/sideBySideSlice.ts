@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import shortUUID from 'short-uuid';
+import shortUUID, { SUUID } from 'short-uuid';
 
 import { ScriptureVerse } from '../../../types/types';
 
 import { VERSE_VIEWER_INITIAL_VERSION, VERSE_VIEWER_LIMIT } from '../../common/constants';
 
 type UpdatePayload = {
-  index: number,
+  key: SUUID,
   newVersion: string
 }
 
@@ -44,15 +44,17 @@ export const sideBySideSlice = createSlice({
         state.verseViewerKeys.push(shortUUID.generate());
       }
     },
-    removeVersion: (state, action: PayloadAction<number>) => {
+    removeVersion: (state, action: PayloadAction<SUUID>) => {
       if (state.verseViewerList.length >= 2) {
-        const index = action.payload;
+        const key = action.payload;
+        const index = state.verseViewerKeys.indexOf(key);
         state.verseViewerList.splice(index, 1);
         state.verseViewerKeys.splice(index, 1);
       }
     },
     updateVersion: (state, action: PayloadAction<UpdatePayload>) => {
-      const { index, newVersion } = action.payload;
+      const { key, newVersion } = action.payload;
+      const index = state.verseViewerKeys.indexOf(key)
       state.verseViewerList[index] = newVersion;
     }
   }

@@ -11,6 +11,8 @@ import { addVersion } from './sideBySideSlice';
 
 import { ReactComponent as AddIcon } from '../../res/icons/add-icon.svg';
 
+import { VERSE_VIEWER_LIMIT } from '../../common/constants';
+
 import { VersionViewerMemoized } from './versionViewer/VersionViewer';
 
 import { setScripture, setVerseCount, goAnotherVerse } from './sideBySideSlice';
@@ -35,7 +37,7 @@ function SideBySide() {
       verseViewerList.map((version, index) => (
         <VersionViewerMemoized 
           key={verseViewerKeys[index]} 
-          versionViewerIndex={index}
+          versionViewerKey={verseViewerKeys[index]}
           version={version}
           isDisabledClose={verseViewerList.length <= 1}
         />
@@ -52,12 +54,15 @@ function SideBySide() {
           onPressAdjustVerseCountAction={setVerseCount}
           onPressAnotherVerseAction={goAnotherVerse}
           verseCount={verseCount}
+          zIndex={30}
         />
         <div className='version-viewer-container'>
           {renderVersionViewers()}
-          <div className='add-version' onClick={handleAddVersion}>
-            <AddIcon />
-          </div>
+          {verseViewerList.length < VERSE_VIEWER_LIMIT && (
+            <div className='add-version' onClick={handleAddVersion}>
+              <AddIcon />
+            </div>
+          )}
         </div>
       </div>
     </Content>

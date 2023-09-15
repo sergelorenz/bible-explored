@@ -9,6 +9,7 @@ type Props = {
   className?: string,
   children: ReactNode,
   value: string,
+  zIndex?: number,
   isDisabled?: boolean
 }
 
@@ -21,6 +22,7 @@ const DropDown = forwardRef<DropDownHandle, Props>(function DropDown(
     className, 
     children,
     value,
+    zIndex=5,
     isDisabled=false
   }: Props, 
   ref
@@ -44,7 +46,7 @@ const DropDown = forwardRef<DropDownHandle, Props>(function DropDown(
   }
 
   return (
-    <div className={classNames('generic-dropdown-parent', className)}>
+    <div className={classNames('generic-dropdown-parent', className)} style={{zIndex: zIndex}}>
       <div className='dropdown-header' onClick={handleDropDownClick}>
         <span>{value}</span>
         <DropDownIcon />
