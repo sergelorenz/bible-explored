@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import DOMPurify from 'dompurify';
+import { SUUID } from 'short-uuid';
 
 import { updateVersion, removeVersion } from '../sideBySideSlice';
 
@@ -12,6 +14,7 @@ import { useLazyGetPassageQuery } from '../../../services/bibleExplored';
 
 import { VERSE_VIEWER_INITIAL_VERSION_NAME } from '../../../common/constants';
 import { ReactComponent as CloseIcon } from '../../../res/icons/close-icon.svg';
+import { ReactComponent as CopyIcon } from '../../../res/icons/copy-file-icon.svg';
 
 import Spinner from '../../../common/components/spinner/Spinner';
 import AppearAnimate, { AppearAnimateHandle } from '../../../common/components/appearAnimate/AppearAnimate';
@@ -21,12 +24,12 @@ import IconButton from '../../../common/components/iconButton/IconButton';
 import './VersionViewer.scss';
 
 type Props = {
-  versionViewerIndex: number,
+  versionViewerKey: SUUID,
   version: string,
   isDisabledClose: boolean
 }
 
-function VersionViewer({versionViewerIndex, version, isDisabledClose}: Props) {
+function VersionViewer({versionViewerKey, version, isDisabledClose}: Props) {
   const dispatch = useDispatch();
   const [ versionName, setVersionName ] = useState(VERSE_VIEWER_INITIAL_VERSION_NAME)
   const bookId = useSelector((state: RootState) => state.sideBySide.bookId);
@@ -42,7 +45,7 @@ function VersionViewer({versionViewerIndex, version, isDisabledClose}: Props) {
   }, [version, bookId, chapter, verse, verseCount])
 
   const handleSelectBible = (newVersion: Bible) => {
-    dispatch(updateVersion({index: versionViewerIndex, newVersion: newVersion.id}));
+    dispatch(updateVersion({key: versionViewerKey, newVersion: newVersion.id}));
     setVersionName(newVersion.name);
   }
 
@@ -50,15 +53,15 @@ function VersionViewer({versionViewerIndex, version, isDisabledClose}: Props) {
     if (!isDisabledClose) {
       versionViewerRef.current?.disappear();
       setTimeout(() => {
-        dispatch(removeVersion(versionViewerIndex));
+        dispatch(removeVersion(versionViewerKey));
       }, 300)
     }
   }
 
   return (
     <AppearAnimate 
-      styleAppear={{opacity: 1, width: '400px'}}
-      styleDisappear={{opacity: 0, width: '0px'}}
+      styleAppear={{opacity: 1, width: '400px', fontSize: '1em'}}
+      styleDisappear={{opacity: 0, width: '0px', fontSize: '0.001em'}}
       ref={versionViewerRef}
       enableRemove={false}
     >
@@ -73,16 +76,46 @@ function VersionViewer({versionViewerIndex, version, isDisabledClose}: Props) {
           <IconButton 
             className='close-version-viewer' 
             tooltip='Close this Version'
-            width='20px'
+            width='25px'
             onButtonClick={handleCloseVersionViewer}
           >
             <CloseIcon />
           </IconButton>
         </div>
         <div className='version-viewer-body'>
-          {isFetchingPassage && <Spinner />}
-          {dataPassage && <p className='version-viewer-version'>{`${dataPassage.data.reference} -`}</p>}
-          <p className='version-viewer-version'>{versionName}</p>
+          <div className='version-viewer-version'>
+            {isFetchingPassage ? <Spinner /> : (
+              dataPassage && (
+                <p>
+                  {`${dataPassage.data.reference} - `}
+                  <span>{versionName}</span>
+                </p>
+              )
+            )}
+          </div>
+          <div className='version-viewer-verse'>
+            {isFetchingPassage ? <Spinner /> : (
+              dataPassage && (
+                <div 
+                  className='scripture-styles'
+                  data-cy='side-by-side-verse-viewer'
+                  dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(dataPassage.data.content)}}
+                />
+              )
+            )}
+          </div>
+          <div className='version-viewer-buttons'>
+            <IconButton
+              width='30px'
+            >
+              <CopyIcon />
+            </IconButton>
+          </div>
+          {dataPassage && (
+            <div className='version-viewer-copyright'>
+              <p>{dataPassage.data.copyright}</p>
+            </div>
+          )}
         </div>
       </div>
     </AppearAnimate>

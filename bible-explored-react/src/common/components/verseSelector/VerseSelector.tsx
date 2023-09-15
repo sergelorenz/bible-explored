@@ -28,6 +28,7 @@ type Props = {
   onPressAdjustVerseCountAction: Function,
   onPressAnotherVerseAction: Function,
   verseCount: number,
+  zIndex?: number,
   verseCountLimit?: number
 }
 
@@ -37,6 +38,7 @@ function VerseSelector({
   onPressAdjustVerseCountAction,
   onPressAnotherVerseAction,
   verseCount,
+  zIndex=5,
   verseCountLimit=3
 }: Props) {
   const dispatch = useDispatch()
@@ -168,6 +170,7 @@ function VerseSelector({
         className='book-select'
         value={selectedBookName}
         ref={booksRef}
+        zIndex={zIndex}
       >
         {isLoadingBooks && <Spinner />}
         {dataBooks && renderBooks(dataBooks)}
@@ -176,6 +179,7 @@ function VerseSelector({
         className='chapter-select'
         value={padNumber(selectedChapter)}
         ref={chapterRef}
+        zIndex={zIndex}
       >
         { isFetchingChapterLength && <Spinner />}
         { dataChapterLength && renderChapterList(dataChapterLength)}
@@ -185,6 +189,7 @@ function VerseSelector({
         className='verse-select'
         value={padNumber(selectedVerse)}
         ref={verseRef}
+        zIndex={zIndex}
       >
         { isFetchingVersesLength && <Spinner />}
         { dataVersesLength && renderVerseList(dataVersesLength)}

@@ -59,7 +59,9 @@ $themes: (
     'icon-button-fill': $primary-midtone,
     'side-by-side-add-version-button': $accent,
     'side-by-side-add-version-button-hover-background': $accent,
-    'side-by-side-add-version-button-hover-icon': $secondary-light
+    'side-by-side-add-version-button-hover-icon': $secondary-light,
+    'side-by-side-version-viewer-body-background': $primary-light,
+    'side-by-side-version-viewer-verse-background': $secondary-light,
   ),
   dark: (
     'scrollbar-thumb': $secondary-midtone,
@@ -119,6 +121,8 @@ $themes: (
     'icon-button-fill': $primary-midtone,
     'side-by-side-add-version-button': $secondary-light,
     'side-by-side-add-version-button-hover-background': $secondary-light,
-    'side-by-side-add-version-button-hover-icon': $accent
+    'side-by-side-add-version-button-hover-icon': $accent,
+    'side-by-side-version-viewer-body-background': $secondary-dark,
+    'side-by-side-version-viewer-verse-background': $primary-dark,
   )
 )
