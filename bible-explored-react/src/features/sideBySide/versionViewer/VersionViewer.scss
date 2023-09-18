@@ -27,6 +27,12 @@
         font-size: 1em;
         font-weight: 700;
 
+        span {
+          @include theme() {
+            color: theme-get('side-by-side-version-selector-header');
+          }
+        }
+        
         svg {
           width: 11px;
         }
@@ -66,7 +72,7 @@
     }
 
     .version-viewer-verse {
-      height: 200px;
+      height: 193px;
       padding: 0.35em;
       overflow-y: scroll;
       scrollbar-gutter: stable;
@@ -110,7 +116,7 @@
     }
 
     .version-viewer-buttons {
-      margin-top: -8px;
+      margin-top: -5px;
       display: flex;
       justify-content: flex-end;
     }
