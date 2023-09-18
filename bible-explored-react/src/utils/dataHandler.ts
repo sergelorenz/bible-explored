@@ -70,3 +70,8 @@ export const formPassage = (bookId: string, chapter: number, verse: number, vers
   }
   return passage;
 }
+
+export const htmlToText = (html: string) => {
+  let output = html.replace(/<span[^>]*\sclass\s*=\s*['"]?v['"][^>]*>[\s\S]*?<\/span>/gi, "");
+  return output.replace(/<\/?[^>]+(>|$)/g, '');
+}

@@ -7,7 +7,7 @@ import { updateVersion, removeVersion } from '../sideBySideSlice';
 
 import { RootState } from '../../../app/store';
 
-import { formPassage } from '../../../utils/dataHandler';
+import { formPassage, htmlToText } from '../../../utils/dataHandler';
 
 import { useLazyFums } from '../../../common/hooks';
 import { useLazyGetPassageQuery } from '../../../services/bibleExplored';
@@ -58,6 +58,11 @@ function VersionViewer({versionViewerKey, version, isDisabledClose}: Props) {
     }
   }
 
+  const handleCopyPassage = async (e: React.MouseEvent<HTMLDivElement>) => {
+    await navigator.clipboard.writeText(htmlToText(dataPassage.data.content));
+    alert('Successfully copied passage to clipboard');
+  }
+
   return (
     <AppearAnimate 
       styleAppear={{opacity: 1, width: '400px', fontSize: '1em'}}
@@ -84,29 +89,33 @@ function VersionViewer({versionViewerKey, version, isDisabledClose}: Props) {
         </div>
         <div className='version-viewer-body'>
           <div className='version-viewer-version'>
-            {isFetchingPassage ? <Spinner /> : (
-              dataPassage && (
-                <p>
-                  {`${dataPassage.data.reference} - `}
-                  <span>{versionName}</span>
-                </p>
-              )
+            {isFetchingPassage && !dataPassage && <Spinner />}
+            {dataPassage && (
+              <p>
+                {`${dataPassage.data.reference} - `}
+                <span>{versionName}</span>
+              </p>
             )}
           </div>
           <div className='version-viewer-verse'>
-            {isFetchingPassage ? <Spinner /> : (
-              dataPassage && (
-                <div 
-                  className='scripture-styles'
-                  data-cy='side-by-side-verse-viewer'
-                  dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(dataPassage.data.content)}}
-                />
-              )
+            {isFetchingPassage && !dataPassage && <Spinner />}
+            {dataPassage && !isErrorPassage && (
+              <div 
+                className='scripture-styles'
+                data-cy='side-by-side-version-viewer'
+                dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(dataPassage.data.content)}}
+              />
+            )}
+            {isErrorPassage && (
+              <p className='side-by-side-version-viewer-error'>
+                Could not fetch data for this passage from <span>{versionName}</span>
+              </p>
             )}
           </div>
           <div className='version-viewer-buttons'>
             <IconButton
-              width='30px'
+              width='35px'
+              onButtonClick={handleCopyPassage}
             >
               <CopyIcon />
             </IconButton>
