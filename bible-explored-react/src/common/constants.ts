@@ -5,7 +5,7 @@ export const MENU_VERSE_OF_THE_DAY = 'verse-of-the-day';
 export const MENU_SIDE_BY_SIDE = 'side-by-side';
 
 // Common constants
-export const MAIN_LANGUAGES = ['eng'];
+export const MAIN_LANGUAGES = ['spa', 'eng'];
 export const FUMS = 'fums-version=3'
 export const ERROR_SHOW_DURATION_MILLISECONDS = 5000;
 
