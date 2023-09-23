@@ -63,7 +63,8 @@ $themes: (
     'side-by-side-version-viewer-body-background': $primary-light,
     'side-by-side-version-viewer-verse-background': $secondary-light,
     'side-by-side-version-viewer-copyright': $secondary-midtone,
-    'side-by-side-version-viewer-error': $secondary-error
+    'side-by-side-version-viewer-error': $secondary-error,
+    'side-by-side-version-selector-header': $primary-midtone,
   ),
   dark: (
     'scrollbar-thumb': $secondary-midtone,
@@ -127,6 +128,7 @@ $themes: (
     'side-by-side-version-viewer-body-background': $secondary-dark,
     'side-by-side-version-viewer-verse-background': $primary-dark,
     'side-by-side-version-viewer-copyright': $secondary-midtone,
-    'side-by-side-version-viewer-error': $secondary-error
+    'side-by-side-version-viewer-error': $secondary-error,
+    'side-by-side-version-selector-header': $primary-light,
   )
 )

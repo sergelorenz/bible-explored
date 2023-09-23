@@ -5,8 +5,8 @@ export const useLazyFums = (useLazyQuery: Function) => {
   useEffect(() => {
     if (results.data) {
       // CURRENTLY DISABLED DURING DEVELOPMENT - Please enable when live
-      //// @ts-ignore - the fums function is available via the script tag in the index.html
-      // fums("trackView", result.data.meta.fumsToken)
+      // @ts-ignore - the fums function is available via the script tag in the index.html
+      fums("trackView", results.data.meta.fumsToken)
     }
   }, [results.data])
   return [triggerFn, results];
