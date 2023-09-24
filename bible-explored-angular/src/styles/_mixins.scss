@@ -1,0 +1,26 @@
+@import './styles/themes';
+
+@mixin theme() {
+  @each $theme, $map in $themes {
+    $theme-map: $map !global;
+    .#{$theme} & {
+      @content;
+    }
+  }
+  $theme-map: null !global;
+}
+
+@mixin no-user-select {
+  user-select: none; // chrome and Opera
+  -moz-user-select: none; // Firefox
+  -webkit-text-select: none; // IOS Safari
+  -webkit-user-select: none; // Safari
+}
+
+@mixin dropdown-design {
+  @include theme() {
+    background-color: theme-get('dropdown-background');
+    border: 1px solid theme-get('dropdown-border');
+    color: theme-get('dropdown-text');
+  }
+}
