@@ -1,2 +1,7 @@
-<h1>hello World!</h1>
-<h2>{{title}}</h2>
+<div id="root">
+  <div class="app" [class.light]="theme === 'light'" [class.dark]="theme === 'dark'">
+    <div class="parent">
+      <app-navigation></app-navigation>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-@import './styles/themes';
+@import './themes';
 
 @mixin theme() {
   @each $theme, $map in $themes {
