@@ -1,14 +1,16 @@
-@import './functions';
+@import './themes';
 @import './constants';
-@import './mixins';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+// Importing Generic Styles
+@import './generic/toggler';
 
 * {
+  font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
   margin: 0;
   transition: background-color 0.3s;
-  @include theme() {
-    color: theme-get('generic-text');
-  }
+  color: var(--generic-text);
 }
 
 body {
@@ -22,14 +24,20 @@ body {
 
 .app {
   height: 100%;
+
+  &.light {
+    @include lighten();
+  }
+
+  &.dark {
+    @include darken();
+  }
 }
 
 .parent {
   height: 100%;
   width: 100%;
-  @include theme() {
-    background-color: theme-get('bg-color');
-  }
+  background-color: var(--bg-color);
 }
 
 .content {
@@ -56,11 +64,9 @@ input[type="button"] {
   width: 100px;
   box-sizing: content-box;
   cursor: pointer;
-  @include theme() {
-    background-color: theme-get('button-background');
-    box-shadow: theme-get('shadow');
-    color: theme-get('button-text');
-  }
+  background-color: var(--button-background);
+  box-shadow: var(--shadow);
+  color: var(--button-text);
   @include no-user-select;
 
   &:active {
@@ -74,45 +80,31 @@ input[type="button"] {
 
 *::-webkit-scrollbar-thumb {
   border-radius: 6px;
-  @include theme() {
-    background-color: theme-get('scrollbar-thumb');
-  }
+  background-color: var(--scrollbar-thumb);
 }
 
 .scripture-styles {
-  @include theme() {
-    color: theme-get('bible-viewer-text')
-  }
-  
+  color: theme-get('bible-viewer-text');
+
   .ca {
-    @include theme() {
-      color: theme-get('scripture-style-ca')
-    }
+    color: theme-get('scripture-style-ca')
   }
 
   .v, .vp, sup[class^="v"] {
-    @include theme() {
-      color: theme-get('scripture-style-v')
-    }
+    color: theme-get('scripture-style-v')
   }
 
   .notelink .notelink:hover, .notelink:active, .notelink:visited {
-    @include theme() {
-      color: theme-get('scripture-style-notelink');
-    }
+    color: var(--scripture-style-notelink);
   }
 
   .fv {
-    @include theme() {
-      color: theme-get('scripture-style-fv');
-    }
+    color: var(--scripture-style-fv);
   }
 
   .wj {
-    @include theme() {
-      color: theme-get('scripture-style-wj');
-      font-weight: 700;
-      text-decoration: theme-get('scripture-style-wj-decoration')
-    }
+    color: var(--scripture-style-wj);
+    font-weight: 700;
+    text-decoration: theme-get('scripture-style-wj-decoration')
   }
 }

@@ -8,6 +8,7 @@ import { ThemeService } from './services/theme/theme.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
+  title = 'Bible Explored Angular'
   theme: string = '';
   private themeSubscription: Subscription = new Subscription();
 
