@@ -1,12 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../services/theme/theme.service';
-import {
-   MENU_HOME,
-   MENU_BOOKS_AND_CHAPTERS,
-   MENU_VERSE_OF_THE_DAY,
-   MENU_SIDE_BY_SIDE
-} from '../shared/constants';
+import { MenuService } from '../services/menu/menu.service';
 import { MenuGroup } from '../shared/types';
 
 @Component({
@@ -16,15 +11,12 @@ import { MenuGroup } from '../shared/types';
 })
 export class NavigationComponent implements OnInit, OnDestroy {
   theme: string = '';
-  menuGroup: MenuGroup = {
-    menuHome: MENU_HOME,
-    menuBooksAndChapters: MENU_BOOKS_AND_CHAPTERS,
-    menuVerseOfTheDay: MENU_VERSE_OF_THE_DAY,
-    menuSideBySide: MENU_SIDE_BY_SIDE
-  }
+  menuGroup: MenuGroup;
   private themeSubscription: Subscription = new Subscription();
 
-  constructor(private themeService: ThemeService) {}
+  constructor(private themeService: ThemeService, private menuService: MenuService) {
+    this.menuGroup = this.menuService.getMenuGroup();
+  }
 
   ngOnInit(): void {
       this.themeSubscription = this.themeService.getTheme().subscribe(
