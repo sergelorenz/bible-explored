@@ -1,15 +1,3 @@
-@import './styles/themes';
-
-@mixin theme() {
-  @each $theme, $map in $themes {
-    $theme-map: $map !global;
-    .#{$theme} & {
-      @content;
-    }
-  }
-  $theme-map: null !global;
-}
-
 @mixin no-user-select {
   user-select: none; // chrome and Opera
   -moz-user-select: none; // Firefox

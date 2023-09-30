@@ -1,0 +1,110 @@
+@import './themes';
+@import './constants';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+// Importing Generic Styles
+@import './generic/toggler';
+
+* {
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  transition: background-color 0.3s;
+  color: var(--generic-text);
+}
+
+body {
+  min-height: 100vh;
+  min-width: 900px;
+
+  #root {
+    height: 100%;
+  }
+}
+
+.app {
+  height: 100%;
+
+  &.light {
+    @include lighten();
+  }
+
+  &.dark {
+    @include darken();
+  }
+}
+
+.parent {
+  height: 100%;
+  width: 100%;
+  background-color: var(--bg-color);
+}
+
+.content {
+  min-height: calc(100vh - $nav-height - $footer-height);
+  padding: 30px 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul, li {
+  list-style: none;
+  padding: 0;
+}
+
+input[type="button"] {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 10px;
+  height: 30px;
+  width: 100px;
+  box-sizing: content-box;
+  cursor: pointer;
+  background-color: var(--button-background);
+  box-shadow: var(--shadow);
+  color: var(--button-text);
+  @include no-user-select;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: var(--scrollbar-thumb);
+}
+
+.scripture-styles {
+  color: theme-get('bible-viewer-text');
+
+  .ca {
+    color: theme-get('scripture-style-ca')
+  }
+
+  .v, .vp, sup[class^="v"] {
+    color: theme-get('scripture-style-v')
+  }
+
+  .notelink .notelink:hover, .notelink:active, .notelink:visited {
+    color: var(--scripture-style-notelink);
+  }
+
+  .fv {
+    color: var(--scripture-style-fv);
+  }
+
+  .wj {
+    color: var(--scripture-style-wj);
+    font-weight: 700;
+    text-decoration: theme-get('scripture-style-wj-decoration')
+  }
+}

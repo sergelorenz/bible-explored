@@ -1,1 +1,24 @@
-<p>navigation works!</p>
+<div class="navigation">
+  <div class="header-links">
+    <a routerLink="/{{menuGroup.menuHome}}">
+      <h1>BIBLE EXPLORED</h1>
+    </a>
+    <div class="header-icons">
+      <a routerLink="/{{menuGroup.menuBooksAndChapters}}">
+        <img src="assets/icons/bible-icon.svg" alt="books and chapters">
+      </a>
+      <a routerLink="/{{menuGroup.menuVerseOfTheDay}}">
+        <img src="assets/icons/idea-icon.svg" alt="verse of the day icon">
+      </a>
+      <a routerLink="/{{menuGroup.menuSideBySide}}">
+        <img src="assets/icons/compare-svgrepo-com.svg" alt="side by side icon">
+      </a>
+    </div>
+  </div>
+  <div class="generic-toggler-parent theme-toggler" [ngClass]="theme === 'light' ? 'toggler-true' : 'toggler-false'">
+    <p>Switch to <span>{{theme === 'light' ? 'Dark' : 'Light'}} Mode</span></p>
+    <div class="toggler-track" (click)="onToggleTheme()">
+      <div class="toggler-thumb"></div>
+    </div>
+  </div>
+</div>
