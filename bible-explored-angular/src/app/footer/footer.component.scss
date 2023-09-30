@@ -1,0 +1,54 @@
+@import '../../styles/constants';
+
+.footer {
+  min-height: $footer-height;
+  width: 100%;
+}
+
+.footer-content {
+  width: 75%;
+  margin: auto;
+
+  hr {
+    width: 100%;
+  }
+
+  a {
+    color: var(var(--footer-text-link));
+    font-weight: 700;
+  }
+}
+
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 12px 60px;
+  font-size: 16px;
+  color: var(--footer-text);
+
+  p {
+    width: 500px;
+  }
+}
+
+.footer-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  svg {
+    width: auto;
+    height: 34px;
+    fill: var(--footer-icons);
+  }
+}
+
+#api-bible-logo {
+  height: 42px;
+  width: 190px;
+  transition: padding 0.3s;
+  background-color: var(--footer-logo-background);
+  padding: var(--footer-logo-padding);
+}

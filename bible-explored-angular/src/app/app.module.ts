@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { BooksAndChaptersComponent } from './books-and-chapters/books-and-chapters.component';
 import { VerseOfTheDayComponent } from './verse-of-the-day/verse-of-the-day.component';
 import { SideBySideComponent } from './side-by-side/side-by-side.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SideBySideComponent } from './side-by-side/side-by-side.component';
     HomeComponent,
     BooksAndChaptersComponent,
     VerseOfTheDayComponent,
-    SideBySideComponent
+    SideBySideComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
