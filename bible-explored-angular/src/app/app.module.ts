@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -9,6 +10,8 @@ import { BooksAndChaptersComponent } from './books-and-chapters/books-and-chapte
 import { VerseOfTheDayComponent } from './verse-of-the-day/verse-of-the-day.component';
 import { SideBySideComponent } from './side-by-side/side-by-side.component';
 import { FooterComponent } from './footer/footer.component';
+import { HttpRequestInterceptor } from './services/http-interceptor/http.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +27,13 @@ import { FooterComponent } from './footer/footer.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpRequestInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
