@@ -9,6 +9,7 @@ import {
 import { tap, throwError } from 'rxjs';
 import { Observable, of } from 'rxjs';
 import { timeout, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor {
@@ -20,9 +21,10 @@ export class HttpRequestInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const timeoutRequest = req.clone({
+    const cloneRequest = req.clone({
       setHeaders: {
-        'timeout': this.defaultTimeoutMilliseconds.toString()
+        'timeout': this.defaultTimeoutMilliseconds.toString(),
+        'Api-Key': environment.apiKey
       }
     })
 
@@ -36,7 +38,7 @@ export class HttpRequestInterceptor implements HttpInterceptor {
       return of(cachedResponse);
     }
 
-    return next.handle(timeoutRequest).pipe(
+    return next.handle(cloneRequest).pipe(
       timeout(this.defaultTimeoutMilliseconds),
       tap((event) => {
         if (event instanceof HttpResponse) {
