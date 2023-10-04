@@ -1,0 +1,12 @@
+<div class="generic-dropdown-parent">
+  <div class="dropdown-header" (click)="toggleOpen()">
+    <span>Sample Value</span>
+    <img src="assets/icons/dropdown-arrow.svg" alt="dropdown icon" />
+  </div>
+  <div class="options" [class.open]="isOpen">
+    <ul>
+      <li>Item 1</li>
+      <li>Item 2</li>
+    </ul>
+  </div>
+</div>

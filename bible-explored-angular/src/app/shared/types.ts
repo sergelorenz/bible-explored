@@ -5,15 +5,15 @@ export type MenuGroup = {
   menuSideBySide: string
 }
 
-export type BibleLanguageGroupBible = {
-  bibleId: string,
-  bibleName: string
+export type Option = {
+  id: string,
+  name: string
 }
 
-export type BibleLanguageGroup = {
-  languageId: string,
-  languageName: string,
-  bibles: BibleLanguageGroupBible[]
+export type GroupOption = {
+  groupId: string,
+  groupName: string,
+  options: Option[]
 }
 
 // ==============================================

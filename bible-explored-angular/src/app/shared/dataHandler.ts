@@ -2,23 +2,23 @@ import moment from "moment";
 
 import { MAIN_LANGUAGES } from "./constants";
 
-import { BibleLanguageGroup, BibleLanguageGroupBible, Bible, Chapter, PassageContent } from './types';
+import { GroupOption, Option, Bible, Chapter, PassageContent } from './types';
 
 export const groupBiblesByLanguage = (data: Bible[]) => {
-  var bibleLanguageGroup: BibleLanguageGroup[] = []
+  var bibleLanguageGroup: GroupOption[] = []
   data.forEach(bible => {
-    var languageIndex  = bibleLanguageGroup.findIndex(item => item.languageId === bible.language.id);
-    const bibleObject: BibleLanguageGroupBible = {
-      bibleId: bible.id,
-      bibleName: bible.name
+    var languageIndex  = bibleLanguageGroup.findIndex(item => item.groupId === bible.language.id);
+    const bibleObject: Option = {
+      id: bible.id,
+      name: bible.name
     }
     if (languageIndex !== -1) {
-      bibleLanguageGroup[languageIndex].bibles.push(bibleObject)
+      bibleLanguageGroup[languageIndex].options.push(bibleObject)
     } else {
-      const newLanguageGroup: BibleLanguageGroup = {
-        languageId: bible.language.id,
-        languageName: bible.language.name,
-        bibles: [bibleObject]
+      const newLanguageGroup: GroupOption = {
+        groupId: bible.language.id,
+        groupName: bible.language.name,
+        options: [bibleObject]
       }
       if (MAIN_LANGUAGES.includes(bible.language.id)) {
         bibleLanguageGroup.unshift(newLanguageGroup);
