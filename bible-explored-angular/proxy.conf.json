@@ -1,0 +1,11 @@
+{
+  "/api": {
+    "target": "https://api.scripture.api.bible/v1",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "logLevel": "debug"
+  }
+}
