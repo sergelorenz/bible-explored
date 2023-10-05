@@ -3,9 +3,9 @@ import { Option, GroupOption } from '../../types';
 
 
 export type DropdownModel = {
-  options: Option[] | GroupOption[],
-  parentClass: string,
-  zIndex: number,
+  options?: Option[] | GroupOption[],
+  parentClass?: string,
+  zIndex?: number,
   isDisabled?: boolean
 }
 
@@ -25,5 +25,17 @@ export class DropdownComponent {
   selectItem(item: string) {
     console.log('Item Selected', item)
     this.isOpen = false;
+  }
+
+  getOptionsType(): string {
+    if (this.dropdownInput && this.dropdownInput.options) {
+      const opts: GroupOption[] | Option[] = this.dropdownInput.options
+      if ((opts[0] as GroupOption).options !== undefined) {
+        return 'GroupOption'
+      } else {
+        return 'Option'
+      }
+    }
+    return 'Unknown'
   }
 }

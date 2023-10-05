@@ -24,6 +24,8 @@ export class HttpRequestInterceptor implements HttpInterceptor {
     const cloneRequest = req.clone({
       setHeaders: {
         'timeout': this.defaultTimeoutMilliseconds.toString(),
+        'Accept': '*/*',
+        'Accept-Language': 'en-US,en;q=0.9',
         'Api-Key': environment.apiKey
       }
     })

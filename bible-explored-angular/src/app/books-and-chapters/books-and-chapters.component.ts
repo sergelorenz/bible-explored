@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BibleService } from '../services/bible/bible.service';
 import { GroupOption } from '../shared/types';
+import { DropdownModel } from '../shared/components/dropdown/dropdown.component';
 
 @Component({
   selector: 'app-books-and-chapters',
@@ -8,7 +9,7 @@ import { GroupOption } from '../shared/types';
   styleUrls: ['./books-and-chapters.component.scss']
 })
 export class BooksAndChaptersComponent implements OnInit{
-  bibleVersions?: GroupOption[];
+  bibleSelectorInput: DropdownModel = {};
 
   constructor(private bibleService: BibleService) {}
 
@@ -18,6 +19,6 @@ export class BooksAndChaptersComponent implements OnInit{
 
   getBibleVersions(): void {
     this.bibleService.getBibles()
-      .subscribe(bibleVersions => this.bibleVersions = bibleVersions)
+      .subscribe(bibleVersions => this.bibleSelectorInput.options = bibleVersions)
   }
 }

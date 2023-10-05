@@ -9,10 +9,11 @@ import { groupBiblesByLanguage } from 'src/app/shared/dataHandler';
   providedIn: 'root'
 })
 export class BibleService {
+  private baseUrl = 'api'
 
-  private baseUrl = 'https://api.scripture.api.bible/v1'
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.getBibles();
+  }
 
   getBibles(): Observable<GroupOption[]> {
     const url = `${this.baseUrl}/bibles`
