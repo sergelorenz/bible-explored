@@ -10,7 +10,8 @@ import { DropdownModel } from '../shared/components/dropdown/dropdown.component'
 })
 export class BooksAndChaptersComponent implements OnInit{
   bibleSelectorInput: DropdownModel = {
-    parentClass: 'bible-select'
+    parentClass: 'bible-select',
+    placeholder: 'Select a Bible Version'
   };
   isLoadingBibles: boolean = false;
   isErrorBibles: boolean = false;
@@ -41,6 +42,6 @@ export class BooksAndChaptersComponent implements OnInit{
   }
 
   loadBooksAndChapters() {
-    
+
   }
 }
