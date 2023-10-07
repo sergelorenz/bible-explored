@@ -9,7 +9,12 @@ import { DropdownModel } from '../shared/components/dropdown/dropdown.component'
   styleUrls: ['./books-and-chapters.component.scss']
 })
 export class BooksAndChaptersComponent implements OnInit{
-  bibleSelectorInput: DropdownModel = {};
+  bibleSelectorInput: DropdownModel = {
+    parentClass: 'bible-select'
+  };
+  isLoadingBibles: boolean = false;
+  isErrorBibles: boolean = false;
+  bibleVersion: string = '';
 
   constructor(private bibleService: BibleService) {}
 
@@ -18,7 +23,24 @@ export class BooksAndChaptersComponent implements OnInit{
   }
 
   getBibleVersions(): void {
-    this.bibleService.getBibles()
-      .subscribe(bibleVersions => this.bibleSelectorInput.options = bibleVersions)
+    this.isLoadingBibles = true;
+    this.bibleService.getBibles().subscribe({
+      next: bibleVersions => {
+        this.bibleSelectorInput.options = bibleVersions
+        this.isLoadingBibles = false        
+      },
+      error: error => {
+        this.isErrorBibles = true
+        this.isLoadingBibles = false;
+      }
+    })
+  }
+
+  selectBibleVersion(newVersion: string) {
+    this.bibleVersion = newVersion;
+  }
+
+  loadBooksAndChapters() {
+    
   }
 }

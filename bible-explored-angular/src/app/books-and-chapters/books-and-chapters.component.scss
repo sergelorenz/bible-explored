@@ -18,3 +18,17 @@
     transition: width 0.2s ease-in-out, opacity 0.2s ease-in-out;
   }
 }
+
+.bible-select-area {
+  display: flex;
+  gap: 42px;
+  justify-content: center;
+  align-items: center;
+}
+
+.bible-select {
+  font-size: 18px;
+  height: 32px;
+  width: 350px;
+  z-index: 9;
+}

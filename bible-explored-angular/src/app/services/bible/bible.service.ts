@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError, map } from 'rxjs';
+import { catchError } from 'rxjs';
 import { GroupOption, GetBiblesResponse } from 'src/app/shared/types';
 import { groupBiblesByLanguage } from 'src/app/shared/dataHandler';
 
@@ -17,12 +17,15 @@ export class BibleService {
 
   getBibles(): Observable<GroupOption[]> {
     const url = `${this.baseUrl}/bibles`
-    return this.http.get<GetBiblesResponse>(url)
-      .pipe(
-        map(response => {
-          return groupBiblesByLanguage(response.data);
-        })
-      )
+    return this.http.get<GetBiblesResponse>(url).pipe(
+      map(response => groupBiblesByLanguage(response.data)),
+      catchError(this.handleError)
+    )
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    console.error('API Error', error)
+    return throwError(() => new Error(error.message));
   }
 
 }

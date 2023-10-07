@@ -1,3 +1,12 @@
 <div class="content books-and-chapters">
-  <app-dropdown [dropdownInput]="bibleSelectorInput"></app-dropdown>
+  <div class="bible-select-area">
+    <app-dropdown 
+      [dropdownInput]="bibleSelectorInput" 
+      [isOptionsLoading]="isLoadingBibles" 
+      [isOptionsError]="isErrorBibles"
+      (selectItemEvent)="selectBibleVersion($event)"
+    >
+    </app-dropdown>
+    <input type="button" value="GO" (click)="loadBooksAndChapters()"/>
+  </div>
 </div>

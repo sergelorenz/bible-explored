@@ -12,6 +12,7 @@ import { SideBySideComponent } from './side-by-side/side-by-side.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpRequestInterceptor } from './services/http-interceptor/http.interceptor';
 import { DropdownComponent } from './shared/components/dropdown/dropdown.component';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { DropdownComponent } from './shared/components/dropdown/dropdown.compone
     VerseOfTheDayComponent,
     SideBySideComponent,
     FooterComponent,
-    DropdownComponent
+    DropdownComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

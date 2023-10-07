@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Option, GroupOption } from '../../types';
 
 
 export type DropdownModel = {
-  options?: Option[] | GroupOption[],
+  options?: any,
   parentClass?: string,
   zIndex?: number,
   isDisabled?: boolean
@@ -16,14 +16,19 @@ export type DropdownModel = {
 })
 export class DropdownComponent {
   @Input() dropdownInput?: DropdownModel
+  @Input() isOptionsLoading? = false
+  @Input() isOptionsError? = false
+  @Output() selectItemEvent = new EventEmitter<string>();
   isOpen = false;
+  selectedItem: string = 'Select a Bible Version';
 
   toggleOpen() {
     this.isOpen = !this.isOpen;
   }
 
-  selectItem(item: string) {
-    console.log('Item Selected', item)
+  selectItem(item: Option) {
+    this.selectedItem = item.name;
+    this.selectItemEvent.emit(item.id);
     this.isOpen = false;
   }
 
