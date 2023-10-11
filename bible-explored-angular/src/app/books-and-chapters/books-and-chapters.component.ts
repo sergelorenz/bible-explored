@@ -13,8 +13,18 @@ export class BooksAndChaptersComponent implements OnInit{
     parentClass: 'bible-select',
     placeholder: 'Select a Bible Version'
   };
-  isLoadingBibles: boolean = false;
-  isErrorBibles: boolean = false;
+  isLoading = {
+    bibles: false,
+    books: false,
+    chapters: false,
+    content: false
+  }
+  isError = {
+    bibles: false,
+    books: false,
+    chapters: false,
+    content: false
+  }
   bibleVersion: string = '';
 
   constructor(private bibleService: BibleService) {}
@@ -24,15 +34,15 @@ export class BooksAndChaptersComponent implements OnInit{
   }
 
   getBibleVersions(): void {
-    this.isLoadingBibles = true;
+    this.isLoading.bibles = true;
     this.bibleService.getBibles().subscribe({
       next: bibleVersions => {
         this.bibleSelectorInput.options = bibleVersions
-        this.isLoadingBibles = false        
+        this.isLoading.bibles = false;
       },
       error: error => {
-        this.isErrorBibles = true
-        this.isLoadingBibles = false;
+        this.isError.bibles = true
+        this.isLoading.bibles = false;
       }
     })
   }

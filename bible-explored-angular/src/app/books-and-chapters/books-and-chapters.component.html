@@ -2,11 +2,13 @@
   <div class="bible-select-area">
     <app-dropdown 
       [dropdownInput]="bibleSelectorInput" 
-      [isOptionsLoading]="isLoadingBibles" 
-      [isOptionsError]="isErrorBibles"
+      [isOptionsLoading]="isLoading.bibles" 
+      [isOptionsError]="isError.bibles"
       (selectItemEvent)="selectBibleVersion($event)"
     >
     </app-dropdown>
     <input type="button" value="GO" (click)="loadBooksAndChapters()"/>
+  </div>
+  <div class="bible-content-area">
   </div>
 </div>
