@@ -1,10 +1,31 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 import { BibleService } from '../services/bible/bible.service';
-import { GroupOption } from '../shared/types';
 import { DropdownModel } from '../shared/components/dropdown/dropdown.component';
 
 @Component({
   selector: 'app-books-and-chapters',
+  animations: [
+    trigger('showHide', [
+      state('hide', style({
+        width: '0px',
+        opacity: 0
+      })),
+      state('show', style({
+        width: '640px',
+        opacity: 1
+      })),
+      transition('hide => show', [
+        animate('0.3s')
+      ])
+    ])
+  ],
   templateUrl: './books-and-chapters.component.html',
   styleUrls: ['./books-and-chapters.component.scss']
 })
