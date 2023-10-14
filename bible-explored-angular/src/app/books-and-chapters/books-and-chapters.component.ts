@@ -1,29 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {
   trigger,
-  state,
-  style,
-  animate,
+  useAnimation,
   transition
 } from '@angular/animations';
 import { BibleService } from '../services/bible/bible.service';
 import { DropdownModel } from '../shared/components/dropdown/dropdown.component';
+import { appear, disappear } from '../shared/components/animation';
 
 @Component({
   selector: 'app-books-and-chapters',
   animations: [
-    trigger('showHide', [
-      state('hide', style({
-        width: '0px',
-        opacity: 0
-      })),
-      state('show', style({
-        width: '640px',
-        opacity: 1
-      })),
-      transition('hide => show', [
-        animate('0.3s')
-      ])
+    trigger('addRemove', [
+      transition(':enter', useAnimation(appear, { params: { width: '640px'}})),
+      transition(':leave', useAnimation(disappear))
     ])
   ],
   templateUrl: './books-and-chapters.component.html',
@@ -46,7 +36,13 @@ export class BooksAndChaptersComponent implements OnInit{
     chapters: false,
     content: false
   }
+  isAnimateOpen = {
+    bookNavigator: false,
+    bibleViewer: false
+  }
   bibleVersion: string = '';
+  isBooksAndChapterInitialized = false;
+  isBibleViewerInitialized = false;
 
   constructor(private bibleService: BibleService) {}
 
@@ -73,6 +69,6 @@ export class BooksAndChaptersComponent implements OnInit{
   }
 
   loadBooksAndChapters() {
-
+    this.isBooksAndChapterInitialized = true;
   }
 }

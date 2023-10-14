@@ -10,5 +10,11 @@
     <input type="button" value="GO" (click)="loadBooksAndChapters()"/>
   </div>
   <div class="bible-content-area">
+    <div class="books-and-chapter-navigator" *ngIf="bibleVersion && isBooksAndChapterInitialized" @addRemove>
+      <h2>Search Book and Chapters</h2>
+    </div>
+    <div class="bible-viewer">
+      
+    </div>
   </div>
 </div>
