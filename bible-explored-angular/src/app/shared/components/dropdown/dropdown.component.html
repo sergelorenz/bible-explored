@@ -1,15 +1,28 @@
-<div class="generic-dropdown-parent">
+<div class="generic-dropdown-parent" [ngClass]="dropdownInput && dropdownInput.parentClass ? dropdownInput.parentClass : ''">
   <div class="dropdown-header" (click)="toggleOpen()">
-    <span>Sample Value</span>
+    <span>{{ selectedItem }}</span>
     <img src="assets/icons/dropdown-arrow.svg" alt="dropdown icon" />
   </div>
-  <div class="options" *ngIf="getOptionsType() === 'GroupOption'" [class.open]="isOpen">
-    Group Option used
+  <div class="options" [class.open]="isOpen">
+    <ng-container *ngIf="isOptionsLoading">
+      <app-spinner></app-spinner>
+    </ng-container>
+    <ng-container *ngIf="!isOptionsLoading && getOptionsType() === 'GroupOption' && dropdownInput">
+      <div class="options-group" *ngFor="let optionGroup of dropdownInput.options">
+        <p>{{ optionGroup.groupName }}</p>
+        <ul>
+          <li *ngFor="let option of optionGroup.options" title="{{ option.name }}" (click)="selectItem(option)">
+            {{ option.name }}
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!isOptionsLoading && getOptionsType() === 'Option' && dropdownInput">
+      <ul>
+        <li *ngFor="let option of dropdownInput.options" title="{{ option.name }}" (click)="selectItem(option)">
+          {{ option.name }}
+        </li>
+      </ul>
+    </ng-container>
   </div>
-  <!-- <div class="options" [class.open]="isOpen">
-    <ul>
-      <li>Item 1</li>
-      <li>Item 2</li>
-    </ul>
-  </div> -->
 </div>

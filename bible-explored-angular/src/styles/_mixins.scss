@@ -6,9 +6,7 @@
 }
 
 @mixin dropdown-design {
-  @include theme() {
-    background-color: theme-get('dropdown-background');
-    border: 1px solid theme-get('dropdown-border');
-    color: theme-get('dropdown-text');
-  }
+  background-color: var(--dropdown-background);
+  border: 1px solid var(--dropdown-border);
+  color: var(--dropdown-text);
 }

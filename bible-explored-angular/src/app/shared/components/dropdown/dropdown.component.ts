@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Option, GroupOption } from '../../types';
 
 
 export type DropdownModel = {
-  options?: Option[] | GroupOption[],
+  options?: any,
+  placeholder?: string,
   parentClass?: string,
   zIndex?: number,
   isDisabled?: boolean
@@ -14,16 +15,28 @@ export type DropdownModel = {
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })
-export class DropdownComponent {
+export class DropdownComponent implements OnInit {
   @Input() dropdownInput?: DropdownModel
+  @Input() isOptionsLoading? = false
+  @Input() isOptionsError? = false
+  @Input() forceSelect?: any;
+  @Output() selectItemEvent = new EventEmitter<Option>();
   isOpen = false;
+  selectedItem: string = 'Select an Item';
+
+  ngOnInit() {
+    if (this.dropdownInput?.placeholder) {
+      this.selectedItem = this.dropdownInput.placeholder;
+    }
+  }
 
   toggleOpen() {
     this.isOpen = !this.isOpen;
   }
 
-  selectItem(item: string) {
-    console.log('Item Selected', item)
+  selectItem(item: Option) {
+    this.selectedItem = item.name;
+    this.selectItemEvent.emit(item);
     this.isOpen = false;
   }
 

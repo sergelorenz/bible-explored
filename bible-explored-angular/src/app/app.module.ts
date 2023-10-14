@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -12,6 +13,7 @@ import { SideBySideComponent } from './side-by-side/side-by-side.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpRequestInterceptor } from './services/http-interceptor/http.interceptor';
 import { DropdownComponent } from './shared/components/dropdown/dropdown.component';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 
 
 @NgModule({
@@ -23,12 +25,14 @@ import { DropdownComponent } from './shared/components/dropdown/dropdown.compone
     VerseOfTheDayComponent,
     SideBySideComponent,
     FooterComponent,
-    DropdownComponent
+    DropdownComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

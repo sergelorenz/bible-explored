@@ -56,6 +56,26 @@
         color: var(--dropdown-select-hover-text);
       }
     }
+    
+    .options-group {
+      font-size: 16px;
+    
+      p, li {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin-bottom: 2px;
+        padding: 0 16px;
+      }
+    
+      p {
+        font-weight: 700;
+      }
+    
+      li {
+        padding-left: 32px;
+      }
+    }
   }
 }
 
