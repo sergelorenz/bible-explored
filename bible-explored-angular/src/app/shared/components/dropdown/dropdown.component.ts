@@ -19,7 +19,8 @@ export class DropdownComponent implements OnInit {
   @Input() dropdownInput?: DropdownModel
   @Input() isOptionsLoading? = false
   @Input() isOptionsError? = false
-  @Output() selectItemEvent = new EventEmitter<string>();
+  @Input() forceSelect?: any;
+  @Output() selectItemEvent = new EventEmitter<Option>();
   isOpen = false;
   selectedItem: string = 'Select an Item';
 
@@ -35,7 +36,7 @@ export class DropdownComponent implements OnInit {
 
   selectItem(item: Option) {
     this.selectedItem = item.name;
-    this.selectItemEvent.emit(item.id);
+    this.selectItemEvent.emit(item);
     this.isOpen = false;
   }
 

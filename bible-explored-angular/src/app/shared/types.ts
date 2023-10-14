@@ -7,7 +7,8 @@ export type MenuGroup = {
 
 export type Option = {
   id: string,
-  name: string
+  name: string,
+  longName?: string
 }
 
 export type GroupOption = {

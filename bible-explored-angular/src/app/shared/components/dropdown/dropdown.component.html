@@ -17,5 +17,12 @@
         </ul>
       </div>
     </ng-container>
+    <ng-container *ngIf="!isOptionsLoading && getOptionsType() === 'Option' && dropdownInput">
+      <ul>
+        <li *ngFor="let option of dropdownInput.options" title="{{ option.name }}" (click)="selectItem(option)">
+          {{ option.name }}
+        </li>
+      </ul>
+    </ng-container>
   </div>
 </div>

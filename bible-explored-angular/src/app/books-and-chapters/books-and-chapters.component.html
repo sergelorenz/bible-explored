@@ -12,6 +12,14 @@
   <div class="bible-content-area">
     <div class="books-and-chapter-navigator" *ngIf="bibleVersion && isBooksAndChapterInitialized" @addRemove>
       <h2>Search Book and Chapters</h2>
+      <app-dropdown
+        [dropdownInput]="bookSelectorInput"
+        [isOptionsLoading]="isLoading.books"
+        [isOptionsError]="isError.books"
+        (selectItemEvent)="selectBibleBook($event)"
+        #selectBook
+      >
+      </app-dropdown>
     </div>
     <div class="bible-viewer">
       
