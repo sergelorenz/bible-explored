@@ -84,27 +84,27 @@ input[type="button"] {
 }
 
 .scripture-styles {
-  color: theme-get('bible-viewer-text');
+  color: var(--bible-viewer-text) !important;
 
   .ca {
-    color: theme-get('scripture-style-ca')
+    color: var(--scripture-style-ca) !important;
   }
 
   .v, .vp, sup[class^="v"] {
-    color: theme-get('scripture-style-v')
+    color: var(--scripture-style-v) !important
   }
 
   .notelink .notelink:hover, .notelink:active, .notelink:visited {
-    color: var(--scripture-style-notelink);
+    color: var(--scripture-style-notelink) !important;
   }
 
   .fv {
-    color: var(--scripture-style-fv);
+    color: var(--scripture-style-fv) !important;
   }
 
   .wj {
-    color: var(--scripture-style-wj);
+    color: var(--scripture-style-wj) !important;
     font-weight: 700;
-    text-decoration: theme-get('scripture-style-wj-decoration')
+    text-decoration: var(--scripture-style-wj-decoration)
   }
 }

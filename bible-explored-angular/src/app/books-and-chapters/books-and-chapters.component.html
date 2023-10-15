@@ -3,7 +3,6 @@
     <app-dropdown 
       [dropdownInput]="bibleSelectorInput" 
       [isOptionsLoading]="isLoading.bibles" 
-      [isOptionsError]="isError.bibles"
       (selectItemEvent)="selectBibleVersion($event)"
     >
     </app-dropdown>
@@ -11,18 +10,44 @@
   </div>
   <div class="bible-content-area">
     <div class="books-and-chapter-navigator" *ngIf="bibleVersion && isBooksAndChapterInitialized" @addRemove>
-      <h2>Search Book and Chapters</h2>
+      <h2>Search Books and Chapters</h2>
       <app-dropdown
         [dropdownInput]="bookSelectorInput"
         [isOptionsLoading]="isLoading.books"
-        [isOptionsError]="isError.books"
         (selectItemEvent)="selectBibleBook($event)"
         #selectBook
       >
       </app-dropdown>
+      <ng-container *ngIf="isLoading.chapters">
+        <app-spinner></app-spinner>
+      </ng-container>
+      <ng-container *ngIf="!isLoading.chapters">
+        <div *ngIf="chapterLength" class="number-grid">
+          <div 
+            *ngFor="let chapter of [].constructor(chapterLength); let i = index" 
+            [attr.data-key]="i + 1"
+            class="number-cell"
+            [class.selected]="selectedChapter == i + 1"
+            (click)="selectChapter(i + 1)"
+          >
+            {{ i + 1 | number:'2.0'}}
+          </div>
+        </div>
+      </ng-container>
     </div>
-    <div class="bible-viewer">
-      
+    <div class="bible-viewer" *ngIf="isBibleViewerInitialized" @addRemove>
+      <h3 *ngIf="bibleBook && bibleBook.nameLong">{{bibleBook.nameLong | uppercase}}</h3>
+      <hr />
+      <h3 *ngIf="selectedChapter">Chapter {{ selectedChapter }}</h3>
+      <ng-container *ngIf="isLoading.content">
+        <app-spinner></app-spinner>
+      </ng-container>
+      <ng-container *ngIf="!isLoading.content">
+        <div class="scripture-styles" [innerHtml]="bibleContent"></div>
+        <div class="copyright">
+          {{ bibleCopyright }}
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>

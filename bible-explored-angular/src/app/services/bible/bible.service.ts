@@ -8,8 +8,12 @@ import {
   GetBiblesResponse,
   GetBooksResponse,
   GetChaptersRequest,
-  GetChaptersResponse
+  GetChaptersResponse,
+  GetChapterRequest,
+  GetChapterResponse,
+  ChapterContent
 } from 'src/app/shared/types';
+import { FUMS } from 'src/app/shared/constants';
 import { getTotalChapters } from 'src/app/shared/dataHandler';
 
 @Injectable({
@@ -51,6 +55,18 @@ export class BibleService {
         } else {
           return getTotalChapters(response.data);
         }
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  getVerses(chapterRequest: GetChapterRequest): Observable<ChapterContent> {
+    const { bibleId, bookId, chapter } = chapterRequest;
+    const url = `${this.baseUrl}/bibles/${bibleId}/chapters/${bookId}.${chapter}?${FUMS}`
+    return this.http.get<GetChapterResponse>(url).pipe(
+      map(response => {
+        // TODO: Add FUMS logic here before return
+        return response.data;
       }),
       catchError(this.handleError)
     )
