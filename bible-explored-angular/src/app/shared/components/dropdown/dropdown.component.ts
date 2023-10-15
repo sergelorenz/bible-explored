@@ -18,7 +18,6 @@ export type DropdownModel = {
 export class DropdownComponent implements OnInit {
   @Input() dropdownInput?: DropdownModel
   @Input() isOptionsLoading? = false
-  @Input() isOptionsError? = false
   @Input() forceSelect?: any;
   @Output() selectItemEvent = new EventEmitter<Option>();
   isOpen = false;

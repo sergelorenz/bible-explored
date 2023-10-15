@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import {
   trigger,
   useAnimation,
@@ -8,7 +8,8 @@ import { BibleService } from '../services/bible/bible.service';
 import { DropdownComponent, DropdownModel } from '../shared/components/dropdown/dropdown.component';
 import { appear, disappear } from '../shared/components/animation';
 import { groupBiblesByLanguage } from '../shared/dataHandler';
-import { Option } from '../shared/types';
+import { ChapterContent, Option } from '../shared/types';
+
 
 @Component({
   selector: 'app-books-and-chapters',
@@ -19,7 +20,8 @@ import { Option } from '../shared/types';
     ])
   ],
   templateUrl: './books-and-chapters.component.html',
-  styleUrls: ['./books-and-chapters.component.scss']
+  styleUrls: ['./books-and-chapters.component.scss', '../../styles/generic/scripture-styles.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class BooksAndChaptersComponent implements OnInit {
   @ViewChild('selectBook') private dropdownComponent!: DropdownComponent;
@@ -38,19 +40,12 @@ export class BooksAndChaptersComponent implements OnInit {
     chapters: false,
     content: false
   }
-  isError = {
-    bibles: false,
-    books: false,
-    chapters: false,
-    content: false
-  }
-  isAnimateOpen = {
-    bookNavigator: false,
-    bibleViewer: false
-  }
   bibleVersion?: Option;
   bibleBook?: Option;
   chapterLength?: number;
+  selectedChapter?: number;
+  bibleContent?: string;
+  bibleCopyright?: string;
   isBooksAndChapterInitialized = false;
   isBibleViewerInitialized = false;
 
@@ -66,11 +61,18 @@ export class BooksAndChaptersComponent implements OnInit {
 
   selectBibleBook(newBook: Option) {
     this.bibleBook = newBook;
+    this.getChapterLength();
   }
 
   loadBooksAndChapters() {
     this.isBooksAndChapterInitialized = true;
     this.getBooks();
+  }
+
+  selectChapter(newChapter: number) {
+    this.selectedChapter = newChapter;
+    this.isBibleViewerInitialized = true;
+    this.getBibleContent();
   }
 
   getBibleVersions(): void {
@@ -81,7 +83,6 @@ export class BooksAndChaptersComponent implements OnInit {
         this.isLoading.bibles = false;
       },
       error: error => {
-        this.isError.bibles = true
         this.isLoading.bibles = false;
       }
     })
@@ -99,9 +100,9 @@ export class BooksAndChaptersComponent implements OnInit {
           }))
           this.isLoading.books = false;
           this.dropdownComponent.selectItem(this.bookSelectorInput.options[0])
+          this.getChapterLength();
         },
         error: error => {
-          this.isError.books = true;
           this.isLoading.books = false;
         }
       })
@@ -117,7 +118,22 @@ export class BooksAndChaptersComponent implements OnInit {
           this.isLoading.chapters = false;
         },
         error: error => {
-          this.isError.chapters = true;
+          this.isLoading.chapters = false;
+        }
+      })
+    }
+  }
+
+  getBibleContent(): void {
+    if (this.bibleVersion && this.bibleBook && this.selectedChapter) {
+      this.isLoading.content = true;
+      this.bibleService.getVerses({bibleId: this.bibleVersion.id, bookId: this.bibleBook.id, chapter: this.selectedChapter}).subscribe({
+        next: (chapterContent: ChapterContent) => {
+          this.bibleContent = chapterContent.content;
+          this.bibleCopyright = chapterContent.copyright;
+          this.isLoading.content = false;
+        },
+        error: error => {
           this.isLoading.chapters = false;
         }
       })
