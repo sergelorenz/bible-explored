@@ -116,6 +116,7 @@ export class BooksAndChaptersComponent implements OnInit {
         next: chapterLength => {
           this.chapterLength = chapterLength,
           this.isLoading.chapters = false;
+          this.selectChapter(1);
         },
         error: error => {
           this.isLoading.chapters = false;
