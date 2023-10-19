@@ -11,7 +11,10 @@ import {
   GetChaptersResponse,
   GetChapterRequest,
   GetChapterResponse,
-  ChapterContent
+  ChapterContent,
+  GetPassageRequest,
+  GetPassageResponse,
+  PassageContent
 } from 'src/app/shared/types';
 import { FUMS } from 'src/app/shared/constants';
 import { getTotalChapters } from 'src/app/shared/dataHandler';
@@ -67,6 +70,18 @@ export class BibleService {
       map(response => {
         // TODO: Add FUMS logic here before return
         return response.data;
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  getPassage(passageRequest: GetPassageRequest): Observable<PassageContent> {
+    const { bibleId, passage } = passageRequest;
+    const url = `${this.baseUrl}/bibles/${bibleId}/passages/${passage}?${FUMS}`
+    return this.http.get<GetPassageResponse>(url).pipe(
+      map(response => {
+        // TODO: Add FUMS logic here before return
+        return response.data
       }),
       catchError(this.handleError)
     )
