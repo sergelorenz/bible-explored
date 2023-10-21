@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, map } from 'rxjs';
+import { Observable, throwError, map, forkJoin } from 'rxjs';
 import { catchError } from 'rxjs';
 import { 
   Bible, 
@@ -11,7 +11,10 @@ import {
   GetChaptersResponse,
   GetChapterRequest,
   GetChapterResponse,
-  ChapterContent
+  ChapterContent,
+  GetPassageRequest,
+  GetPassageResponse,
+  PassageContent
 } from 'src/app/shared/types';
 import { FUMS } from 'src/app/shared/constants';
 import { getTotalChapters } from 'src/app/shared/dataHandler';
@@ -69,6 +72,24 @@ export class BibleService {
         return response.data;
       }),
       catchError(this.handleError)
+    )
+  }
+
+  getPassage(passageRequest: GetPassageRequest): Observable<PassageContent> {
+    const { bibleId, passage } = passageRequest;
+    const url = `${this.baseUrl}/bibles/${bibleId}/passages/${passage}?${FUMS}`
+    return this.http.get<GetPassageResponse>(url).pipe(
+      map(response => {
+        // TODO: Add FUMS logic here before return
+        return response.data
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  getPassages(passageRequests: GetPassageRequest[]): Observable<PassageContent[]> {
+    return forkJoin(
+      passageRequests.map(passageRequest => this.getPassage(passageRequest))
     )
   }
 

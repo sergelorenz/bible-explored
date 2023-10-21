@@ -14,6 +14,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HttpRequestInterceptor } from './services/http-interceptor/http.interceptor';
 import { DropdownComponent } from './shared/components/dropdown/dropdown.component';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { ProblemCardComponent } from './verse-of-the-day/problem-card/problem-card.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { SpinnerComponent } from './shared/components/spinner/spinner.component'
     SideBySideComponent,
     FooterComponent,
     DropdownComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ProblemCardComponent
   ],
   imports: [
     BrowserModule,

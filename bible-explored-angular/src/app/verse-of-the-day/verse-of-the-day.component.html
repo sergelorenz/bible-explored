@@ -1,1 +1,35 @@
-<p>verse-of-the-day works!</p>
+<div class="content verse-of-the-day">
+  <div class="bible-select-area">
+    <app-dropdown 
+      [dropdownInput]="bibleSelectorInput" 
+      [isOptionsLoading]="isLoading.bibles" 
+      (selectItemEvent)="selectBibleVersion($event)"
+    >
+    </app-dropdown>
+    <input type="button" value="GO" (click)="handleGoChangeBibleVersion()"/>
+  </div>
+  <div class="verse-of-the-day-container">
+    <ng-container *ngIf="isLoading.verseOfTheDay">
+      <app-spinner></app-spinner>
+    </ng-container>
+    <ng-container *ngIf="!isLoading.verseOfTheDay && verseOfTheDayPassage">
+      <div class="verse-viewer">
+        <div class="copyright">{{ verseOfTheDayPassage.copyright }}</div>
+        <h2>Verse Of The Day</h2>
+        <hr />
+        <div class="scripture-styles" [innerHtml]="verseOfTheDayPassage.content"></div>
+        <p class="source-verse">- {{ verseOfTheDayPassage.reference }} -</p>
+      </div>
+    </ng-container>
+    <div class="spiritual-guidance">
+      <h2>Spiritual Guidance</h2>
+      <hr />
+      <h3>ARE YOU...</h3>
+      <div class="problem-items">
+        <ng-container *ngFor="let problemItem of problemItems">
+          <app-problem-card [problemItem]="problemItem"></app-problem-card>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

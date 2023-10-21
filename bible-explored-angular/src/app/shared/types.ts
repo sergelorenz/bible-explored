@@ -17,6 +17,11 @@ export type GroupOption = {
   options: Option[]
 }
 
+export type Problem = {
+  description: string,
+  verses: string[]
+}
+
 // ==============================================
 // API TYPES
 // ==============================================
