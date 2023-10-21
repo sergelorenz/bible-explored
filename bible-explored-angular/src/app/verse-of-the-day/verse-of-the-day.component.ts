@@ -2,8 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { BibleService } from '../services/bible/bible.service';
 import { DropdownModel } from '../shared/components/dropdown/dropdown.component';
 import { groupBiblesByLanguage, chooseVerseByDate } from '../shared/dataHandler';
-import { Option, PassageContent } from '../shared/types';
-import { VERSE_OF_THE_DAY_LIST, DEFAULT_BIBLE_ID, DEFAULT_BIBLE_NAME } from '../shared/constants';
+import { Option, PassageContent, Problem } from '../shared/types';
+import { VERSE_OF_THE_DAY_LIST, DEFAULT_BIBLE_ID, DEFAULT_BIBLE_NAME, SPIRITUAL_GUIDANCE_VERSES } from '../shared/constants';
 
 type VerseOfTheDayModel = {
   content: string,
@@ -31,6 +31,7 @@ export class VerseOfTheDayComponent implements OnInit {
     name: DEFAULT_BIBLE_NAME
   }
   verseOfTheDayPassage?: VerseOfTheDayModel;
+  problemItems: Problem[] = SPIRITUAL_GUIDANCE_VERSES;
 
   constructor(private bibleService: BibleService) {}
 
@@ -44,7 +45,7 @@ export class VerseOfTheDayComponent implements OnInit {
   }
 
   handleGoChangeBibleVersion() {
-
+    this.getPassage();
   }
 
   getBibleVersions(): void {

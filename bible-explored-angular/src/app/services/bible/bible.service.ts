@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, map } from 'rxjs';
+import { Observable, throwError, map, forkJoin } from 'rxjs';
 import { catchError } from 'rxjs';
 import { 
   Bible, 
@@ -84,6 +84,12 @@ export class BibleService {
         return response.data
       }),
       catchError(this.handleError)
+    )
+  }
+
+  getPassages(passageRequests: GetPassageRequest[]): Observable<PassageContent[]> {
+    return forkJoin(
+      passageRequests.map(passageRequest => this.getPassage(passageRequest))
     )
   }
 
