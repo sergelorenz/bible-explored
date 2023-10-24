@@ -27,7 +27,7 @@
       <h3>ARE YOU...</h3>
       <div class="problem-items">
         <ng-container *ngFor="let problemItem of problemItems">
-          <app-problem-card [problemItem]="problemItem"></app-problem-card>
+          <app-problem-card [bibleVersionId]="bibleVersion.id" [problemItem]="problemItem"></app-problem-card>
         </ng-container>
       </div>
     </div>

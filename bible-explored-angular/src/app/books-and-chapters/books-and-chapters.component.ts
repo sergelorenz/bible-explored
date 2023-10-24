@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import {
   trigger,
-  useAnimation,
-  transition
+  transition,
+  style,
+  animate
 } from '@angular/animations';
 import { BibleService } from '../services/bible/bible.service';
 import { DropdownComponent, DropdownModel } from '../shared/components/dropdown/dropdown.component';
-import { appear, disappear } from '../shared/components/animation';
 import { groupBiblesByLanguage } from '../shared/dataHandler';
 import { ChapterContent, Option } from '../shared/types';
 
@@ -15,8 +15,26 @@ import { ChapterContent, Option } from '../shared/types';
   selector: 'app-books-and-chapters',
   animations: [
     trigger('addRemove', [
-      transition(':enter', useAnimation(appear, { params: { width: '640px'}})),
-      transition(':leave', useAnimation(disappear, { params: {width: '640px'}}))
+      transition(':enter', [
+        style({
+          width: '0px',
+          opacity: 0
+        }),
+        animate('0.2s', style({
+          width: '640px',
+          opacity: 1
+        }))
+      ]),
+      transition(':leave', [
+        style({
+          width: '640px',
+          opacity: 1
+        }),
+        animate('0.2s', style({
+          width: '0px',
+          opacity: 0
+        }))
+      ])
     ])
   ],
   templateUrl: './books-and-chapters.component.html',
