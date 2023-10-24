@@ -10,5 +10,11 @@
       </g>
     </svg>
   </div>
-  <div class="guidance-passages"></div>
+  <div class="guidance-passages" *ngIf="passages && isOpen" @showHide>
+    <div class="passage-for-problem" *ngFor="let passage of passages; let i = index">
+      <hr *ngIf="i === 0" />
+      <div class="scripture-styles" [innerHtml]="passage"></div>
+      <hr />
+    </div>
+  </div>
 </div>

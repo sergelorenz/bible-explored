@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import {
   trigger,
-  useAnimation,
   transition,
   style,
   animate
