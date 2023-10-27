@@ -15,6 +15,8 @@ import { HttpRequestInterceptor } from './services/http-interceptor/http.interce
 import { DropdownComponent } from './shared/components/dropdown/dropdown.component';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { ProblemCardComponent } from './verse-of-the-day/problem-card/problem-card.component';
+import { VerseSelectorComponent } from './side-by-side/verse-selector/verse-selector.component';
+import { IconButtonComponent } from './shared/components/icon-button/icon-button.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { ProblemCardComponent } from './verse-of-the-day/problem-card/problem-ca
     FooterComponent,
     DropdownComponent,
     SpinnerComponent,
-    ProblemCardComponent
+    ProblemCardComponent,
+    VerseSelectorComponent,
+    IconButtonComponent
   ],
   imports: [
     BrowserModule,
