@@ -1,3 +1,3 @@
-<div class="icon-button" [ngClass]="iconButtonInput.customClass" title="iconButtonInput.tooltip">
-  <img src="iconButtonInput.src" />
+<div class="icon-button" [ngClass]="iconButtonInput.parentClass" title="{{ iconButtonInput.tooltip }}" (click)="clickButton()" [ngStyle]="{'width': width, 'height': width }">
+  <img class="icon-image" src="{{ iconButtonInput.src }}" [ngClass]="iconButtonInput.iconClass" alt="{{ iconButtonInput.tooltip }}"/>
 </div>

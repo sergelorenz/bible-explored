@@ -2,9 +2,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export type IconButtonModel = {
   src: string,
-  customClass?: string,
-  width?: string,
-  toolTip?: string,
+  parentClass?: string,
+  iconClass?: string,
+  tooltip?: string,
 }
 
 @Component({
@@ -13,10 +13,16 @@ export type IconButtonModel = {
   styleUrls: ['./icon-button.component.scss']
 })
 export class IconButtonComponent {
-  @Input() iconButtonInput = {
+  @Input() iconButtonInput: IconButtonModel = {
     src: '',
-    customClass: '',
-    width: '45px',
+    parentClass: '',
+    iconClass: '',
     tooltip: ''
+  }
+  @Input() width? = '45px';
+  @Output() clickEvent = new EventEmitter<void>();
+
+  clickButton() {
+    this.clickEvent.emit();
   }
 }
