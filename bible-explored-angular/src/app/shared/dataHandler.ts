@@ -74,3 +74,13 @@ export const htmlToText = (html: string) => {
   let output = html.replace(/<span[^>]*\sclass\s*=\s*['"]?v['"][^>]*>[\s\S]*?<\/span>/gi, "");
   return output.replace(/<\/?[^>]+(>|$)/g, '');
 }
+
+export const integerToListOption = (num: number): Option[] => {
+  if (num <= 0) {
+    return [];
+  }
+  return Array.from({length: num}, (_, index) => ({
+    id: (index + 1).toString(),
+    name: (index + 1).toString()
+  }))
+}

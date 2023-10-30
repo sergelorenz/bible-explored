@@ -1,0 +1,56 @@
+<div class="verse-select-area">
+  <app-icon-button
+    [iconButtonInput]="{
+      src: 'assets/icons/remove-icon.svg', 
+      tooltip: 'Decrease Verse Count',
+      iconClass: 'remove-verse-icon'
+    }"
+    (clickEvent)="handleClickDecreaseVerseCount()"
+  >
+  </app-icon-button>
+  <app-icon-button
+    [iconButtonInput]="{
+      src: 'assets/icons/double-arrow-right-icon.svg', 
+      tooltip: 'Previous Verse',
+      iconClass: 'previous-verse-icon'
+    }"
+    (clickEvent)="handleClickPreviousVerse()"
+  >
+  </app-icon-button>
+  <app-dropdown
+    [dropdownInput]="bookSelectorInput"
+    [isOptionsLoading]="isLoading.books"
+    (selectItemEvent)="handleSelectBook($event)"
+  >
+  </app-dropdown>
+  <app-dropdown
+    [dropdownInput]="chapterSelectorInput"
+    [isOptionsLoading]="isLoading.chapters"
+    (selectItemEvent)="handleSelectChapter($event)"
+    #selectChapter
+  >
+  </app-dropdown>
+  <p>:</p>
+  <app-dropdown
+    [dropdownInput]="verseSelectorInput"
+    [isOptionsLoading]="isLoading.verses"
+    (selectItemEvent)="handleSelectVerse($event)"
+    #selectVerse
+  >
+  </app-dropdown>
+  <input value="GO" type="button" (click)="handlePressGo()"/>
+  <app-icon-button
+    [iconButtonInput]="{src: 'assets/icons/double-arrow-right-icon.svg', tooltip: 'Next Verse'}"
+    (clickEvent)="handleClickNextVerse()"
+  >
+  </app-icon-button>
+  <app-icon-button
+    [iconButtonInput]="{
+      src: 'assets/icons/add-icon.svg', 
+      tooltip: 'Increase Verse Count',
+      iconClass: 'add-verse-icon'
+    }"
+    (clickEvent)="handleClickIncreaseVerseCount()"
+  >
+  </app-icon-button>
+</div>

@@ -1,0 +1,27 @@
+@import '../../../styles/mixins';
+
+.verse-select-area {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+
+  .chapter-select, .verse-select {
+    width: 100px;
+  }
+
+  img {
+    &.add-verse-icon, &.remove-verse-icon {
+      height: 80%;
+      width: 80%;
+    }
+
+    &.previous-verse-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  & > p {
+    @include no-user-select;
+    margin: 0 -12px;
+  }
+}

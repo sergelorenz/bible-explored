@@ -1,0 +1,22 @@
+@import '../../../../styles/mixins';
+
+.icon-button {
+  @include no-user-select;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  cursor: pointer;
+  background: var(--icon-button-background);
+  box-shadow: var(--shadow);
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.icon-image {
+  width: 50%;
+  height: 50%;
+  fill: var(--icon-button-fill);
+}
