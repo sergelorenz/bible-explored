@@ -11,6 +11,7 @@ import {
   GetChaptersResponse,
   GetChapterRequest,
   GetChapterResponse,
+  GetVersesResponse,
   ChapterContent,
   GetPassageRequest,
   GetPassageResponse,
@@ -59,6 +60,15 @@ export class BibleService {
           return getTotalChapters(response.data);
         }
       }),
+      catchError(this.handleError)
+    )
+  }
+
+  getVerseLength(verses: GetChapterRequest): Observable<number> {
+    const { bibleId, bookId, chapter } = verses;
+    const url = `${this.baseUrl}/bibles/${bibleId}/chapters/${bookId}.${chapter}/verses`;
+    return this.http.get<GetVersesResponse>(url).pipe(
+      map(response => response.data.length),
       catchError(this.handleError)
     )
   }

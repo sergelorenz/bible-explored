@@ -17,6 +17,25 @@
     (clickEvent)="handleClickPreviousVerse()"
   >
   </app-icon-button>
+  <app-dropdown
+    [dropdownInput]="bookSelectorInput"
+    [isOptionsLoading]="isLoading.books"
+    (selectItemEvent)="handleSelectBook($event)"
+  >
+  </app-dropdown>
+  <app-dropdown
+    [dropdownInput]="chapterSelectorInput"
+    [isOptionsLoading]="isLoading.chapters"
+    (selectItemEvent)="handleSelectChapter($event)"
+  >
+  </app-dropdown>
+  <p>:</p>
+  <app-dropdown
+    [dropdownInput]="verseSelectorInput"
+    [isOptionsLoading]="isLoading.verses"
+    (selectItemEvent)="handleSelectVerse($event)"
+  >
+  </app-dropdown>
   <input value="GO" type="button" />
   <app-icon-button
     [iconButtonInput]="{src: 'assets/icons/double-arrow-right-icon.svg', tooltip: 'Next Verse'}"
