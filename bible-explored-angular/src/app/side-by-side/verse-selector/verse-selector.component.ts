@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, Output, EventEmitter } from '@angular/core';
 import { BibleService } from 'src/app/services/bible/bible.service';
-import { DropdownModel } from 'src/app/shared/components/dropdown/dropdown.component';
+import { DropdownModel, DropdownComponent } from 'src/app/shared/components/dropdown/dropdown.component';
 import { BIBLE_ID_BASIS } from 'src/app/shared/constants';
-import { Option } from 'src/app/shared/types';
+import { Option, ScriptureVerse } from 'src/app/shared/types';
 import { integerToListOption } from 'src/app/shared/dataHandler';
 
 @Component({
@@ -12,9 +12,13 @@ import { integerToListOption } from 'src/app/shared/dataHandler';
   encapsulation: ViewEncapsulation.None
 })
 export class VerseSelectorComponent implements OnInit {
+  @ViewChild('selectChapter') private selectChapterDropdown!: DropdownComponent;
+  @ViewChild('selectVerse') private selectVerseDropdown!: DropdownComponent;
+  @Output() setScripture = new EventEmitter<ScriptureVerse>();
+
   bookSelectorInput: DropdownModel = {
     parentClass: 'book-select',
-    placeholder: 'Select a Book'
+    placeholder: 'John'
   }
   chapterSelectorInput: DropdownModel = {
     parentClass: 'chapter-select',
@@ -98,15 +102,21 @@ export class VerseSelectorComponent implements OnInit {
   }
 
   handleSelectBook(selectedBook: Option) {
-
+    this.selectedBook = selectedBook;
+    this.selectChapterDropdown.selectItem({id: '1', name: '1'});
+    this.selectVerseDropdown.selectItem({id: '1', name: '1'});
+    this.getChapterLength();
+    this.getVerseLength();
   }
 
   handleSelectChapter(selectedChapter: Option) {
-
+    this.selectedChapter = selectedChapter;
+    this.selectVerseDropdown.selectItem({id: '1', name: '1'});
+    this.getVerseLength();
   }
 
   handleSelectVerse(selectedVerse: Option) {
-    
+    this.selectedVerse = selectedVerse;
   }
 
   handleClickDecreaseVerseCount() {
@@ -123,5 +133,14 @@ export class VerseSelectorComponent implements OnInit {
 
   handleClickIncreaseVerseCount() {
 
+  }
+  
+  handlePressGo() {
+    this.setScripture.emit({
+      book: this.selectedBook.id,
+      chapter: parseInt(this.selectedChapter.id),
+      verse: parseInt(this.selectedVerse.id),
+      bookName: this.selectedBook.name
+    })
   }
 }
