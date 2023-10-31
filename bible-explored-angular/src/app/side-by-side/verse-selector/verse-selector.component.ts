@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, Output, EventEmitter } from '@angular/core';
 import { BibleService } from 'src/app/services/bible/bible.service';
 import { DropdownModel, DropdownComponent } from 'src/app/shared/components/dropdown/dropdown.component';
-import { BIBLE_ID_BASIS } from 'src/app/shared/constants';
+import { BIBLE_ID_BASIS, VERSE_VIEWER_LIMIT } from 'src/app/shared/constants';
 import { Option, ScriptureVerse } from 'src/app/shared/types';
 import { integerToListOption } from 'src/app/shared/dataHandler';
 
@@ -15,6 +15,8 @@ export class VerseSelectorComponent implements OnInit {
   @ViewChild('selectChapter') private selectChapterDropdown!: DropdownComponent;
   @ViewChild('selectVerse') private selectVerseDropdown!: DropdownComponent;
   @Output() setScripture = new EventEmitter<ScriptureVerse>();
+  @Output() setVerseCount = new EventEmitter<number>();
+  @Output() setNextPreviousVerse = new EventEmitter<string>();
 
   bookSelectorInput: DropdownModel = {
     parentClass: 'book-select',
@@ -45,6 +47,7 @@ export class VerseSelectorComponent implements OnInit {
     id: '1',
     name: '1'
   }
+  verseCount = 1;
 
   constructor(private bibleService: BibleService) {}
 
@@ -120,19 +123,39 @@ export class VerseSelectorComponent implements OnInit {
   }
 
   handleClickDecreaseVerseCount() {
-
+    if (this.verseCount > 0) {
+      this.setVerseCount.emit(this.verseCount - 1)
+    }
   }
 
   handleClickPreviousVerse() {
-
+    let currentVerse = parseInt(this.selectedVerse.id);
+    if (currentVerse > 0) {
+      let newVerse = (currentVerse - 1).toString();
+      this.selectedVerse = {
+        id: newVerse,
+        name: newVerse
+      }
+      this.setNextPreviousVerse.emit(newVerse);
+    }
   }
 
   handleClickNextVerse() {
-
+    let currentVerse = parseInt(this.selectedVerse.id);
+    if (this.verseSelectorInput && this.verseSelectorInput.options && currentVerse < this.verseSelectorInput.options.length - 1) {
+      let newVerse = (currentVerse + 1).toString();
+      this.selectedVerse = {
+        id: newVerse,
+        name: newVerse
+      }
+      this.setNextPreviousVerse.emit(newVerse);
+    }
   }
 
   handleClickIncreaseVerseCount() {
-
+    if (this.verseCount < VERSE_VIEWER_LIMIT) {
+      this.setVerseCount.emit(this.verseCount + 1);
+    }
   }
   
   handlePressGo() {
@@ -140,7 +163,7 @@ export class VerseSelectorComponent implements OnInit {
       book: this.selectedBook.id,
       chapter: parseInt(this.selectedChapter.id),
       verse: parseInt(this.selectedVerse.id),
-      bookName: this.selectedBook.name
+      bookName: this.selectedBook.name,
     })
   }
 }
