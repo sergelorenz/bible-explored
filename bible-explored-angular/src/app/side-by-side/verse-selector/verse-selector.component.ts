@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { BibleService } from 'src/app/services/bible/bible.service';
 import { DropdownModel, DropdownComponent } from 'src/app/shared/components/dropdown/dropdown.component';
-import { BIBLE_ID_BASIS, VERSE_VIEWER_LIMIT } from 'src/app/shared/constants';
+import { BIBLE_ID_BASIS } from 'src/app/shared/constants';
 import { Option, ScriptureVerse } from 'src/app/shared/types';
 import { integerToListOption } from 'src/app/shared/dataHandler';
 
@@ -14,6 +14,7 @@ import { integerToListOption } from 'src/app/shared/dataHandler';
 export class VerseSelectorComponent implements OnInit {
   @ViewChild('selectChapter') private selectChapterDropdown!: DropdownComponent;
   @ViewChild('selectVerse') private selectVerseDropdown!: DropdownComponent;
+  @Input() maxVerseCount: number = 3;
   @Output() setScripture = new EventEmitter<ScriptureVerse>();
   @Output() setVerseCount = new EventEmitter<number>();
   @Output() setNextPreviousVerse = new EventEmitter<string>();
@@ -55,6 +56,12 @@ export class VerseSelectorComponent implements OnInit {
     this.getBooks();
     this.getChapterLength();
     this.getVerseLength();
+    this.setScripture.emit({
+      book: this.selectedBook.id,
+      chapter: parseInt(this.selectedChapter.id),
+      verse: parseInt(this.selectedVerse.id),
+      bookName: this.selectedBook.name,
+    })
   }
 
   getBooks(): void {
@@ -124,7 +131,8 @@ export class VerseSelectorComponent implements OnInit {
 
   handleClickDecreaseVerseCount() {
     if (this.verseCount > 0) {
-      this.setVerseCount.emit(this.verseCount - 1)
+      this.verseCount = this.verseCount - 1;
+      this.setVerseCount.emit(this.verseCount)
     }
   }
 
@@ -153,8 +161,9 @@ export class VerseSelectorComponent implements OnInit {
   }
 
   handleClickIncreaseVerseCount() {
-    if (this.verseCount < VERSE_VIEWER_LIMIT) {
-      this.setVerseCount.emit(this.verseCount + 1);
+    if (this.verseCount < this.maxVerseCount) {
+      this.verseCount = this.verseCount + 1;
+      this.setVerseCount.emit(this.verseCount);
     }
   }
   
