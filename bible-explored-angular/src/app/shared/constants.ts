@@ -575,3 +575,4 @@ export const BIBLE_ID_BASIS = '179568874c45066f-01' // Bible ID of Duoay-Rheims 
 export const VERSE_VIEWER_INITIAL_VERSION = 'de4e12af7f28f599-02';  // King James (Authorised) Version
 export const VERSE_VIEWER_INITIAL_VERSION_NAME = 'King James (Authorised) Version';
 export const VERSE_VIEWER_LIMIT = 3;
+export const VERSE_LIMIT = 3;

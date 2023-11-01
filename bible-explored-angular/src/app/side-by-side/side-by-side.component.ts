@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { BibleService } from '../services/bible/bible.service';
-import { VERSE_VIEWER_LIMIT } from '../shared/constants';
+import { 
+  VERSE_VIEWER_LIMIT, 
+  VERSE_LIMIT, 
+  VERSE_VIEWER_INITIAL_VERSION, 
+  VERSE_VIEWER_INITIAL_VERSION_NAME 
+} from '../shared/constants';
 import { ScriptureVerse } from '../shared/types';
 import { formPassage } from '../shared/dataHandler';
+import { VersionViewerModel } from './version-viewer/version-viewer.component';
 
 @Component({
   selector: 'app-side-by-side',
@@ -10,15 +16,26 @@ import { formPassage } from '../shared/dataHandler';
   styleUrls: ['./side-by-side.component.scss']
 })
 export class SideBySideComponent implements OnInit {
+  verseLimit = VERSE_LIMIT;
   verseViewerLimit = VERSE_VIEWER_LIMIT;
   currentScripture?: ScriptureVerse
   passage?: string;
   currentVerseCount = 1;
+  verseViewerList: VersionViewerModel[] = [
+    {id: VERSE_VIEWER_INITIAL_VERSION, name: VERSE_VIEWER_INITIAL_VERSION_NAME}
+  ]
 
   constructor(private bibleService: BibleService) {}
 
   ngOnInit(): void {
 
+  }
+
+  addVersion() {
+    this.verseViewerList.push({
+      id: VERSE_VIEWER_INITIAL_VERSION,
+      name: VERSE_VIEWER_INITIAL_VERSION_NAME
+    })
   }
 
   enterScripture(scriptureVerse: ScriptureVerse) {
