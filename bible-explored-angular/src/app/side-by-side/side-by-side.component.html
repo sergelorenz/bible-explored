@@ -1,3 +1,9 @@
 <div class="content side-by-side">
-  <app-verse-selector></app-verse-selector>
+  <app-verse-selector
+    [maxVerseCount]="verseViewerLimit"
+    (setScripture)="enterScripture($event)"
+    (setVerseCount)="changeVerseCount($event)"
+    (setNextPreviousVerse)="changeVerse($event)"
+  >
+  </app-verse-selector>
 </div>
