@@ -17,7 +17,7 @@ import { SpinnerComponent } from './shared/components/spinner/spinner.component'
 import { ProblemCardComponent } from './verse-of-the-day/problem-card/problem-card.component';
 import { VerseSelectorComponent } from './side-by-side/verse-selector/verse-selector.component';
 import { IconButtonComponent } from './shared/components/icon-button/icon-button.component';
-import { VerseViewerComponent } from './side-by-side/verse-viewer/verse-viewer.component';
+import { VersionViewerComponent } from './side-by-side/version-viewer/version-viewer.component';
 
 
 @NgModule({
@@ -34,7 +34,7 @@ import { VerseViewerComponent } from './side-by-side/verse-viewer/verse-viewer.c
     ProblemCardComponent,
     VerseSelectorComponent,
     IconButtonComponent,
-    VerseViewerComponent
+    VersionViewerComponent
   ],
   imports: [
     BrowserModule,

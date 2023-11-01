@@ -1,9 +1,17 @@
 <div class="content side-by-side">
   <app-verse-selector
-    [maxVerseCount]="verseViewerLimit"
+    [maxVerseCount]="verseLimit"
     (setScripture)="enterScripture($event)"
     (setVerseCount)="changeVerseCount($event)"
     (setNextPreviousVerse)="changeVerse($event)"
   >
   </app-verse-selector>
+  <div class="version-viewer-container">
+    <app-version-viewer *ngFor="let verseViewer of verseViewerList" [bibleVersion]="verseViewer"></app-version-viewer>
+    <div class="add-version" *ngIf="verseViewerList.length < verseViewerLimit" (click)="addVersion()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="65" viewBox="0 0 30 65">
+        <text id="_" data-name="+" transform="translate(0 51)" fill="#707070" font-size="54" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">+</tspan></text>
+      </svg>
+    </div>
+  </div>
 </div>
