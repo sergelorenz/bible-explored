@@ -44,6 +44,17 @@ export class SideBySideComponent implements OnInit {
     })
   }
 
+  updateVersion(newVersion: VersionViewerModel) {
+    var updateIndex = this.verseViewerList.findIndex(element => element.key === newVersion.key);
+    this.verseViewerList[updateIndex] = newVersion;
+  }
+
+  removeVersion(version: VersionViewerModel) {
+    console.log('triggering remove version from parent', version)
+    var removeIndex =  this.verseViewerList.findIndex(element => element.key === version.key);
+    this.verseViewerList.splice(removeIndex, 1);
+  }
+
   enterScripture(scriptureVerse: ScriptureVerse) {
     this.currentScripture = scriptureVerse;
     this.formPassage();

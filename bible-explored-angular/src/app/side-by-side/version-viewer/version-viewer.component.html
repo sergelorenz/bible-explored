@@ -1,4 +1,4 @@
-<div class="version-viewer" @addRemove>
+<div class="version-viewer">
   <div class="version-viewer-header">
     <app-dropdown
       [dropdownInput]="bibleSelectorInput"
@@ -12,6 +12,7 @@
         tooltip: 'Close this Version'
       }"
       [parentWidth]=25
+      (clickEvent)="removeVersion()"
     >
       <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="121.31px" height="122.876px" viewBox="0 0 121.31 122.876" enable-background="new 0 0 121.31 122.876" xml:space="preserve">
         <g>

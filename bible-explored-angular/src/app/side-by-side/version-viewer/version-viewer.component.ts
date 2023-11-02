@@ -1,6 +1,7 @@
-import { Component, Input, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, Input, Output, ViewEncapsulation, OnInit, EventEmitter } from '@angular/core';
 import shortUUID, { SUUID } from 'short-uuid';
 import {
+  state,
   trigger,
   transition,
   style,
@@ -50,6 +51,9 @@ export type VersionViewerModel = {
       ])
     ])
   ],
+  host: {
+    '[@addRemove]': 'true'
+  },
   templateUrl: './version-viewer.component.html',
   styleUrls: ['./version-viewer.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -60,6 +64,8 @@ export class VersionViewerComponent implements OnInit {
     name: VERSE_VIEWER_INITIAL_VERSION_NAME,
     key: shortUUID.generate()
   }
+  @Output() handleDeleteVersion = new EventEmitter<VersionViewerModel>();
+  @Output() handleUpdateVersion = new EventEmitter<VersionViewerModel>();
 
   bibleSelectorInput: DropdownModel = {
     parentClass: 'side-by-side-version-selector',
@@ -78,7 +84,16 @@ export class VersionViewerComponent implements OnInit {
   }
 
   selectBibleVersion(newVersion: Option) {
-    
+    this.handleUpdateVersion.emit({
+      id: newVersion.id,
+      name: newVersion.name,
+      key: this.bibleVersion.key
+    })
+  }
+
+  removeVersion() {
+    console.log('Remove Version triggered for', this.bibleVersion)
+    this.handleDeleteVersion.emit(this.bibleVersion);
   }
 
   getBibleVersions(): void {
