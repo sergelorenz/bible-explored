@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import shortUUID from 'short-uuid';
 import { BibleService } from '../services/bible/bible.service';
 import { 
   VERSE_VIEWER_LIMIT, 
@@ -22,7 +23,11 @@ export class SideBySideComponent implements OnInit {
   passage?: string;
   currentVerseCount = 1;
   verseViewerList: VersionViewerModel[] = [
-    {id: VERSE_VIEWER_INITIAL_VERSION, name: VERSE_VIEWER_INITIAL_VERSION_NAME}
+    {
+      id: VERSE_VIEWER_INITIAL_VERSION,
+      name: VERSE_VIEWER_INITIAL_VERSION_NAME,
+      key: shortUUID.generate()
+    }
   ]
 
   constructor(private bibleService: BibleService) {}
@@ -34,7 +39,8 @@ export class SideBySideComponent implements OnInit {
   addVersion() {
     this.verseViewerList.push({
       id: VERSE_VIEWER_INITIAL_VERSION,
-      name: VERSE_VIEWER_INITIAL_VERSION_NAME
+      name: VERSE_VIEWER_INITIAL_VERSION_NAME,
+      key: shortUUID.generate()
     })
   }
 
