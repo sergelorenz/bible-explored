@@ -1,7 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 export type IconButtonModel = {
-  src: string,
+  src?: string,
   parentClass?: string,
   iconClass?: string,
   tooltip?: string,
@@ -10,7 +10,8 @@ export type IconButtonModel = {
 @Component({
   selector: 'app-icon-button',
   templateUrl: './icon-button.component.html',
-  styleUrls: ['./icon-button.component.scss']
+  styleUrls: ['./icon-button.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class IconButtonComponent {
   @Input() iconButtonInput: IconButtonModel = {
@@ -19,7 +20,7 @@ export class IconButtonComponent {
     iconClass: '',
     tooltip: ''
   }
-  @Input() width? = '45px';
+  @Input() parentWidth?: number = 45;
   @Output() clickEvent = new EventEmitter<void>();
 
   clickButton() {

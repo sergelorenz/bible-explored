@@ -10,6 +10,13 @@
   background: var(--icon-button-background);
   box-shadow: var(--shadow);
 
+  svg {
+    width: 50%;
+    height: 50%;
+
+    fill: var(--icon-button-fill);
+  }
+  
   &:active {
     transform: scale(0.95);
   }

@@ -1,0 +1,135 @@
+.version-viewer {
+  opacity: 1;
+  width: 400px;
+  height: 420px;
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .version-viewer-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .side-by-side-version-selector {
+      background-color: unset;
+      border-color: transparent;
+      width: 320px;
+
+      .dropdown-header {
+        padding: 0;
+        font-size: 1em;
+        font-weight: 700;
+
+        span {
+          color: var(--side-by-side-version-selector-header);
+        }
+        
+        svg {
+          width: 11px;
+        }
+      }
+
+      .options {
+        background-color: var(--dropdown-background);
+        border-color: var(--dropdown-border);
+      }
+    }
+
+    .close-version-viewer {
+      background-color: unset;
+      box-shadow: unset;
+    }
+  }
+
+  .version-viewer-body {
+    position: relative;
+    border-radius: 12px;
+    flex: 1;
+    padding: 20px 1.1em;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: var(--shadow);
+    background-color: var(--side-by-side-version-viewer-body-background);
+
+    .version-viewer-version {
+      position: relative;
+      font-size: 0.95em;
+      height: 36px;
+    }
+
+    .version-viewer-verse {
+      height: 193px;
+      padding: 0.35em;
+      overflow-y: scroll;
+      scrollbar-gutter: stable;
+      background-color: var(--side-by-side-version-viewer-verse-background);
+
+      .scripture-styles {
+        font-size: 1.05em;
+
+        *:not(.v) {
+          color: unset !important;
+          font-weight: unset !important;
+          text-decoration: none !important;
+        }
+    
+        .b {
+          display: none;
+        }
+
+        p {
+          margin: unset;
+          padding: 0.15em;
+          text-align: left;
+          font-size: 1em;
+        }
+      }
+
+      .side-by-side-version-viewer-error {
+        font-size: 0.85em;
+        font-style: italic;
+        color: var(--side-by-side-version-viewer-error);
+
+        span {
+          font-weight: 700;
+          color: inherit;
+        }
+      }
+    }
+
+    .version-viewer-buttons {
+      margin-top: -5px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .version-viewer-copyright {
+      height: 50px;
+      overflow-y: auto;
+
+      p {
+        font-size: 0.85em;
+        font-style: italic;
+        color: var(--side-by-side-version-viewer-copyright);
+      }
+    }
+  }
+
+  .spinner-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: unset;
+    width: unset;
+
+    img {
+      height: 30px;
+      width: 30px;
+    }
+  }
+}

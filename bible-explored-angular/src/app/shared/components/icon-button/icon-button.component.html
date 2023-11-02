@@ -1,3 +1,4 @@
-<div class="icon-button" [ngClass]="iconButtonInput.parentClass" title="{{ iconButtonInput.tooltip }}" (click)="clickButton()" [ngStyle]="{'width': width, 'height': width }">
-  <img class="icon-image" src="{{ iconButtonInput.src }}" [ngClass]="iconButtonInput.iconClass" alt="{{ iconButtonInput.tooltip }}"/>
+<div class="icon-button" [ngClass]="iconButtonInput.parentClass" title="{{ iconButtonInput.tooltip }}" (click)="clickButton()" [ngStyle]="{'width.px': parentWidth, 'height.px': parentWidth }">
+  <img *ngIf="iconButtonInput && iconButtonInput.src" class="icon-image" src="{{ iconButtonInput.src }}" [ngClass]="iconButtonInput.iconClass" alt="{{ iconButtonInput.tooltip }}"/>
+  <ng-content></ng-content>
 </div>

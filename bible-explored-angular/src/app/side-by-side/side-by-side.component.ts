@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import shortUUID from 'short-uuid';
 import { BibleService } from '../services/bible/bible.service';
 import { 
   VERSE_VIEWER_LIMIT, 
@@ -22,7 +23,11 @@ export class SideBySideComponent implements OnInit {
   passage?: string;
   currentVerseCount = 1;
   verseViewerList: VersionViewerModel[] = [
-    {id: VERSE_VIEWER_INITIAL_VERSION, name: VERSE_VIEWER_INITIAL_VERSION_NAME}
+    {
+      id: VERSE_VIEWER_INITIAL_VERSION,
+      name: VERSE_VIEWER_INITIAL_VERSION_NAME,
+      key: shortUUID.generate()
+    }
   ]
 
   constructor(private bibleService: BibleService) {}
@@ -34,8 +39,20 @@ export class SideBySideComponent implements OnInit {
   addVersion() {
     this.verseViewerList.push({
       id: VERSE_VIEWER_INITIAL_VERSION,
-      name: VERSE_VIEWER_INITIAL_VERSION_NAME
+      name: VERSE_VIEWER_INITIAL_VERSION_NAME,
+      key: shortUUID.generate()
     })
+  }
+
+  updateVersion(newVersion: VersionViewerModel) {
+    var updateIndex = this.verseViewerList.findIndex(element => element.key === newVersion.key);
+    this.verseViewerList[updateIndex] = newVersion;
+  }
+
+  removeVersion(version: VersionViewerModel) {
+    console.log('triggering remove version from parent', version)
+    var removeIndex =  this.verseViewerList.findIndex(element => element.key === version.key);
+    this.verseViewerList.splice(removeIndex, 1);
   }
 
   enterScripture(scriptureVerse: ScriptureVerse) {
