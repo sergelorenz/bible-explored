@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, OnInit } from '@angular/core';
 import shortUUID, { SUUID } from 'short-uuid';
 import {
   trigger,
@@ -6,7 +6,11 @@ import {
   style,
   animate
 } from '@angular/animations';
+import { groupBiblesByLanguage } from 'src/app/shared/dataHandler';
+import { BibleService } from 'src/app/services/bible/bible.service';
+import { DropdownModel } from 'src/app/shared/components/dropdown/dropdown.component';
 import { VERSE_VIEWER_INITIAL_VERSION, VERSE_VIEWER_INITIAL_VERSION_NAME } from 'src/app/shared/constants';
+import { Option } from 'src/app/shared/types';
 
 
 export type VersionViewerModel = {
@@ -50,10 +54,43 @@ export type VersionViewerModel = {
   styleUrls: ['./version-viewer.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class VersionViewerComponent {
+export class VersionViewerComponent implements OnInit {
   @Input() bibleVersion: VersionViewerModel = {
     id: VERSE_VIEWER_INITIAL_VERSION,
     name: VERSE_VIEWER_INITIAL_VERSION_NAME,
     key: shortUUID.generate()
+  }
+
+  bibleSelectorInput: DropdownModel = {
+    parentClass: 'side-by-side-version-selector',
+    placeholder: 'Select a Bible Version'
+  }
+  isLoading = {
+    bibles: false,
+    content: false
+  }
+
+  constructor(private bibleService: BibleService) {}
+
+  ngOnInit(): void {
+    this.bibleSelectorInput.placeholder = this.bibleVersion.name;
+    this.getBibleVersions();
+  }
+
+  selectBibleVersion(newVersion: Option) {
+    
+  }
+
+  getBibleVersions(): void {
+    this.isLoading.bibles = true;
+    this.bibleService.getBibles().subscribe({
+      next: bibleVersions => {
+        this.bibleSelectorInput.options = groupBiblesByLanguage(bibleVersions);
+        this.isLoading.bibles = false;
+      },
+      error: error => {
+        this.isLoading.bibles = false
+      }
+    })
   }
 }
