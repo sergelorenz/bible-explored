@@ -12,6 +12,7 @@
   background-color: var(--dropdown-background);
   border: 1px solid var(--dropdown-border);
   color: var(--dropdown-text);
+  z-index: 5;
 
   * {
     color: var(--dropdown-text);

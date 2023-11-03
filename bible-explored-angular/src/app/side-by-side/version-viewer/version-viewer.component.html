@@ -21,4 +21,11 @@
       </svg>
     </app-icon-button>
   </div>
+  <div class="version-viewer-body">
+    <div class="version-viewer-version">
+      <ng-container *ngIf="isLoading.content">
+        <app-spinner></app-spinner>
+      </ng-container>
+    </div>
+  </div>
 </div>
