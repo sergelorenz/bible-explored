@@ -79,7 +79,5 @@ export class SideBySideComponent implements OnInit {
     if (this.currentScripture) {
       this.passage = formPassage(this.currentScripture.book, this.currentScripture.chapter, this.currentScripture.verse, this.currentVerseCount)
     }
-
   }
-
 }
