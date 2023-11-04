@@ -1,17 +1,16 @@
-import { Component, Input, Output, ViewEncapsulation, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, ViewEncapsulation, OnInit, EventEmitter, SimpleChanges, HostBinding } from '@angular/core';
 import shortUUID, { SUUID } from 'short-uuid';
 import {
-  state,
   trigger,
   transition,
   style,
   animate
 } from '@angular/animations';
-import { groupBiblesByLanguage } from 'src/app/shared/dataHandler';
+import { groupBiblesByLanguage, htmlToText } from 'src/app/shared/dataHandler';
 import { BibleService } from 'src/app/services/bible/bible.service';
 import { DropdownModel } from 'src/app/shared/components/dropdown/dropdown.component';
 import { VERSE_VIEWER_INITIAL_VERSION, VERSE_VIEWER_INITIAL_VERSION_NAME } from 'src/app/shared/constants';
-import { Option } from 'src/app/shared/types';
+import { Option, PassageContent, GetPassageRequest } from 'src/app/shared/types';
 
 
 export type VersionViewerModel = {
@@ -52,10 +51,10 @@ export type VersionViewerModel = {
     ])
   ],
   host: {
-    '[@addRemove]': 'true'
+    '[@addRemove]': 'true',
   },
   templateUrl: './version-viewer.component.html',
-  styleUrls: ['./version-viewer.component.scss'],
+  styleUrls: ['./version-viewer.component.scss', '../../../styles/generic/scripture-styles.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class VersionViewerComponent implements OnInit {
@@ -64,6 +63,7 @@ export class VersionViewerComponent implements OnInit {
     name: VERSE_VIEWER_INITIAL_VERSION_NAME,
     key: shortUUID.generate()
   }
+  @Input() passageVerse?: string;
   @Output() handleDeleteVersion = new EventEmitter<VersionViewerModel>();
   @Output() handleUpdateVersion = new EventEmitter<VersionViewerModel>();
 
@@ -75,12 +75,27 @@ export class VersionViewerComponent implements OnInit {
     bibles: false,
     content: false
   }
+  passageContent?: PassageContent;
 
   constructor(private bibleService: BibleService) {}
 
   ngOnInit(): void {
     this.bibleSelectorInput.placeholder = this.bibleVersion.name;
     this.getBibleVersions();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['bibleVersion'] && changes['bibleVersion'].currentValue) {
+      this.getPassage();
+    }
+  }
+
+  handleCopyPassage() {
+    if (this.passageContent) {
+      navigator.clipboard.writeText(htmlToText(this.passageContent.content)).then(() => {
+        alert('Successfully copied passage to clipboard');
+      })
+    }
   }
 
   selectBibleVersion(newVersion: Option) {
@@ -92,7 +107,6 @@ export class VersionViewerComponent implements OnInit {
   }
 
   removeVersion() {
-    console.log('Remove Version triggered for', this.bibleVersion)
     this.handleDeleteVersion.emit(this.bibleVersion);
   }
 
@@ -107,5 +121,24 @@ export class VersionViewerComponent implements OnInit {
         this.isLoading.bibles = false
       }
     })
+  }
+
+  getPassage(): void {
+    if (this.passageVerse) {
+      let passageRequest: GetPassageRequest = {
+        bibleId: this.bibleVersion.id,
+        passage: this.passageVerse
+      }
+      this.isLoading.content = true;
+      this.bibleService.getPassage(passageRequest).subscribe({
+        next: (passageContent: PassageContent) => {
+          this.passageContent = passageContent;
+          this.isLoading.content = false;
+        },
+        error: error => {
+          this.isLoading.content = false;
+        }
+      })
+    }
   }
 }

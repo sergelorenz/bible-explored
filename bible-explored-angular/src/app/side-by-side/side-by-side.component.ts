@@ -50,9 +50,10 @@ export class SideBySideComponent implements OnInit {
   }
 
   removeVersion(version: VersionViewerModel) {
-    console.log('triggering remove version from parent', version)
-    var removeIndex =  this.verseViewerList.findIndex(element => element.key === version.key);
-    this.verseViewerList.splice(removeIndex, 1);
+    if (this.verseViewerList.length > 1) {
+      var removeIndex =  this.verseViewerList.findIndex(element => element.key === version.key);
+      this.verseViewerList.splice(removeIndex, 1);
+    }
   }
 
   enterScripture(scriptureVerse: ScriptureVerse) {
@@ -78,7 +79,5 @@ export class SideBySideComponent implements OnInit {
     if (this.currentScripture) {
       this.passage = formPassage(this.currentScripture.book, this.currentScripture.chapter, this.currentScripture.verse, this.currentVerseCount)
     }
-
   }
-
 }
