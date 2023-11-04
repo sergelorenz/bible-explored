@@ -26,7 +26,7 @@
       <ng-container *ngIf="isLoading.content">
         <app-spinner></app-spinner>
       </ng-container>
-      <ng-container *ngIf="passageContent && bibleVersion">
+      <ng-container *ngIf="!isLoading.content && passageContent && bibleVersion">
         <p>{{ passageContent.reference }} - <span>{{ bibleVersion.name }}</span></p>
       </ng-container>
     </div>
@@ -34,7 +34,7 @@
       <ng-container *ngIf="isLoading.content">
         <app-spinner></app-spinner>
       </ng-container>
-      <ng-container *ngIf="passageContent">
+      <ng-container *ngIf="!isLoading.content && passageContent">
         <div class="scripture-styles" [innerHtml]="passageContent.content"></div>
       </ng-container>
     </div>

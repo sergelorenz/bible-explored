@@ -85,7 +85,7 @@ export class VersionViewerComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['bibleVersion'] && changes['bibleVersion'].currentValue) {
+    if ((changes['bibleVersion'] && changes['bibleVersion'].currentValue) || (changes['passageVerse'] && changes['passageVerse'].currentValue)) {
       this.getPassage();
     }
   }
