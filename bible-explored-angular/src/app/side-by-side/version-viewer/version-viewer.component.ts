@@ -51,7 +51,7 @@ export type VersionViewerModel = {
     ])
   ],
   host: {
-    '[@addRemove]': '!disableAnimation',
+    '[@addRemove]': 'true',
   },
   templateUrl: './version-viewer.component.html',
   styleUrls: ['./version-viewer.component.scss', '../../../styles/generic/scripture-styles.scss'],
